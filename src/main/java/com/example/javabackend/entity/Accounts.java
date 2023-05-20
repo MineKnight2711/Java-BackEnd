@@ -2,6 +2,8 @@ package com.example.javabackend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Past;
@@ -9,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @Entity(name="Accounts")
 @Table(name="Accounts")
 public class Accounts {

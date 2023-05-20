@@ -2,6 +2,8 @@ package com.example.javabackend.entity;
 import jakarta.persistence.*;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.validation.constraints.DecimalMin;
@@ -11,6 +13,8 @@ import java.util.Set;
 
 
 @Data
+@Getter
+@Setter
 @Entity(name="Dishes")
 @Table(name="Dishes")
 public class Dishes {

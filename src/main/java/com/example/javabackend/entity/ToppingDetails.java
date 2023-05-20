@@ -2,8 +2,12 @@ package com.example.javabackend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 @Entity(name="ToppingDetails")
 @Table(name="ToppingDetails")
 public class ToppingDetails {

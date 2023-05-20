@@ -2,11 +2,15 @@ package com.example.javabackend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @Entity(name="Topping")
 @Table(name="Topping")
 public class Topping {

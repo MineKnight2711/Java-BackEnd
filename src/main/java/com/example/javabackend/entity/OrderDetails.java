@@ -2,12 +2,16 @@ package com.example.javabackend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 
 @Data
+@Getter
+@Setter
 @Entity(name="OrderDetails")
 @Table(name="OrderDetails")
 public class OrderDetails {

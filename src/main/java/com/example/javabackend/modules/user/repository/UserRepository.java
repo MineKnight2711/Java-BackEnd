@@ -1,4 +1,4 @@
-package com.example.javabackend.modules.user.repository;
-
-public class UserRepository {
-}
+//package com.example.javabackend.modules.user.repository;
+//
+//public class UserRepository {
+//}
