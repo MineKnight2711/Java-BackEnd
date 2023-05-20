@@ -5,9 +5,25 @@ import java.util.Date;
 public class AccountsDTO {
 
     private String password;
+
+    public AccountsDTO(Long accountID, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+        this.password = password;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.address = address;
+        this.accountTypeId = accountTypeId;
+    }
+
     private String fullName;
     private String phoneNumber;
     private String email;
+    private String gender;
+    private Date birthday;
+    private String address;
+    private Long accountTypeId;
 
     public String getPassword() {
         return password;
@@ -73,10 +89,7 @@ public class AccountsDTO {
         this.accountTypeId = accountTypeId;
     }
 
-    private String gender;
-    private Date birthday;
-    private String address;
-    private Long accountTypeId;
+
 
     // các getter và setter
 

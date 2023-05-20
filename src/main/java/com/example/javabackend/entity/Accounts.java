@@ -20,7 +20,7 @@ public class Accounts {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long AccountID;
 
-    @Column(name = "Password",length = 50)
+    @Column(name = "Password",length = 500)
     private String Password;
     @Column(name = "FullName",length = 70)
     private String FullName;
