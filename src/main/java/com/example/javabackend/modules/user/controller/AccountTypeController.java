@@ -25,4 +25,5 @@ public class AccountTypeController {
         AccountTypeDTO createdAccountTypeDTO = accountTypeService.createAccountType(accountTypeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAccountTypeDTO);
     }
+
 }
