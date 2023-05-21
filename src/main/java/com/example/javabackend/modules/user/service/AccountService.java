@@ -4,6 +4,7 @@ import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
+import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
 import com.example.javabackend.modules.user.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -88,5 +89,27 @@ public class AccountService {
         );
     }
 
-
+    public UpdateAccountDto updateUser(UpdateAccountDto accountUpdate) throws Exception {
+        Accounts acc = accountsRepository.getById(accountUpdate.getAccountId());
+        if (acc == null) {
+            throw new Exception("User not found with username: " + accountUpdate.getEmail());
+        }
+        acc.setFullName(accountUpdate.getFullName());
+        acc.setEmail(accountUpdate.getEmail());
+        acc.setPhoneNumber(accountUpdate.getPhoneNumber());
+        acc.setAddress(accountUpdate.getAddress());
+        acc.setGender(accountUpdate.getGender());
+        acc.setBrithday(accountUpdate.getBirthday());
+        accountsRepository.save(acc);
+        return new UpdateAccountDto(
+                acc.getAccountID(),
+                acc.getFullName(),
+                acc.getPhoneNumber(),
+                acc.getEmail(),
+                acc.getGender(),
+                acc.getBrithday(),
+                acc.getAddress(),
+                acc.getAccountTypes().getAccountTypeID()
+        );
+    }
 }
