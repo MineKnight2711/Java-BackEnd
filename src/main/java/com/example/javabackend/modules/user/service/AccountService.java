@@ -2,6 +2,7 @@ package com.example.javabackend.modules.user.service;
 
 import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
+import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
 import com.example.javabackend.modules.user.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,51 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AccountService {
     @Autowired
     private AccountRepository accountsRepository;
+
+    //Get All Account
+    public List<AccountsDTO> getAllAccount() {
+        List<Accounts> account = accountsRepository.findAll();
+        List<AccountsDTO> accountDTOs = new ArrayList<>();
+
+        for (Accounts accounts : account) {
+            AccountsDTO accountDTO = new AccountsDTO();
+            accountDTO.setPassword("");
+            accountDTO.setAccountTypeId(accounts.getAccountTypes().getAccountTypeID());
+            accountDTO.setBirthday(accounts.getBrithday());
+            accountDTO.setAddress(accounts.getAddress());
+            accountDTO.setGender(accounts.getGender());
+            accountDTO.setFullName(accounts.getFullName());
+            accountDTO.setEmail(accounts.getEmail());
+            accountDTO.setPhoneNumber(accounts.getPhoneNumber());
+            accountDTOs.add(accountDTO);
+        }
+
+        return accountDTOs;
+    }
+
+    //Get By Id
+    public AccountsDTO getById(Long id) {
+        Accounts accounts = accountsRepository.getById(id);
+        AccountsDTO getAccountDTO = new AccountsDTO();
+        return new AccountsDTO(
+                accounts.getAccountID(),
+                "",
+                accounts.getFullName(),
+                accounts.getPhoneNumber(),
+                accounts.getEmail(),
+                accounts.getGender(),
+                accounts.getBrithday(),
+                accounts.getAddress(),
+                accounts.getAccountTypes().getAccountTypeID()
+        );
+    }
 
     public AccountsDTO  createAccount(AccountsDTO accountsDTO) {
         Accounts accounts = new Accounts();
@@ -35,7 +77,7 @@ public class AccountService {
 
         return new AccountsDTO(
                 accounts.getAccountID(),
-                accounts.getPassword(),
+                "",
                 accounts.getFullName(),
                 accounts.getPhoneNumber(),
                 accounts.getEmail(),
@@ -45,4 +87,6 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
+
+
 }

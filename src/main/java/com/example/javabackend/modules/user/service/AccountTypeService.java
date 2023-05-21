@@ -15,6 +15,7 @@ public class AccountTypeService {
     @Autowired
     private IAccountRepository accountTypeRepository;
 
+    //Get List
     public List<AccountTypeDTO> getAllAccountTypes() {
         List<AccountType> accountTypes = accountTypeRepository.findAll();
         List<AccountTypeDTO> accountTypeDTOs = new ArrayList<>();
@@ -28,6 +29,17 @@ public class AccountTypeService {
 
         return accountTypeDTOs;
     }
+
+    // Get By Id
+    public AccountTypeDTO getById(Long id) {
+        AccountType result = accountTypeRepository.getById(id);
+        AccountTypeDTO getAccountTypeDTO = new AccountTypeDTO();
+        getAccountTypeDTO.setId(result.getAccountTypeID());
+        getAccountTypeDTO.setName(result.getAccountTypeName());
+        return getAccountTypeDTO;
+    }
+
+    //Create New
     public AccountTypeDTO createAccountType(AccountTypeDTO accountTypeDTO) {
         AccountType accountType = new AccountType();
         accountType.setAccountTypeName(accountTypeDTO.getName());
@@ -37,5 +49,7 @@ public class AccountTypeService {
         createdAccountTypeDTO.setName(accountType.getAccountTypeName());
         return createdAccountTypeDTO;
     }
+
+
 
 }
