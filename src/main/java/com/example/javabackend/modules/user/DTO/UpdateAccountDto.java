@@ -1,35 +1,14 @@
 package com.example.javabackend.modules.user.DTO;
 
-import com.example.javabackend.utils.DatetimeDeserialize;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
-public class AccountsDTO {
+public class UpdateAccountDto {
 
     private Long accountId;
     private String password;
-    private String fullName;
-    private String phoneNumber;
-    private String email;
-    private String gender;
-    @JsonProperty("birthday")
-    @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date birthday;
-    private String address;
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
-    private Long accountTypeId;
-    public AccountsDTO(Long accountID, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+    public UpdateAccountDto(Long accountID, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
-        this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -39,18 +18,17 @@ public class AccountsDTO {
         this.accountTypeId = accountTypeId;
     }
 
-    public AccountsDTO(){}
+    public UpdateAccountDto(){}
 
-
+    private String fullName;
+    private String phoneNumber;
+    private String email;
+    private String gender;
+    private Date birthday;
+    private String address;
+    private Long accountTypeId;
 
     public Long getAccountId() { return accountId; };
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getFullName() {
         return fullName;
@@ -83,7 +61,6 @@ public class AccountsDTO {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
 
     public Date getBirthday() {
         return birthday;

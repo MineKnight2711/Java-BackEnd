@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class Accounts {
     private String FullName;
     @Column(name = "PhoneNumber",length = 20)
     private String PhoneNumber;
+
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     @Column(name = "Email",length = 50)
     private String Email;
     @Column(name = "Gender",length = 20)
