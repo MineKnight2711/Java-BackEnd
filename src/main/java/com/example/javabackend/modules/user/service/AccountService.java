@@ -2,10 +2,7 @@ package com.example.javabackend.modules.user.service;
 
 import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
-import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
-import com.example.javabackend.modules.user.DTO.AccountsDTO;
-import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
-import com.example.javabackend.modules.user.DTO.UserLoginDto;
+import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -123,6 +120,24 @@ public class AccountService {
             user.setStatus("Failure");
             return user;
         }
+        user.setStatus("Success");
+        return user;
+    }
+
+    public ChangePassDto changePass(ChangePassDto user) {
+        Accounts account = accountsRepository.findByEmail((user.getEmail()));
+        if(account == null) {
+            user.setStatus("User not exist");
+            return user;
+        }
+        if(!BCrypt.checkpw(user.getPassword(),account.getPassword())) {
+            user.setStatus("Pass Wrong");
+            return user;
+        }
+        account.setPassword(BCrypt.hashpw(user.getNewPass(), BCrypt.gensalt()));
+        accountsRepository.save(account);
+        user.setPassword("");
+        user.setNewPass("");
         user.setStatus("Success");
         return user;
     }
