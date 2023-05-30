@@ -29,6 +29,7 @@ public class AccountTypeService {
 
         return accountTypeDTOs;
     }
+
     // Get By Id
     public AccountTypeDTO getById(Long id) {
         AccountType result = accountTypeRepository.getById(id);
