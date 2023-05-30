@@ -4,9 +4,11 @@ import java.util.Date;
 
 public class AccountsDTO {
 
+    private Long accountId;
     private String password;
 
     public AccountsDTO(Long accountID, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+        this.accountId = accountID;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -17,6 +19,8 @@ public class AccountsDTO {
         this.accountTypeId = accountTypeId;
     }
 
+    public AccountsDTO(){}
+
     private String fullName;
     private String phoneNumber;
     private String email;
@@ -24,6 +28,12 @@ public class AccountsDTO {
     private Date birthday;
     private String address;
     private Long accountTypeId;
+
+    public Long getAccountId() { return accountId; };
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
 
     public String getPassword() {
         return password;

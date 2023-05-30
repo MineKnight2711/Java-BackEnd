@@ -27,6 +27,7 @@ public class AccountService {
 
         for (Accounts accounts : account) {
             AccountsDTO accountDTO = new AccountsDTO();
+            accountDTO.setAccountId(accounts.getAccountID());
             accountDTO.setPassword("");
             accountDTO.setAccountTypeId(accounts.getAccountTypes().getAccountTypeID());
             accountDTO.setBirthday(accounts.getBrithday());
