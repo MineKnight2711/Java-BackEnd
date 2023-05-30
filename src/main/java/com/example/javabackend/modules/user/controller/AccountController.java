@@ -19,14 +19,12 @@ import java.util.List;
 public class AccountController {
     @Autowired
     private AccountService accountsService;
-
     //Get All User
     @GetMapping("/all")
     public ResponseEntity<List<AccountsDTO>> getAllAccount() {
         List<AccountsDTO> accountDTOs = accountsService.getAllAccount();
         return ResponseEntity.ok(accountDTOs);
     }
-
     //Get By Id
     @GetMapping("id/{id}")
     public ResponseEntity<AccountsDTO> getById(@PathVariable Long id) {
@@ -37,6 +35,7 @@ public class AccountController {
     @PostMapping("/createAccount")
     public ResponseEntity<Accounts> createAccount(@RequestBody AccountsDTO accountDTO) throws ParseException {
         Accounts createdAccount = accountsService.createAccount(accountDTO);
+        createdAccount.setPassword("");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
     }
 
@@ -45,7 +44,4 @@ public class AccountController {
         UpdateAccountDto updateAccountDto = accountsService.updateUser(accountsDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updateAccountDto);
     }
-
-
-
 }
