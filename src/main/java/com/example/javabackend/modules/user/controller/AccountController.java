@@ -1,9 +1,8 @@
 package com.example.javabackend.modules.user.controller;
 
-import com.example.javabackend.entity.Accounts;
-import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
 import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
+import com.example.javabackend.modules.user.DTO.UserLoginDto;
 import com.example.javabackend.modules.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,10 +31,18 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(getById);
     }
 
+    //Create Account
+
     @PostMapping
     public ResponseEntity<AccountsDTO> createAccount(@RequestBody AccountsDTO accountsDTO) {
         AccountsDTO createdAccountDTO = accountsService.createAccount(accountsDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAccountDTO);
+    }
+
+    //Login
+    @PostMapping("/login")
+    public UserLoginDto login(@RequestBody UserLoginDto user) throws Exception {
+        return this.accountsService.login(user);
     }
 
     @PutMapping("/update")
@@ -43,7 +50,6 @@ public class AccountController {
         UpdateAccountDto updateAccountDto = accountsService.updateUser(accountsDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updateAccountDto);
     }
-
 
 
 }
