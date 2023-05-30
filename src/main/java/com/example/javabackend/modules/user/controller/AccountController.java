@@ -1,6 +1,7 @@
 package com.example.javabackend.modules.user.controller;
 
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
+import com.example.javabackend.modules.user.DTO.ChangePassDto;
 import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
 import com.example.javabackend.modules.user.DTO.UserLoginDto;
 import com.example.javabackend.modules.user.service.AccountService;
@@ -49,6 +50,11 @@ public class AccountController {
     public ResponseEntity<UpdateAccountDto> updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
         UpdateAccountDto updateAccountDto = accountsService.updateUser(accountsDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updateAccountDto);
+    }
+
+    @PutMapping("/password")
+    public ChangePassDto changePass(@RequestBody ChangePassDto user) {
+        return this.accountsService.changePass(user);
     }
 
 
