@@ -5,6 +5,7 @@ import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
 import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
+import com.example.javabackend.modules.user.DTO.UserLoginDto;
 import com.example.javabackend.modules.user.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -36,7 +37,6 @@ public class AccountService {
             accountDTO.setPhoneNumber(accounts.getPhoneNumber());
             accountDTOs.add(accountDTO);
         }
-
         return accountDTOs;
     }
 
@@ -111,5 +111,19 @@ public class AccountService {
                 acc.getAddress(),
                 acc.getAccountTypes().getAccountTypeID()
         );
+    }
+
+    public UserLoginDto login(UserLoginDto user) {
+        Accounts account = accountsRepository.findByEmail(user.getUsername());
+        if(account == null) {
+            user.setStatus("User not exist");
+            return user;
+        }
+        if(!BCrypt.checkpw(user.getPassword(),account.getPassword())) {
+            user.setStatus("Failure");
+            return user;
+        }
+        user.setStatus("Success");
+        return user;
     }
 }
