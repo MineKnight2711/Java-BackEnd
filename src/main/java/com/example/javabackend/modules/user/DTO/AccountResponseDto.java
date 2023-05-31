@@ -25,7 +25,20 @@ public class AccountResponseDto {
     private Date birthday;
     private String address;
     private Long accountTypeId;
+    private String status;
+
     public Long getAccountId() { return accountId; };
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
     public String getFullName() {
         return fullName;
     }

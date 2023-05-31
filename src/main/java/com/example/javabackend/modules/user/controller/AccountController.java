@@ -1,9 +1,6 @@
 package com.example.javabackend.modules.user.controller;
 
-import com.example.javabackend.modules.user.DTO.AccountsDTO;
-import com.example.javabackend.modules.user.DTO.ChangePassDto;
-import com.example.javabackend.modules.user.DTO.UpdateAccountDto;
-import com.example.javabackend.modules.user.DTO.UserLoginDto;
+import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +39,7 @@ public class AccountController {
 
     //Login
     @PostMapping("/login")
-    public UserLoginDto login(@RequestBody UserLoginDto user) throws Exception {
+    public AccountResponseDto login(@RequestBody UserLoginDto user) throws Exception {
         return this.accountsService.login(user);
     }
 

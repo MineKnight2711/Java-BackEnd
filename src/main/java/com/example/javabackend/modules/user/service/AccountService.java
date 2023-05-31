@@ -17,6 +17,17 @@ public class AccountService {
     @Autowired
     private AccountRepository accountsRepository;
 
+    private void setResponseDto(Accounts acc, AccountResponseDto response) {
+        response.setAccountId(acc.getAccountID());
+        response.setAddress(acc.getAddress());
+        response.setBirthday(acc.getBrithday());
+        response.setEmail(acc.getEmail());
+        response.setGender(acc.getGender());
+        response.setAccountTypeId(acc.getAccountTypes().getAccountTypeID());
+        response.setFullName(acc.getFullName());
+        response.setPhoneNumber(acc.getPhoneNumber());
+    }
+
     //Get All Account
     public List<AccountsDTO> getAllAccount() {
         List<Accounts> account = accountsRepository.findAll();
@@ -110,18 +121,20 @@ public class AccountService {
         );
     }
 
-    public UserLoginDto login(UserLoginDto user) {
+    public AccountResponseDto login(UserLoginDto user) {
         Accounts account = accountsRepository.findByEmail(user.getUsername());
+        AccountResponseDto acc = new AccountResponseDto();
         if(account == null) {
-            user.setStatus("User not exist");
-            return user;
+            acc.setStatus("User not exits");
+            return acc;
         }
         if(!BCrypt.checkpw(user.getPassword(),account.getPassword())) {
-            user.setStatus("Failure");
-            return user;
+            acc.setStatus("Pass Wrong! Failure");
+            return acc;
         }
-        user.setStatus("Success");
-        return user;
+        setResponseDto(account,acc);
+        acc.setStatus("Success");
+        return acc;
     }
 
     public ChangePassDto changePass(ChangePassDto user) {
