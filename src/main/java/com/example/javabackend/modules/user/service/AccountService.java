@@ -3,7 +3,7 @@ package com.example.javabackend.modules.user.service;
 import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.*;
-import com.example.javabackend.modules.user.repository.AccountRepository;
+import com.example.javabackend.modules.user.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -19,7 +19,7 @@ import java.util.TimeZone;
 @Service
 public class AccountService {
     @Autowired
-    private AccountRepository accountsRepository;
+    private IAccountRepository accountsRepository;
 
     private void setResponseDto(Accounts acc, AccountResponseDto response) {
         response.setAccountId(acc.getAccountID());
@@ -71,7 +71,6 @@ public class AccountService {
     }
 
     public AccountsDTO  createAccount(AccountsDTO accountsDTO) {
-
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
@@ -87,7 +86,6 @@ public class AccountService {
         else{
             accountsDTO.setBirthday(null);
         }
-
         accounts.setAddress(accountsDTO.getAddress());
         // set AccountType cho Accounts
         AccountType accountType = new AccountType();
