@@ -1,5 +1,10 @@
 package com.example.javabackend.modules.user.DTO;
 
+import com.example.javabackend.utils.DatetimeDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class AccountsDTO {
@@ -25,11 +30,19 @@ public class AccountsDTO {
     private String phoneNumber;
     private String email;
     private String gender;
+    @JsonProperty("birthday")
+    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
     private String address;
     private Long accountTypeId;
 
     public Long getAccountId() { return accountId; };
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
     public String getPassword() {
         return password;
     }

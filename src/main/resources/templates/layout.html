@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/layoutstyle.css}">
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/footer.css}">
+<!--  <script src="~/MyJS/MainLayout/MainLayoutScripts.js" defer></script>-->
+
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/jquery-3.6.3.min.min.js}"></script>
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+<!--  <link rel="icon" type="image/x-icon" href="~/images/icon/owner.ico" />-->
+</head>
+
+<body>
+@* ------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+<header th:fragment="header">
+  <div class="sticky-top">
+    <div class="header-1">
+      <a class="logo" href="">
+        <img th:src="@{/images/bubble-tea.png}" height="64" width="64"/>
+      </a>
+
+      <div class="navbar-url">
+        <a  aria-current="page" href="/">Trang chủ</a>
+        <a  aria-current="page" href="/">Trang chủ</a>
+        <a  aria-current="page" href="/">Trang chủ</a>
+      </div>
+<!--      <div class="navbar-cart">-->
+<!--        @Html.Partial("~/Views/Cart/CartPartial.cshtml")-->
+<!--      </div>-->
+      <div class="navbar-user">
+        <nav>
+          <img class="user-pic" src="" width="48" height="48" onclick="toggleMenu()" />
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="" width="100" height="100" />
+                <h2></h2>
+              </div>
+              <hr>
+              <div id="manage" class="sub-menu-link" style="cursor: pointer;" onclick="Manage()">
+                <img src="~/images/UserProfile/setting.png" />
+                <span style="text-align:left;">Quản lý SmartCanteen</span>
+              </div>
+              <div class="sub-menu-link" style="cursor: pointer;" onclick="EditProfile()">
+                <img src="~/images/UserProfile/profile.png" />
+                <span style="text-align:left;">Cập nhật thông tin</span>
+              </div>
+              <div class="sub-menu-link" style="cursor: pointer;" onclick="LogOut()">
+                <img src="~/images/UserProfile/logout.png" />
+                <span style="text-align:left;">Đăng xuất</span>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+</header>
+@* ----------------------------------------------------------------------------------------------------------------------------*@
+<div th:insert="~{::${content}}">
+  <!-- Nội dung trang con-->
+</div>
+<footer th:fragment="footer">
+  <div class="boxfooter1">
+    <h4>FOLLOW US</h4>
+    <div class="logo-footer">
+      <a href="https://www.facebook.com/profile.php?id=100011311303040"><img src="~/images/icon/facebook.jpg" /></a>
+      <a href="https://www.instagram.com/buminhattt/"><img src="~/images/icon/insta.jpg" /></a>
+    </div>
+  </div>
+  <div class="boxfooter2">
+    <h4>Về chúng tôi</h4>
+    <span>-Huỳnh Phước Đạt-</span>
+    <span>-Bùi Minh Nhật-</span>
+    <span>-Võ Phan Trường Nguyên-</span>
+  </div>
+  <div class="boxfooter3">
+    <h4>Liên hệ chúng tôi</h4>
+    <span>Hotline: 0937950XXX</span>
+  </div>
+</footer>
+
+</body>
+
+</html>

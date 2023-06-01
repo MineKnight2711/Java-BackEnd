@@ -9,8 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class AccountService {
@@ -35,6 +39,7 @@ public class AccountService {
 
         for (Accounts accounts : account) {
             AccountsDTO accountDTO = new AccountsDTO();
+            accountDTO.setAccountId(accounts.getAccountID());
             accountDTO.setPassword("");
             accountDTO.setAccountTypeId(accounts.getAccountTypes().getAccountTypeID());
             accountDTO.setBirthday(accounts.getBrithday());
@@ -66,6 +71,7 @@ public class AccountService {
     }
 
     public AccountsDTO  createAccount(AccountsDTO accountsDTO) {
+
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
@@ -75,7 +81,13 @@ public class AccountService {
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
         accounts.setEmail(accountsDTO.getEmail());
         accounts.setGender(accountsDTO.getGender());
-        accounts.setBrithday(accountsDTO.getBirthday());
+        if(accountsDTO.getBirthday()!=null){
+            accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));
+        }
+        else{
+            accountsDTO.setBirthday(null);
+        }
+
         accounts.setAddress(accountsDTO.getAddress());
         // set AccountType cho Accounts
         AccountType accountType = new AccountType();
@@ -96,7 +108,20 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
+    public Date parseBirthday(Date birthday) {
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setTimeZone(timeZone);
 
+        String formattedDate = dateFormat.format(birthday);
+        Date parsedBirthday;
+        try {
+            parsedBirthday = dateFormat.parse(formattedDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return parsedBirthday;
+    }
     public UpdateAccountDto updateUser(UpdateAccountDto accountUpdate) throws Exception {
         Accounts acc = accountsRepository.getById(accountUpdate.getAccountId());
         if (acc == null) {
