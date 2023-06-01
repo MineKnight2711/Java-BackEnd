@@ -4,6 +4,7 @@ import com.example.javabackend.entity.Category;
 import com.example.javabackend.modules.category.DTO.CategoryDTO;
 import com.example.javabackend.modules.category.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
+import com.example.javabackend.modules.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,5 +77,4 @@ public class CategoryController {
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
 }

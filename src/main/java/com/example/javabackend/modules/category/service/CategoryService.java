@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import com.example.javabackend.entity.Category;
+import com.example.javabackend.modules.category.repository.ICategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 @Service
 public class CategoryService {
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ICategoryRepository categoryRepository;
 
     //Ham get list category
     public List<CategoryDTO> getAllCategories() {
@@ -39,7 +43,6 @@ public class CategoryService {
         category.setCategoryName(categoryDTO.getCategoryName());
         return categoryRepository.save(category);
     }
-
     //Ham delete category
     public void deleteCategory(Long categoryId) {
         if (!categoryRepository.existsById(categoryId)) {

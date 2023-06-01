@@ -19,4 +19,5 @@ public class Category {
     private String CategoryName;
     @OneToMany (mappedBy = "categories", cascade = CascadeType.ALL)
     private List<Dishes> dishes;
+
 }
