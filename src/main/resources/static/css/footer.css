@@ -1,0 +1,27 @@
+﻿footer {
+    position: relative;
+    top: 5%;
+    z-index: 0;
+    width: 100%;
+    background: #1a1a1a;
+    box-shadow: 1px -5px 4px 1px #552424;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.name{
+    display:flex;
+    justify-content:space-between;
+}
+.logo-footer img {
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+}
+.boxfooter1 h4,.boxfooter2 h4,.boxfooter3 h4,
+.boxfooter2 span,.boxfooter3 span{
+    color:lightblue;
+    font-size:16px;
+}
