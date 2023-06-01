@@ -70,7 +70,7 @@ public class AccountService {
         );
     }
 
-    public AccountsDTO  createAccount(AccountsDTO accountsDTO) {
+    public AccountResponseDto createAccount(AccountsDTO accountsDTO) {
 
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
@@ -95,18 +95,9 @@ public class AccountService {
         accounts.setAccountTypes(accountType);
 
         accounts = accountsRepository.save(accounts);
-
-        return new AccountsDTO(
-                accounts.getAccountID(),
-                "",
-                accounts.getFullName(),
-                accounts.getPhoneNumber(),
-                accounts.getEmail(),
-                accounts.getGender(),
-                accounts.getBrithday(),
-                accounts.getAddress(),
-                accounts.getAccountTypes().getAccountTypeID()
-        );
+        AccountResponseDto accountResponseDto = new AccountResponseDto();
+        setResponseDto(accounts,accountResponseDto);
+        return accountResponseDto;
     }
     public Date parseBirthday(Date birthday) {
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
