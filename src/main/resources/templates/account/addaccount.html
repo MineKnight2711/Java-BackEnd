@@ -1,0 +1,194 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">THÊM MỚI NGƯỜI DÙNG MỚI ĐI CHỦ NHÂN ^-^!</h1>
+        <a href="/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Home </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Nhập Thông Tin</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" action="/User/Create">
+                    <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="FullName">Nhập họ và tên (*):</label>
+                                            <input type="text" id="FullName" name="FullName" class="form-control" required="" placeholder="Nhập họ và tên">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Email">Nhập email (*):</label>
+                                            <input type="email" id="Email" name="Email" class="form-control" required="" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Password">Nhập password (*):</label>
+                                            <div class="input-group">
+                                                <input type="password" id="Password" name="Password" class="form-control" required="" placeholder="Nhập password">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="showPassword"><i class="far fa-eye"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Address">Nhập địa chỉ:</label>
+                                            <input type="text" id="Address" name="Address" class="form-control" placeholder="Nhập địa chỉ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="PhoneNumber">Nhập số điện thoại:</label>
+                                            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Birthday">Chọn ngày sinh:</label>
+                                            <input type="date" id="Birthday" name="Birthday" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Gender">Chọn giới tính:</label>
+                                            <select class="form-control" id="Gender" name="Gender">
+                                                <option value="Nam">Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="AccountType">Chọn loại tài khoản:</label>
+                                            <select class="form-control" id="AccountType" name="AccountType">
+                                                <option value="Admin">Admin</option>
+                                                <option value="Mod">Mod</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+            <span class="icon text-white-50">
+              <i class="fas fa-check"></i>
+            </span>
+                            <span class="text">Thêm</span>
+                        </button>
+                        <h1 class="showno"></h1>
+
+                        Các trường (*) là bắt buộc. Vui lòng điền đầy đủ!
+                    </div>
+                    <!-- đóng form -->
+                </form>
+                <!-- đóng div với class "card-body" -->
+            </div>
+            <!-- đóng div với class "card" -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-8">
+                    <div class="card shadow mb-5">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh Sách Người Quản Trị</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+
+                                    <th scope="col" style="border: 1px solid #ddd;">Họ và tên</th><th scope="col" style="border: 1px solid #ddd;">Email</th>
+                                    <th scope="col" style="border: 1px solid #ddd;">Số điện thoại</th>
+                                    <th scope="col" style="border: 1px solid #ddd;">Địa chỉ</th>
+                                    <th scope="col" style="border: 1px solid #ddd;">Chức vụ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="border: 1px solid #ddd;">Topping 1</td>
+                                    <td style="border: 1px solid #ddd;">10,000</td>
+
+                                    <td style="border: 1px solid #ddd;">Gram</td>
+                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd;">Topping 1</td>
+                                    <td style="border: 1px solid #ddd;">10,000</td>
+
+                                    <td style="border: 1px solid #ddd;">Gram</td>
+                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd;">Topping 1</td>
+                                    <td style="border: 1px solid #ddd;">10,000</td>
+
+                                    <td style="border: 1px solid #ddd;">Gram</td>
+                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd;">Topping 1</td>
+                                    <td style="border: 1px solid #ddd;">10,000</td>
+
+                                    <td style="border: 1px solid #ddd;">Gram</td>
+                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #ddd;">Topping 1</td>
+                                    <td style="border: 1px solid #ddd;">10,000</td>
+
+                                    <td style="border: 1px solid #ddd;">Gram</td>
+                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="float-right">
+                                <nav>
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang trước</a>
+                                        </li>
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Trang sau</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

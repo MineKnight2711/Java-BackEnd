@@ -44,7 +44,6 @@ public class Accounts {
     @JoinColumn(name = "AccountTypeID")
     private AccountType accountTypes;
 
-
     @OneToMany (mappedBy = "accounts", cascade = CascadeType.ALL)
     private List<Orders> orders;
 
