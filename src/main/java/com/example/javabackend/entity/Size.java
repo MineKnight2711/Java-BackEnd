@@ -1,5 +1,6 @@
 package com.example.javabackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -20,5 +21,6 @@ public class Size {
     private String SizeName;
 
     @OneToMany (mappedBy = "sizes", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Dishes> dishes;
 }

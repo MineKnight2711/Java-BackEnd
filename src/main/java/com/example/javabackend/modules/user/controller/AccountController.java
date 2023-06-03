@@ -1,5 +1,6 @@
 package com.example.javabackend.modules.user.controller;
 
+import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +18,19 @@ public class AccountController {
 
     //Get All User
     @GetMapping("/all")
-    public ResponseEntity<List<AccountsDTO>> getAllAccount() {
-        List<AccountsDTO> accountDTOs = accountsService.getAllAccount();
-        return ResponseEntity.ok(accountDTOs);
+    public List<AccountsDTO> getAllAccount() {
+        return this.accountsService.getAllAccount();
     }
-
     //Get By Id
     @GetMapping("id/{id}")
-    public ResponseEntity<AccountsDTO> getById(@PathVariable Long id) {
-        AccountsDTO getById = accountsService.getById(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(getById);
+    public AccountsDTO getById(@PathVariable Long id) {
+        return this.accountsService.getById(id);
     }
-
     //Create Account
-
     @PostMapping
-    public ResponseEntity<AccountResponseDto> createAccount(@RequestBody AccountsDTO accountsDTO) {
-        AccountResponseDto createdAccountDTO = accountsService.createAccount(accountsDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccountDTO);
+    public AccountResponseDto createAccount(@RequestBody AccountsDTO accountsDTO) {
+        return this.accountsService.createAccount(accountsDTO);
     }
-
     //Login
     @PostMapping("/login")
     public AccountResponseDto login(@RequestBody UserLoginDto user) throws Exception {
@@ -44,9 +38,8 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UpdateAccountDto> updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
-        UpdateAccountDto updateAccountDto = accountsService.updateUser(accountsDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(updateAccountDto);
+    public UpdateAccountDto updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
+        return this.accountsService.updateUser(accountsDTO);
     }
 
     @PutMapping("/password")

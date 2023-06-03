@@ -1,10 +1,10 @@
 package com.example.javabackend.modules.category.controller;
 
 import com.example.javabackend.entity.Category;
-import com.example.javabackend.modules.category.DTO.CategoryDTO;
 import com.example.javabackend.modules.category.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,60 +21,38 @@ public class CategoryController {
     //Get method
     //Get List Category
     @GetMapping("/list")
-    public ResponseEntity<List<CategoryDTO>> getAllCategories() {
-        List<CategoryDTO> categoryDTOList = categoryService.getAllCategories();
-        return ResponseEntity.ok(categoryDTOList);
+    public List<Category> getAllCategories() {
+        return this.categoryService.getAllCategories();
     }
 
     //Get method
     //Get By ID Category
-    @GetMapping("find/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
-        Optional<Category> category = categoryService.getCategoryById(id);
-        if (category.isPresent()) {
-            return ResponseEntity.ok(category.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/find/{id}")
+    public Optional<Category> getCategoryById(@PathVariable Long id) {
+        return this.categoryService.getCategoryById(id);
     }
 
     //Post method
     //Create Category
     @PostMapping("/add")
-    public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO categoryDTO) {
-        Category category = categoryService.addCategory(categoryDTO);
-        return ResponseEntity.ok(category);
+    public Category addCategory(@Param("categoryName")String categoryName) {
+        return this.categoryService.addCategory(categoryName);
     }
 
     //Put method
     //Edit ID Category
     @PutMapping("edit/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id,
-                                                   @RequestBody CategoryDTO categoryDTO) {
-        Optional<Category> optionalCategory = categoryService.getCategoryById(id);
-        if (optionalCategory.isPresent()) {
-            Category category = optionalCategory.get();
-            category.setCategoryName(categoryDTO.getCategoryName());
-            categoryService.updateCategory(category);
-            return ResponseEntity.ok(category);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Category updateCategory(
+            @PathVariable Long id,
+            @Param("categoryName") String categoryName) {
+        return this.categoryService.updateCategory(id, categoryName);
     }
 
     // Delete Method
     // Delete Category
-    @DeleteMapping("delete/{categoryId}")
-
-    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) {
-        categoryService.deleteCategory(categoryId);
-        String message = "Deleted category with id: " + categoryId;
-        return ResponseEntity.ok(message);
-    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
 }

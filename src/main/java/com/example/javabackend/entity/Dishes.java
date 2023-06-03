@@ -1,4 +1,6 @@
 package com.example.javabackend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -38,8 +40,10 @@ public class Dishes {
     private Size sizes;
     //Quan hệ 1 nhiều tới bản Category
     @ManyToOne
-    @JoinColumn(name = "CategoryID")
+    @JsonManagedReference
+    @JoinColumn(name = "CategoryID", nullable = true)
     private Category categories;
     @OneToMany (mappedBy = "dishes", cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetails;
+    @JsonIgnore
+    private Set<OrderDetails> orderDetails;
 }

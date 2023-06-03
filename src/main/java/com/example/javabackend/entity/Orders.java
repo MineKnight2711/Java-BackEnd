@@ -1,5 +1,7 @@
 package com.example.javabackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -29,8 +31,11 @@ public class Orders {
     private Date OrderDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "AccountID")
     private Accounts accounts;
+
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderDetails> orderDetails;
 }
