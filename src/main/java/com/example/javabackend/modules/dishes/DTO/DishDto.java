@@ -1,9 +1,10 @@
-package com.example.javabackend.modules.Products.DTO;
+package com.example.javabackend.modules.dishes.DTO;
 
+import com.example.javabackend.entity.Category;
 import lombok.Data;
 
 @Data
-public class ProductDTO {
+public class DishDto {
     private Long DishID;
     private String DishName;
     private String Image;
@@ -12,4 +13,5 @@ public class ProductDTO {
     private String sizeName;
     private Long categoryId;
     private String categoryName;
+    private Category category;
 }

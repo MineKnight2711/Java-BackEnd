@@ -69,9 +69,7 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
-
     public AccountResponseDto createAccount(AccountsDTO accountsDTO) {
-
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();

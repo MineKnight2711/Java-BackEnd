@@ -1,5 +1,6 @@
 package com.example.javabackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -15,9 +16,12 @@ public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long CategoryID;
+
     @Column(name = "CategoryName",length = 50)
     private String CategoryName;
+
     @OneToMany (mappedBy = "categories", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Dishes> dishes;
 
 }
