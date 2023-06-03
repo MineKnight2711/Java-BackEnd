@@ -16,12 +16,16 @@ import java.util.List;
 @Entity(name="Accounts")
 @Table(name="Accounts")
 public class Accounts {
+
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long AccountID;
 
     @Column(name = "Password",length = 500)
     private String Password;
+    @Column(name = "ImageUrl",length = 500)
+    private String ImageUrl;
     @Column(name = "FullName",length = 70)
     private String FullName;
     @Column(name = "PhoneNumber",length = 20)
@@ -94,6 +98,14 @@ public class Accounts {
 
     public Date getBrithday() {
         return Brithday;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
     }
 
     public void setBrithday(Date brithday) {

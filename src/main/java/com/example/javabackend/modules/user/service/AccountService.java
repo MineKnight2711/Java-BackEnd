@@ -4,6 +4,7 @@ import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.repository.AccountRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -22,6 +23,7 @@ public class AccountService {
     private AccountRepository accountsRepository;
 
     private void setResponseDto(Accounts acc, AccountResponseDto response) {
+        response.setImageUrl(acc.getImageUrl());
         response.setAccountId(acc.getAccountID());
         response.setAddress(acc.getAddress());
         response.setBirthday(acc.getBrithday());
@@ -41,6 +43,7 @@ public class AccountService {
             AccountsDTO accountDTO = new AccountsDTO();
             accountDTO.setAccountId(accounts.getAccountID());
             accountDTO.setPassword("");
+            accountDTO.setImageUrl(accounts.getImageUrl());
             accountDTO.setAccountTypeId(accounts.getAccountTypes().getAccountTypeID());
             accountDTO.setBirthday(accounts.getBrithday());
             accountDTO.setAddress(accounts.getAddress());
@@ -60,6 +63,7 @@ public class AccountService {
         return new AccountsDTO(
                 accounts.getAccountID(),
                 "",
+                accounts.getImageUrl(),
                 accounts.getFullName(),
                 accounts.getPhoneNumber(),
                 accounts.getEmail(),
@@ -76,6 +80,7 @@ public class AccountService {
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(accountsDTO.getPassword(), salt);
+        accounts.setImageUrl(accountsDTO.getImageUrl());
         accounts.setPassword(hashedPassword);
         accounts.setFullName(accountsDTO.getFullName());
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
@@ -99,6 +104,7 @@ public class AccountService {
         setResponseDto(accounts,accountResponseDto);
         return accountResponseDto;
     }
+
     public Date parseBirthday(Date birthday) {
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -152,7 +158,6 @@ public class AccountService {
         acc.setStatus("Success");
         return acc;
     }
-
     public ChangePassDto changePass(ChangePassDto user) {
         Accounts account = accountsRepository.findByEmail((user.getEmail()));
         if(account == null) {

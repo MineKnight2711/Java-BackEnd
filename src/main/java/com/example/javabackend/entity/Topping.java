@@ -6,7 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Getter
@@ -23,7 +26,7 @@ public class Topping {
     private String Unit;
     @DecimalMin(value = "0.0", inclusive = true)
     private double Price;
-    @OneToMany (mappedBy = "toppings", cascade = CascadeType.ALL)
-    private List<ToppingDetails> toppingDetails;
+    @ManyToMany (mappedBy = "toppings")
+    private List<OrderDetails> users = new ArrayList<>();
 
 }
