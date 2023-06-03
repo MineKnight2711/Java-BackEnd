@@ -40,9 +40,9 @@ public class HomeController {
         return "/account/index";
     }
 
-    @GetMapping("/login")
-    public String dangNhap(Model m){
-        return "/login/index";
-    }
+//    @GetMapping("/login")
+//    public String dangNhap(Model m){
+//        return "/login/index";
+//    }
 
 }
