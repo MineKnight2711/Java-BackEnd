@@ -27,13 +27,8 @@ public class OrderDetails {
     @ManyToOne
     @JoinColumn(name = "OrderID", nullable = false)
     private Orders orders;
-
-    @ManyToMany
-    @JoinTable (name = "ToppingDetails",
-            joinColumns = @JoinColumn(name = "OrderDetailsID"),
-            inverseJoinColumns = @JoinColumn(name = "ToppingID"))
-    private List<Topping> toppings = new ArrayList<>();
-
+    @OneToMany(mappedBy = "orderDetails")
+    private List<OrderDetailsTopping> orderDetailsToppings;
     @Column(name = "Address",length = 255)
     private String Address;
     @Column(name = "Status",length =30)

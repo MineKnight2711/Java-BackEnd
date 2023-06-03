@@ -26,7 +26,7 @@ public class Topping {
     private String Unit;
     @DecimalMin(value = "0.0", inclusive = true)
     private double Price;
-    @ManyToMany (mappedBy = "toppings")
-    private List<OrderDetails> users = new ArrayList<>();
+    @OneToMany(mappedBy = "topping")
+    private List<OrderDetailsTopping> orderDetailsToppings;
 
 }
