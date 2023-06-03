@@ -18,11 +18,11 @@
     </properties>
     <repositories>
         <repository>
-            <id>google</id>
-            <name>Google Maven Repository</name>
-            <url>https://maven.google.com</url>
+            <id>google-maven</id>
+            <url>https://maven.google.com/</url>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -34,11 +34,12 @@
             <artifactId>firebase-admin</artifactId>
             <version>8.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.firebase</groupId>
-            <artifactId>firebase-storage</artifactId>
-            <version>20.0.0</version>
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.google.firebase</groupId>-->
+<!--            <artifactId>firebase-storage</artifactId>-->
+<!--            <version>20.1.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-firestore</artifactId>
@@ -106,6 +107,227 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.13.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-firebasestorage</artifactId>
+            <version>v1beta-rev20220927-2.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.apis</groupId>

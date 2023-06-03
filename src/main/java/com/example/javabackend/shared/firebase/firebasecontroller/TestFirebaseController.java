@@ -1,7 +1,8 @@
 package com.example.javabackend.shared.firebase.firebasecontroller;
 
 import com.example.javabackend.shared.firebase.firebasedto.TestUserDto;
-import com.example.javabackend.shared.firebase.firebaseservice.TestfirebaseService;
+import com.example.javabackend.shared.firebase.firebaseservice.TestFirebaseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,33 +19,26 @@ import java.util.concurrent.Future;
 @RequestMapping("/test")
 public class TestFirebaseController {
     @Autowired
-    private TestfirebaseService testfirebaseService;
+    private TestFirebaseService testfirebaseService;
 //    @PostMapping
 //    public ResponseEntity<TestUserDto> createAccount(@RequestBody TestUserDto newUser) {
 //        TestUserDto createdUser = testfirebaseService.addData(newUser);
 //        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
 //    }
     @PostMapping("/uploadImage")
-    public ResponseEntity<Object> uploadImage(@RequestParam("image") MultipartFile image,
-                                              @RequestParam("userInfo") String userInfo) {
+    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile image)
+    {
         try {
             // Call the uploadImage() method in the TestfirebaseService class to upload the file to Firebase Storage
-            Future<String> downloadUrlFuture = testfirebaseService.uploadImage(userInfo, image);
-
-            // Get the download URL of the uploaded file from the future
-            String downloadUrl = downloadUrlFuture.get();
-
-            // Create a response object with the download URL
-            Map<String, String> response = new HashMap<>();
-            response.put("downloadUrl", downloadUrl);
-
+            String downloadUrl= testfirebaseService.uploadImage(image);
+            System.out.println(downloadUrl);
             // Return the response object with a success status code
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (InterruptedException | ExecutionException | IOException e) {
+            return ResponseEntity.status(HttpStatus.OK).body(downloadUrl);
+        } catch (IOException e) {
             // Return an error message with a bad request status code
             Map<String, String> error = new HashMap<>();
             error.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.toString());
         }
     }
 }
