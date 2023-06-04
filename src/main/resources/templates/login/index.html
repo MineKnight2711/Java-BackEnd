@@ -45,12 +45,12 @@
                 <form action="/login" method="post">
                   <div class="form-group">
                     <input type="email" class="form-control form-control-user"
-                           id="email" aria-describedby="emailHelp"
+                           name="email" aria-describedby="emailHelp"
                            placeholder="Enter Email Address...">
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user"
-                           id="password" placeholder="Password">
+                           name="password" placeholder="Password">
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
@@ -60,11 +60,14 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
 
-                  <a class="btn btn-primary btn-user btn-block">
-                    Login
-                  </a>
+<!--                  <a type="submit" class="btn btn-primary btn-user btn-block">-->
+<!--                    Login-->
+<!--                  </a>-->
+
+
+
                   <hr>
                   <a href="index.html" class="btn btn-google btn-user btn-block">
                     <i class="fab fa-google fa-fw"></i> Login with Google
@@ -72,10 +75,10 @@
                   <a href="index.html" class="btn btn-facebook btn-user btn-block">
                     <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                   </a>
-                  <div>
-                    <input type="submit" value="Đăng nhập">
-                  </div>
-                  <p style="color: red;">${error}</p>
+<!--                  <div>-->
+<!--                    <input type="submit" value="Đăng nhập">-->
+<!--                  </div>-->
+
                 </form>
                 <hr>
                 <div class="text-center">

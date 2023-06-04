@@ -1,7 +1,11 @@
 package com.example.javabackend.modules.user.controller;
 
 import com.example.javabackend.entity.Accounts;
-import com.example.javabackend.modules.user.repository.AccountRepository;
+
+import com.example.javabackend.modules.user.DTO.AccountsDTO;
+import com.example.javabackend.modules.user.DTO.UserLoginDto;
+import com.example.javabackend.modules.user.repository.IAccountRepository;
+import com.example.javabackend.modules.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @GetMapping("/login")
     public String dangNhap(Model m){
@@ -24,13 +28,17 @@ public class LoginController {
     public String processLoginForm(@RequestParam("email") String email,
                                    @RequestParam("password") String password,
                                    Model model) {
-        Accounts account = accountRepository.findByEmail(email);
-        if (account != null) {
-            model.addAttribute("account", account);
-            return "home";
+        UserLoginDto dto = new UserLoginDto();
+        dto.setUsername(email);
+        dto.setPassword(password);
+        var response = this.accountService.login(dto);
+        System.out.println(response.getStatus());
+        if (response.getStatus() == "Success") {
+            model.addAttribute("account", response.getStatus());
+            return "/indexSB";
         } else {
-            model.addAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng");
-            return "login";
+            model.addAttribute("error", response.getStatus());
+            return "/login/index";
         }
     }
 
