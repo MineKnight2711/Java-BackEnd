@@ -16,23 +16,41 @@ public class OrdersController {
     @Autowired
     private OrderService orderService;
 
+    @GetMapping()
+    public List<Orders> getAll() {
+        return this.orderService.getAll();
+    }
+
     @PostMapping("")
     public Orders createOrder(@RequestBody OrderDto createOrderDto) {
         return orderService.createOrder(createOrderDto);
     }
 
-//    @GetMapping("/{orderId}")
-//    public Orders getOrderById(@PathVariable Long orderId) throws Exception {
-//        return orderService.getOrderById(orderId);
-//    }
-//
-//    @GetMapping("/")
-//    public List<Orders> getOrdersByAccountId(@RequestParam Long accountId) {
-//        return orderService.getOrdersByAccountId(accountId);
-//    }
-//
-//    @PutMapping("/{orderId}/cancel")
-//    public void cancelOrder(@PathVariable Long orderId) throws Exception {
-//        orderService.cancelOrder(orderId);
-//    }
+    @GetMapping("/{orderId}")
+    public Orders getOrderById(@PathVariable Long orderId) throws Exception {
+        return orderService.getByOrderId(orderId);
+    }
+
+    @GetMapping("/{accountId")
+    public List<Orders> getOrdersByAccountId(@PathVariable Long accountId) {
+        return orderService.getByAccountId(accountId);
+    }
+
+    @PutMapping("/{orderId}/cancel")
+    public String cancelOrder(@PathVariable Long orderId) {
+        var option = orderService.cancelOrder(orderId);
+        if(option != null) {
+            return "Failure";
+        }
+        return "Success";
+    }
+
+    @PutMapping("/id/{id}")
+    public String confirmOrder(@PathVariable Long orderId) {
+        var option = this.orderService.updateOrder(orderId);
+        if(option != null) {
+            return "Failure";
+        }
+        return "Success";
+    }
 }

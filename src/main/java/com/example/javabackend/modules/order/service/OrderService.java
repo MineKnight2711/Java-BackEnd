@@ -25,7 +25,15 @@ public class OrderService {
         order.setOrderDate(dto.orderDate);
         order.setAccounts(this.accountRepository.getById(dto.accountId));
     }
-
+    public List<Orders> getAll() {
+        return this.orderRepository.findAll();
+    }
+    public List<Orders> getByAccountId(Long userId) {
+        return this.orderRepository.findByAccountId(userId);
+    }
+    public Orders getByOrderId(Long orderId) {
+        return this.orderRepository.getById(orderId);
+    }
     public Orders createOrder(OrderDto createOrderDto) {
         Orders order = new Orders();
         setOrder(order, createOrderDto);
@@ -43,8 +51,14 @@ public class OrderService {
         }
         return response;
     }
-
-//    public List<Orders> getByUserId(Long userId) {
-//        return this.orderRepository.fin
-//    }
+    public Orders updateOrder(Long orderId) {
+        Orders option = this.orderRepository.getById(orderId);
+        option.setStatus("Đã xác nhận");
+        return this.orderRepository.save(option);
+    }
+    public Orders cancelOrder(Long orderId) {
+        Orders option = this.orderRepository.getById(orderId);
+        option.setStatus("Cancel");
+        return this.orderRepository.save(option);
+    }
 }
