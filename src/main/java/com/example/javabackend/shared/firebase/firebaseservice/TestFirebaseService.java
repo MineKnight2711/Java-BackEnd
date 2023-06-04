@@ -17,6 +17,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +52,6 @@ public class TestFirebaseService {
                 .build()
                 .getService();
     }
-
     public String uploadImage(MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             // Create a unique file name for the uploaded file
@@ -60,14 +62,20 @@ public class TestFirebaseService {
 
             // Build the BlobInfo object
             BlobId blobId = BlobId.of("trasua5anhem.appspot.com", storagePath);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("image/jpeg").build();
-            // Upload the file to Firebase Storage
-            Blob blob=storage.create(blobInfo, file.getBytes());
-            URL signedUrl = blob.signUrl(999999999, TimeUnit.SECONDS);
-            System.out.println(signedUrl.toString());
+            BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
+                    .setContentType("image/jpeg")
+                    .setAcl(Arrays.asList(Acl.of(Acl.User.ofAllUsers(), Acl.Role.OWNER)))
+                    .build();
 
+            // Upload the file to Firebase Storage
+            Blob blob = storage.create(blobInfo, file.getBytes());
+
+            // Generate the permanent link to the uploaded file
+            String downloadUrl = "https://firebasestorage.googleapis.com/v0/b/" +
+                    blob.getBucket() + "/o/" + URLEncoder.encode(blob.getName(), StandardCharsets.UTF_8) +
+                    "?alt=media";
             // Return the download URL of the uploaded file
-            return signedUrl.toString();
+            return downloadUrl;
         }
         return null;
     }
