@@ -1,0 +1,112 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">THÊM MỚI DANH MỤC ĐI CHỦ NHÂN</h1>
+    <a href="/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Home </a>
+</div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-8">
+            <div class="card shadow mb-5">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Nhập Thông Tin</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" action="/User/Create">
+                    <input name="__RequestVerificationToken" type="hidden" value="your_token_here" />
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="CategoryName">Tên danh mục (*):</label>
+                                    <input type="text" id="CategoryName" name="CategoryName" class="form-control" required placeholder="Nhập tên danh mục" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="container">
+                                    <div class="container-fluid">
+                                        <div class="container mt-5">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-label btn btn-primary" accept="image/*" id="image-input">
+                                                <!--                        <label class="custom-file-label btn btn-primary" for="image-input">Choose file</label>-->
+                                            </div>
+
+                                            <img id="image-preview" class="img-thumbnail" width="100" height="100">
+                                        </div>
+                                        <button class="btn btn-primary mt-3" id="upload-button">Upload Image</button>
+                                        <script>
+                                            // Get references to the HTML elements
+                                            const imageInput = document.querySelector('#image-input');
+                                            const imagePreview = document.querySelector('#image-preview');
+                                            const uploadButton = document.querySelector('#upload-button');
+
+                                            // When the user selects an image, display a preview of the image
+                                            imageInput.addEventListener('change', () => {
+                                                const file = imageInput.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        imagePreview.src = reader.result;
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            });
+
+                                            // When the user clicks the upload button, send the image to the server
+                                            uploadButton.addEventListener('click', () => {
+                                                const file = imageInput.files[0];
+                                                if (file) {
+                                                    const formData = new FormData();
+                                                    formData.append('image', file);
+                                                    formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+
+                                                    fetch('/test/uploadImage', {
+                                                        method: 'POST',
+                                                        body: formData
+                                                    })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            // Display the download URL of the uploaded file
+                                                            alert(`Download URL: ${data.downloadUrl}`);
+                                                        })
+                                                        .catch(error => {
+                                                            // Display an error message
+                                                            alert(`Error: ${error.message}`);
+                                                        });
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Thêm</span>
+                        </button>
+                        <h1 class="showno"></h1>
+                        Các trường (*) là bắt buộc. Vui lòng điền đầy đủ!
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.container-fluid -->
