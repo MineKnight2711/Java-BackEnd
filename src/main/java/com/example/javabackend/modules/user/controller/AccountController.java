@@ -40,8 +40,9 @@ public class AccountController {
 
     //Login
     @PostMapping("/login")
-    public AccountResponseDto login(@RequestBody UserLoginDto user) throws Exception {
-        return this.accountsService.login(user);
+    public ResponseEntity<AccountResponseDto> login(@RequestBody UserLoginDto user) throws Exception {
+        AccountResponseDto loginAccountDTO = accountsService.login(user);
+        return ResponseEntity.status(HttpStatus.OK).body(loginAccountDTO);
     }
 
     @PutMapping("/update")

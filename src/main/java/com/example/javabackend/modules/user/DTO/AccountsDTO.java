@@ -5,15 +5,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.File;
 import java.util.Date;
 
 public class AccountsDTO {
 
     private Long accountId;
     private String password;
+    private String imageUrl;
 
-    public AccountsDTO(Long accountID, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public AccountsDTO(Long accountID, String imageUrl, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
+        this.imageUrl=imageUrl;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;

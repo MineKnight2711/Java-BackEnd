@@ -1,6 +1,6 @@
 ﻿footer {
-    position: relative;
-    top: 5%;
+    position: fixed;
+    bottom: 0;
     z-index: 0;
     width: 100%;
     background: #1a1a1a;
