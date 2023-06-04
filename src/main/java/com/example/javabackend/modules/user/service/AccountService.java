@@ -60,6 +60,7 @@ public class AccountService {
         return new AccountsDTO(
                 accounts.getAccountID(),
                 "",
+                accounts.getImageUrl(),
                 accounts.getFullName(),
                 accounts.getPhoneNumber(),
                 accounts.getEmail(),
