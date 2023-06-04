@@ -28,8 +28,7 @@ public class Topping {
     @DecimalMin(value = "0.0", inclusive = true)
     private double Price;
 
-    @OneToMany (mappedBy = "toppings", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<ToppingDetails> toppingDetails;
+    @OneToMany(mappedBy = "topping")
+    private List<OrderDetailsTopping> orderDetailsToppings;
 
 }
