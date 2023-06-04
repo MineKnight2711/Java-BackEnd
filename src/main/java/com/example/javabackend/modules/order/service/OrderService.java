@@ -44,7 +44,7 @@ public class OrderService {
         return response;
     }
 
-    public List<Orders> getByUserId(Long userId) {
-        return this.orderRepository.fin
-    }
+//    public List<Orders> getByUserId(Long userId) {
+//        return this.orderRepository.fin
+//    }
 }
