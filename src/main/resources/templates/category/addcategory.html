@@ -1,5 +1,4 @@
 <!-- Begin Page Content -->
-
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">THÊM MỚI DANH MỤC ĐI CHỦ NHÂN</h1>
@@ -37,16 +36,68 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="ImageURL">Đường dẫn ảnh (nếu có):</label>
-                                    <input type="text" id="ImageURL" name="ImageURL" class="form-control" placeholder="https://example/image/picture.com"/>
+                                <div class="container">
+                                    <div class="container-fluid">
+                                        <div class="container mt-5">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-label btn btn-primary" accept="image/*" id="image-input">
+                                                <!--                        <label class="custom-file-label btn btn-primary" for="image-input">Choose file</label>-->
+                                            </div>
+
+                                            <img id="image-preview" class="img-thumbnail" width="100" height="100">
+                                        </div>
+                                        <button class="btn btn-primary mt-3" id="upload-button">Upload Image</button>
+                                        <script>
+                                            // Get references to the HTML elements
+                                            const imageInput = document.querySelector('#image-input');
+                                            const imagePreview = document.querySelector('#image-preview');
+                                            const uploadButton = document.querySelector('#upload-button');
+
+                                            // When the user selects an image, display a preview of the image
+                                            imageInput.addEventListener('change', () => {
+                                                const file = imageInput.files[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => {
+                                                        imagePreview.src = reader.result;
+                                                    };
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            });
+
+                                            // When the user clicks the upload button, send the image to the server
+                                            uploadButton.addEventListener('click', () => {
+                                                const file = imageInput.files[0];
+                                                if (file) {
+                                                    const formData = new FormData();
+                                                    formData.append('image', file);
+                                                    formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+
+                                                    fetch('/test/uploadImage', {
+                                                        method: 'POST',
+                                                        body: formData
+                                                    })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+                                                            // Display the download URL of the uploaded file
+                                                            alert(`Download URL: ${data.downloadUrl}`);
+                                                        })
+                                                        .catch(error => {
+                                                            // Display an error message
+                                                            alert(`Error: ${error.message}`);
+                                                        });
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
-            <span class="icon text-white-50">
-              <i class="fas fa-check"></i>
-            </span>
+                            <span class="icon text-white-50">
+                              <i class="fas fa-check"></i>
+                            </span>
                             <span class="text">Thêm</span>
                         </button>
                         <h1 class="showno"></h1>
