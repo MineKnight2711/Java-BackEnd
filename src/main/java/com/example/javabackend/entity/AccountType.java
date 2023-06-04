@@ -1,5 +1,6 @@
 package com.example.javabackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -20,5 +21,6 @@ public class AccountType {
     private String AccountTypeName;
 
     @OneToMany (mappedBy = "accountTypes", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Accounts> accounts;
 }

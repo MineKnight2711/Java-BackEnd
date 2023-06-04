@@ -1,5 +1,6 @@
 package com.example.javabackend.modules.user.controller;
 
+import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.service.AccountTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,17 @@ public class AccountTypeController {
     private AccountTypeService accountTypeService;
 
     @GetMapping
-    public ResponseEntity<List<AccountTypeDTO>> getAllAccountTypes() {
-        List<AccountTypeDTO> accountTypeDTOs = accountTypeService.getAllAccountTypes();
-        return ResponseEntity.ok(accountTypeDTOs);
+    public List<AccountType> getAllAccountTypes() {
+        return accountTypeService.getAllAccountTypes();
     }
     @PostMapping
-    public ResponseEntity<AccountTypeDTO> createAccountType(@RequestBody AccountTypeDTO accountTypeDTO) {
-        AccountTypeDTO createdAccountTypeDTO = accountTypeService.createAccountType(accountTypeDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccountTypeDTO);
+    public AccountType createAccountType(@RequestBody AccountType accountType) {
+        return accountTypeService.createAccountType(accountType);
     }
 
     @GetMapping("id/{id}")
-    public ResponseEntity<AccountTypeDTO> getById(@PathVariable Long id) {
-        AccountTypeDTO getById = accountTypeService.getById(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(getById);
+    public AccountType getById(@PathVariable Long id) {
+        return accountTypeService.getById(id);
     }
 
 }
