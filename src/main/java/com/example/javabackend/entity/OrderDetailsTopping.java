@@ -28,4 +28,3 @@ public class OrderDetailsTopping {
 
     // Getters and setters
 }
-
