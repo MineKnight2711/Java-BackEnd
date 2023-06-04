@@ -32,27 +32,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ProductName">Tên sản phẩm (*):</label>
-                                    <input type="text" id="ProductName" name="ProductName" class="form-control" required placeholder="Nhập tên sản phẩm" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="ImageURL">Đường dẫn hình ảnh (nếu có):</label>
-                                    <input type="text" id="ImageURL" name="ImageURL" class="form-control" placeholder="https://example/image/picture.com"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Price">Giá tiền (*):</label>
-                                    <input type="number" id="Price" name="Price" class="form-control" required placeholder="Nhập giá tiền" />
+                                    <input type="text" id="ProductName" name="ProductName" class="form-control" required="" placeholder="Nhập tên sản phẩm">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Category">Danh mục (*):</label>
-                                    <select id="Category" name="Category" class="form-control" required>
+                                    <select id="Category" name="Category" class="form-control" required="">
                                         <option value="">-- Chọn danh mục --</option>
                                         <option value="Trà">Trà</option>
                                         <option value="Trà sữa">Trà sữa</option>
@@ -65,6 +51,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="Price">Giá tiền (*):</label>
+                                    <input type="number" id="Price" name="Price" class="form-control" required="" placeholder="Nhập giá tiền">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="Size">Size:</label>
                                     <select id="Size" name="Size" class="form-control">
                                         <option value="">-- Chọn size --</option>
@@ -75,14 +67,79 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
-            <span class="icon text-white-50">
-              <i class="fas fa-check"></i>
-            </span>
-                            <span class="text">Thêm</span>
-                        </button>
-                        <h1 class="showno"></h1>
-                        Các trường (*)là bắt buộc. Vui lòng điền đầy đủ!
+                        <div class="form-group">
+                            <label for="image-input">Ảnh danh mục:</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" accept="image/*" id="image-input" required="">
+                                <label class="custom-file-label" for="image-input">Choose file</label>
+                            </div>
+                            <div class="mt-3">
+                                <img id="image-preview" class="img-thumbnail" width="120" height="120">
+                            </div>
+                            <button class="btn btn-primary mt-3" id="upload-button">Upload Image</button>
+                        </div>
+
+
+                        <script>
+  // Get references to the HTML elements
+  const imageInput = document.querySelector('#image-input');
+  const imagePreview = document.querySelector('#image-preview');
+  const uploadButton = document.querySelector('#upload-button');
+
+  // When the user selects an image, display a preview of the image
+  imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        imagePreview.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // When the user clicks the upload button, send the image to the server
+  uploadButton.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent the default action of the button
+    const file = imageInput.files[0];
+    if (!file) {
+      // Display an error message if no file is selected
+      alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+
+    fetch('/test/uploadImage', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Display the download URL of the uploaded file
+        alert(`Download URL: ${data.downloadUrl}`);
+      })
+      .catch(error => {
+        // Display an error message
+        alert(`Error: ${error.message}`);
+      });
+  });
+</script>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+        <span class="icon text-white-50">
+          <i class="fas fa-check"></i>
+        </span>
+                                    <span class="text">Thêm</span>
+                                </button>
+                                <h1 class="showno"></h1>
+                                <p class="text-muted">Các trường (*)là bắt buộc. Vui lòng điền đầy đủ!</p>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -20,11 +20,13 @@ import java.util.concurrent.Future;
 public class TestFirebaseController {
     @Autowired
     private TestFirebaseService testfirebaseService;
-//    @PostMapping
-//    public ResponseEntity<TestUserDto> createAccount(@RequestBody TestUserDto newUser) {
-//        TestUserDto createdUser = testfirebaseService.addData(newUser);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-//    }
+
+
+        @PostMapping
+    public ResponseEntity<TestUserDto> createAccount(@RequestBody TestUserDto newUser) {
+        TestUserDto createdUser = testfirebaseService.addData(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
     @PostMapping("/uploadImage")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile image)
     {

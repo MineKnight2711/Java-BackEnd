@@ -1,7 +1,11 @@
 package com.example.javabackend.shared.firebase.firebaseservice;
 
+import com.example.javabackend.shared.firebase.firebasedto.TestUserDto;
 import com.google.auth.oauth2.GoogleCredentials;
 
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
 import com.google.cloud.storage.*;
 
 import com.google.firebase.FirebaseApp;
@@ -15,23 +19,25 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileInputStream;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URL;
+
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+
 
 
 @Service
 public class TestFirebaseService {
 
     private Storage storage;
+    private final Firestore firestore;
 
-    public TestFirebaseService() throws IOException {
-        String firebasekeyjson="C:/Users/Administrator/Desktop/Java/Java_BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
+
+    public TestFirebaseService(Firestore firestore) throws IOException {
+        String firebasekeyjson="C:/Users/Administrator/Desktop/DAJAVA/Java-BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
         FileInputStream serviceAccount = new FileInputStream(firebasekeyjson);
+        this.firestore = firestore;
         // Check if the default Firebase app has already been initialized
         if (FirebaseApp.getApps().isEmpty()) {
             // Load the credentials from the JSON key file
@@ -46,7 +52,7 @@ public class TestFirebaseService {
             FirebaseApp.initializeApp(options);
         }
         FileInputStream storageAccount = new FileInputStream(firebasekeyjson);
-            // Get a FirebaseStorage object
+        // Get a FirebaseStorage object
         this.storage = StorageOptions.newBuilder()
                 .setCredentials(GoogleCredentials.fromStream(storageAccount))
                 .build()
@@ -79,5 +85,12 @@ public class TestFirebaseService {
         }
         return null;
     }
+    public TestUserDto addData(TestUserDto newUser) {
+        CollectionReference usersCollectionRef = firestore.collection("users");
+        DocumentReference newDocRef = usersCollectionRef.document();
+        newDocRef.set(newUser);
+        String uniqueId = newDocRef.getId();
+        newUser.setId(uniqueId);
+        return newUser;
+    }
 }
-
