@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.net.URLEncoder;
@@ -25,27 +26,27 @@ public class UploadImageService {
     private Storage storage;
 
     public UploadImageService() throws IOException {
-        String firebasekeyjson="C:/Users/Administrator/Desktop/Java/Java_BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
-        FileInputStream serviceAccount = new FileInputStream(firebasekeyjson);
-        // Check if the default Firebase app has already been initialized
-        if (FirebaseApp.getApps().isEmpty()) {
-            // Load the credentials from the JSON key file
+            String firebasekeyjson = "src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
+            FileInputStream serviceAccount = new FileInputStream(firebasekeyjson);
+            if (FirebaseApp.getApps().isEmpty()) {
+                // Load the credentials from the JSON key file
 
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+                GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 
-            // Initialize the Firebase app with the appropriate credentials and default bucket name
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(credentials)
-                    .setStorageBucket("trasua5anhem.appspot.com") // Set the default bucket name
-                    .build();
-            FirebaseApp.initializeApp(options);
-        }
-        FileInputStream storageAccount = new FileInputStream(firebasekeyjson);
-        // Get a FirebaseStorage object
-        this.storage = StorageOptions.newBuilder()
-                .setCredentials(GoogleCredentials.fromStream(storageAccount))
-                .build()
-                .getService();
+                // Initialize the Firebase app with the appropriate credentials and default bucket name
+                FirebaseOptions options = new FirebaseOptions.Builder()
+                        .setCredentials(credentials)
+                        .setStorageBucket("trasua5anhem.appspot.com") // Set the default bucket name
+                        .build();
+                FirebaseApp.initializeApp(options);
+            }
+            FileInputStream storageAccount = new FileInputStream(firebasekeyjson);
+            // Get a FirebaseStorage object
+            this.storage = StorageOptions.newBuilder()
+                    .setCredentials(GoogleCredentials.fromStream(storageAccount))
+                    .build()
+                    .getService();
+            // Use the FileInputStream object here
     }
     public String uploadImage(MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
