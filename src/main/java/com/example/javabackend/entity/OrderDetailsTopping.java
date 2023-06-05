@@ -26,5 +26,5 @@ public class OrderDetailsTopping {
     @JoinColumn(name = "topping_id")
     private Topping topping;
 
-    // Getters and setters
+
 }
