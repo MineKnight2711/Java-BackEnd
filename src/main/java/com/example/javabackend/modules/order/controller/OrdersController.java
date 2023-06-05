@@ -31,7 +31,7 @@ public class OrdersController {
         return orderService.getByOrderId(orderId);
     }
 
-    @GetMapping("/{accountId")
+    @GetMapping("/{accountId}")
     public List<Orders> getOrdersByAccountId(@PathVariable Long accountId) {
         return orderService.getByAccountId(accountId);
     }
