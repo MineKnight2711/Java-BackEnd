@@ -22,7 +22,7 @@ public class DishService {
     private CategoryRepository categoryRepository;
 
     private void setDishDto(Dishes dish, DishDto dto) {
-        dto.setDishID(dish.getDishID());
+        dto.setDishId(dish.getDishID());
         dto.setPrice(dish.getPrice());
         dto.setImage(dish.getImage());
         dto.setDishName(dish.getDishName());

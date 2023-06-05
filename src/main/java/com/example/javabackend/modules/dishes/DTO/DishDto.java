@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DishDto {
-    private Long DishID;
-    private String DishName;
-    private String Image;
-    private double Price;
+    private Long dishId;
+    private String dishName;
+    private String image;
+    private double price;
     private Long sizeId;
     private String sizeName;
     private Long categoryId;
