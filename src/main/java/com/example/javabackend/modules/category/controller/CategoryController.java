@@ -9,7 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +38,8 @@ public class CategoryController {
     //Post method
     //Create Category
     @PostMapping("/add")
-    public Category addCategory(@Param("category") CategoryDTO categoryDTO) {
-        return this.categoryService.addCategory(categoryDTO);
+    public Category addCategory(@RequestParam MultipartFile image, String categoryName) throws IOException {
+        return this.categoryService.addCategory(image,categoryName);
     }
 
     //Put method
