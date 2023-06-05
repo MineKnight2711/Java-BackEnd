@@ -76,61 +76,63 @@
                             <div class="mt-3">
                                 <img id="image-preview" class="img-thumbnail" width="120" height="120">
                             </div>
-                            <button class="btn btn-primary mt-3" id="upload-button">Upload Image</button>
+
                         </div>
 
 
                         <script>
-  // Get references to the HTML elements
-  const imageInput = document.querySelector('#image-input');
-  const imagePreview = document.querySelector('#image-preview');
-  const uploadButton = document.querySelector('#upload-button');
+                        // Disable notifications for the "Download URL: undefined" message
+                            console.warn = function() {};
+                              // Get references to the HTML elements
+                              const catename = document.querySelector('#CategoryName');
+                              const imageInput = document.querySelector('#image-input');
+                              const imagePreview = document.querySelector('#image-preview');
+                              const uploadButton = document.querySelector('#upload-button');
 
-  // When the user selects an image, display a preview of the image
-  imageInput.addEventListener('change', () => {
-    const file = imageInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        imagePreview.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+                              // When the user selects an image, display a preview of the image
+                              imageInput.addEventListener('change', () => {
+                                const file = imageInput.files[0];
+                                if (file) {
+                                  const reader = new FileReader();
+                                  reader.onload = () => {
+                                    imagePreview.src = reader.result;
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              });
 
-  // When the user clicks the upload button, send the image to the server
-  uploadButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent the default action of the button
-    const file = imageInput.files[0];
-    if (!file) {
-      // Display an error message if no file is selected
-      alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-      return;
-    }
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+                              // When the user clicks the upload button, send the image to the server
+                              uploadButton.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default action of the button
+                                const file = imageInput.files[0];
+                                if (!file) {
+                                  // Display an error message if no file is selected
+                                  alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                  return;
+                                }
+                                const formData = new FormData();
+                                formData.append('image', file);
+                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
 
-    fetch('/test/uploadImage', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Display the download URL of the uploaded file
-        alert(`Download URL: ${data.downloadUrl}`);
-      })
-      .catch(error => {
-        // Display an error message
-        alert(`Error: ${error.message}`);
-      });
-  });
-</script>
-
+                                fetch('/api/categories/add', {
+                                  method: 'POST',
+                                  body: formData
+                                })
+                                  .then(response => response.json())
+                                  .then(data => {
+                                    // Display the download URL of the uploaded file
+                                    alert(`Download URL: ${data.downloadUrl}`);
+                                  })
+                                  .catch(error => {
+                                    // Display an error message
+                                    alert(`Error: ${error.message}`);
+                                  });
+                              });
+                        </script>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
+                                <button type="submit" class="btn btn-primary btn-icon-split btn-sm" id="upload-button">
         <span class="icon text-white-50">
           <i class="fas fa-check"></i>
         </span>
