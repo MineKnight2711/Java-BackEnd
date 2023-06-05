@@ -43,6 +43,7 @@ public class Dishes {
     @JsonManagedReference
     @JoinColumn(name = "CategoryID", nullable = true)
     private Category categories;
+
     @OneToMany (mappedBy = "dishes", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<OrderDetails> orderDetails;
