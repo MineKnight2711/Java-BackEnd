@@ -26,5 +26,4 @@ public class Topping {
     private double Price;
     @OneToMany(mappedBy = "topping")
     private List<OrderDetailsTopping> orderDetailsToppings;
-
 }
