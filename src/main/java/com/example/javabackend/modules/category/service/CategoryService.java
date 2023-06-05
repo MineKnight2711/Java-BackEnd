@@ -32,8 +32,7 @@ public class CategoryService {
     public Category addCategory(MultipartFile image, String categoryName) throws IOException {
         Category category = new Category();
         category.setCategoryName(categoryName);
-        String imageUrl= uploadImageService.uploadImage(image);
-        System.out.println(imageUrl);
+        String imageUrl= uploadImageService.uploadImage(image,"categoriesimage/",categoryName);
         category.setImage(imageUrl);
         return categoryRepository.save(category);
     }
@@ -41,10 +40,14 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
     //Ham update lai category
-    public Category updateCategory(Long id,String categoryName){
-        Category option = this.categoryRepository.getById(id);
-        option.setCategoryName(categoryName);
-        return categoryRepository.save(option);
+    public Category updateCategory(Long id,MultipartFile image,String categoryName) throws IOException {
+        Category category = this.categoryRepository.getById(id);
+        uploadImageService.deleteExistImage("categoriesimage/",category.getCategoryName());
+        category.setCategoryName(categoryName);
+
+        String imageUrl= uploadImageService.uploadImage(image,"categoriesimage/",categoryName);
+        category.setImage(imageUrl);
+        return categoryRepository.save(category);
     }
     public ResponseEntity<Map<String, Object>> deleteCategory(Long categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);

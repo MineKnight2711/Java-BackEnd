@@ -19,6 +19,7 @@ public class Category {
 
     @Column(name = "CategoryName",length = 50)
     private String CategoryName;
+
     @Column(name = "Image",length = 1000)
     private String Image;
     @OneToMany (mappedBy = "categories", cascade = CascadeType.ALL)

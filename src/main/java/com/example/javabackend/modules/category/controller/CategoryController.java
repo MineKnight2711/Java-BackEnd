@@ -45,11 +45,9 @@ public class CategoryController {
 
     //Put method
     //Edit ID Category
-    @PutMapping("edit/{id}")
-    public Category updateCategory(
-            @PathVariable Long id,
-            @Param("categoryName") String categoryName) {
-        return this.categoryService.updateCategory(id, categoryName);
+    @PutMapping("/{categoryId}")
+    public Category updateCategory(@PathVariable Long categoryId,@RequestParam MultipartFile image,@Param("categoryName") String categoryName) throws IOException {
+        return this.categoryService.updateCategory(categoryId,image, categoryName);
     }
 
     // Delete Method
