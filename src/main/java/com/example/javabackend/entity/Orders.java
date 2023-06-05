@@ -30,6 +30,12 @@ public class Orders {
     @Column(name = "OrderDate")
     private Date OrderDate;
 
+    @Column(name = "Address",length = 255)
+    private String Address;
+
+    @Column(name = "Status",length =30)
+    private String Status;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "AccountID")
