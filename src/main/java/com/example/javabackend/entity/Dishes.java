@@ -28,7 +28,7 @@ public class Dishes {
     @Column(name = "DishName",length = 50)
     private String DishName;
 
-    @Column(name = "Image")
+    @Column(name = "Image",length = 1000)
     private String Image;
     //@PositiveOrZero | cách 1 dùng BeanValidation 2.0
     @DecimalMin(value = "0.0", inclusive = true)//Cách 2 dùng package javax.validation(phải cài đặt package này)

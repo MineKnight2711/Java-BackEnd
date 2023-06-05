@@ -32,7 +32,7 @@ public class Accounts {
     private String Email;
     @Column(name = "Gender",length = 20)
     private String Gender;
-    @Column(name = "ImageUrl",length = 500)
+    @Column(name = "ImageUrl",length = 1000)
     private String ImageUrl;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
