@@ -25,7 +25,7 @@ public class UploadImageService {
     private Storage storage;
 
     public UploadImageService() throws IOException {
-        String firebasekeyjson="C:/Users/Administrator/Desktop/Java/Java_BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
+        String firebasekeyjson="C:/Users/Administrator/Desktop/DAJAVA/Java-BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json";
         FileInputStream serviceAccount = new FileInputStream(firebasekeyjson);
         // Check if the default Firebase app has already been initialized
         if (FirebaseApp.getApps().isEmpty()) {

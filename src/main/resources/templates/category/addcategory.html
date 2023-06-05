@@ -56,7 +56,10 @@
                             <span class="text">Thêm</span>
                         </button>
                         <script>
+                        // Disable notifications for the "Download URL: undefined" message
+                            console.warn = function() {};
                               // Get references to the HTML elements
+                              const catename = document.querySelector('#CategoryName');
                               const imageInput = document.querySelector('#image-input');
                               const imagePreview = document.querySelector('#image-preview');
                               const uploadButton = document.querySelector('#upload-button');
@@ -84,9 +87,9 @@
                                 }
                                 const formData = new FormData();
                                 formData.append('image', file);
-                                formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
 
-                                fetch('/test/uploadImage', {
+                                fetch('/api/categories/add', {
                                   method: 'POST',
                                   body: formData
                                 })
