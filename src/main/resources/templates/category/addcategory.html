@@ -59,6 +59,7 @@
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');
+                            const catename=document.querySelector('#CategoryName');
                             const uploadButton = document.querySelector('#upload-button');
 
                             // When the user selects an image, display a preview of the image
@@ -84,16 +85,16 @@
                                 }
                                 const formData = new FormData();
                                 formData.append('image', file);
-                                formData.append('userInfo', 'user_info'); // Replace 'user_info' with the actual user info
+                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
 
-                                fetch('/test/uploadImage', {
+                                fetch('/api/categories/add', {
                                     method: 'POST',
                                     body: formData
                                 })
                                     .then(response => response.json())
                                     .then(data => {
                                         // Display the download URL of the uploaded file
-                                        alert(`Download URL: ${data.downloadUrl}`);
+                                        alert(`Upload thành công`);
                                     })
                                     .catch(error => {
                                         // Display an error message
