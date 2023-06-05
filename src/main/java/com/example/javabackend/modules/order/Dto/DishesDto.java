@@ -6,15 +6,15 @@ import com.example.javabackend.entity.Topping;
 import java.util.List;
 
 public class DishesDto {
-    public Dishes dishes;
+    public Long dishId;
     public List<Topping> listTopping;
 
-    public Dishes getDishes() {
-        return dishes;
+    public Long getDishId() {
+        return dishId;
     }
 
-    public void setDishes(Dishes dishes) {
-        this.dishes = dishes;
+    public void setDishId(Long dishId) {
+        this.dishId = dishId;
     }
 
     public List<Topping> getListTopping() {
