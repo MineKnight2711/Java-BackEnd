@@ -1,6 +1,7 @@
 package com.example.javabackend.modules.category.controller;
 
 import com.example.javabackend.entity.Category;
+import com.example.javabackend.modules.category.DTO.CategoryDTO;
 import com.example.javabackend.modules.category.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class CategoryController {
     //Post method
     //Create Category
     @PostMapping("/add")
-    public Category addCategory(@Param("categoryName")String categoryName) {
-        return this.categoryService.addCategory(categoryName);
+    public Category addCategory(@Param("category") CategoryDTO categoryDTO) {
+        return this.categoryService.addCategory(categoryDTO);
     }
 
     //Put method

@@ -1,6 +1,7 @@
 package com.example.javabackend.modules.category.service;
 
 import com.example.javabackend.entity.Category;
+import com.example.javabackend.modules.category.DTO.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,10 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
     // Ham add category
-    public Category addCategory(String categoryName) {
+    public Category addCategory(CategoryDTO categoryDTO) {
         Category category = new Category();
-        category.setCategoryName(categoryName);
+        category.setCategoryName(categoryDTO.getCategoryName());
+        category.setImage(categoryDTO.getImage());
         return categoryRepository.save(category);
     }
     public Optional<Category> getCategoryById(Long id){
