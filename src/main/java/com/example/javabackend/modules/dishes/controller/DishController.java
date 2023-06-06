@@ -38,7 +38,7 @@ public class DishController {
     @PostMapping("/add")
     public Dishes createDish(@RequestParam MultipartFile file ,@RequestBody() DishDto dishDto) throws IOException{
         System.out.println("Run api Add");
-        return this.dishesService.createDish(file, dishDto);
+        return this.dishesService.createDish(file,  dishDto);
     }
     @PutMapping()
     public Dishes updateDish(@RequestBody Dishes dishes) {
