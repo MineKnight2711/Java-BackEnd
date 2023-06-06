@@ -5,17 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
-@Getter
-@Setter
+
 public class DishDto {
-    private Long dishId;
-    private String dishName;
-    private String image;
-    private double price;
-    private Long sizeId;
-    private String sizeName;
-    private Long categoryId;
-    private String categoryName;
-    private Category category;
+    public String dishName;
+    public String image;
+    public double price;
+    public Long sizeId;
+    public Long categoryId;
 }

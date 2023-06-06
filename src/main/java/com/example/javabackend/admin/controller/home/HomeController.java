@@ -35,10 +35,10 @@ public class HomeController {
         return "/topping/index";
     }
 
-//    @GetMapping("/themnguoiquantri")
-//    public String addAdmin(Model m){
-//        return "/account/index";
-//    }
+    @GetMapping("/themnguoiquantri")
+    public String addAdmin(Model m){
+        return "/account/index";
+    }
 
 //    @GetMapping("/login")
 //    public String dangNhap(Model m){

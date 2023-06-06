@@ -56,53 +56,51 @@
                             <span class="text">Thêm</span>
                         </button>
                         <script>
-                        // Disable notifications for the "Download URL: undefined" message
-                            console.warn = function() {};
-                              // Get references to the HTML elements
-                              const catename = document.querySelector('#CategoryName');
-                              const imageInput = document.querySelector('#image-input');
-                              const imagePreview = document.querySelector('#image-preview');
-                              const uploadButton = document.querySelector('#upload-button');
+                            // Get references to the HTML elements
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            const catename=document.querySelector('#CategoryName');
+                            const uploadButton = document.querySelector('#upload-button');
 
-                              // When the user selects an image, display a preview of the image
-                              imageInput.addEventListener('change', () => {
+                            // When the user selects an image, display a preview of the image
+                            imageInput.addEventListener('change', () => {
                                 const file = imageInput.files[0];
                                 if (file) {
-                                  const reader = new FileReader();
-                                  reader.onload = () => {
-                                    imagePreview.src = reader.result;
-                                  };
-                                  reader.readAsDataURL(file);
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
                                 }
-                              });
+                            });
 
-                              // When the user clicks the upload button, send the image to the server
-                              uploadButton.addEventListener('click', (event) => {
+                            // When the user clicks the upload button, send the image to the server
+                            uploadButton.addEventListener('click', (event) => {
                                 event.preventDefault(); // Prevent the default action of the button
                                 const file = imageInput.files[0];
                                 if (!file) {
-                                  // Display an error message if no file is selected
-                                  alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-                                  return;
+                                    // Display an error message if no file is selected
+                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                    return;
                                 }
                                 const formData = new FormData();
                                 formData.append('image', file);
                                 formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
 
                                 fetch('/api/categories/add', {
-                                  method: 'POST',
-                                  body: formData
+                                    method: 'POST',
+                                    body: formData
                                 })
-                                  .then(response => response.json())
-                                  .then(data => {
-                                    // Display the download URL of the uploaded file
-                                    alert(`Download URL: ${data.downloadUrl}`);
-                                  })
-                                  .catch(error => {
-                                    // Display an error message
-                                    alert(`Error: ${error.message}`);
-                                  });
-                              });
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Display the download URL of the uploaded file
+                                        alert(`Upload thành công`);
+                                    })
+                                    .catch(error => {
+                                        // Display an error message
+                                        alert(`Error: ${error.message}`);
+                                    });
+                            });
                         </script>
                         <h1 class="showno"></h1>
                         Các trường (*) là bắt buộc. Vui lòng điền đầy đủ!
