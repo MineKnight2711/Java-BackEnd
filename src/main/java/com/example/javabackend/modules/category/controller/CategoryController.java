@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -44,16 +45,17 @@ public class CategoryController {
 
     //Put method
     //Edit ID Category
-    @PutMapping("edit/{id}")
-    public Category updateCategory(
-            @PathVariable Long id,
-            @Param("categoryName") String categoryName) {
-        return this.categoryService.updateCategory(id, categoryName);
+    @PutMapping("/{categoryId}")
+    public Category updateCategory(@PathVariable Long categoryId,@RequestParam MultipartFile image,@Param("categoryName") String categoryName) throws IOException {
+        return this.categoryService.updateCategory(categoryId,image, categoryName);
     }
 
     // Delete Method
     // Delete Category
-
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Map<String, Object>> deleteCategory(@PathVariable Long categoryId) {
+        return categoryService.deleteCategory(categoryId);
+    }
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
