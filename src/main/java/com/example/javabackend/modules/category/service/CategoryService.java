@@ -32,7 +32,7 @@ public class CategoryService {
     public Category addCategory(MultipartFile image, String categoryName) throws IOException {
         Category category = new Category();
         category.setCategoryName(categoryName);
-        String imageUrl= uploadImageService.uploadImage(image);
+        String imageUrl= uploadImageService.uploadImage(image,"categoriesimage/",categoryName);
         System.out.println(imageUrl);
         category.setImage(imageUrl);
         return categoryRepository.save(category);

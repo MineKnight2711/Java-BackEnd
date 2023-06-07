@@ -2,10 +2,12 @@ package com.example.javabackend.modules.dishes.service;
 
 import com.example.javabackend.entity.Category;
 import com.example.javabackend.entity.Dishes;
+import com.example.javabackend.entity.Size;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.dishes.repository.IDishRepository;
 import com.example.javabackend.modules.category.repository.CategoryRepository;
+import com.example.javabackend.modules.size.repository.SizeRepository;
 import com.example.javabackend.modules.size.service.SizeService;
 import com.example.javabackend.utils.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class DishService {
     @Autowired
     private UploadImageService uploadImageService;
     @Autowired
-    private SizeService sizeService;
+    private SizeRepository sizeRepository;
     @Autowired
 
     private CategoryService categoryService;
@@ -60,17 +62,29 @@ public class DishService {
         return response;
     }
 
-    public Dishes createDish(Dishes dishes) {
-        return this.dishesRepository.save(dishes);
+    public Dishes createDish2(DishDto newDish) {
+        Dishes dishes = new Dishes();
+        dishes.setDishName(newDish.dishName);
+        dishes.setPrice(newDish.price);
+        Category cate = categoryRepository.find(newDish.categoryId);
+        dishes.setCategories(cate);
+        Size size = sizeRepository.find(newDish.sizeId);
+        dishes.setSizes(size);
+        //String imageUrl= uploadImageService.uploadImage(image,"dishesimage/", dishes.getDishName());
+        //System.out.println(imageUrl);
+        //dishes.setImage(imageUrl);
+        return dishesRepository.save(dishes);
     }
 
     public Dishes createDish(MultipartFile image, DishDto newDish) throws IOException {
         Dishes dishes = new Dishes();
         dishes.setDishName(newDish.dishName);
         dishes.setPrice(newDish.price);
-        dishes.setCategories(categoryService.getCategoryById(newDish.categoryId).get());
-        dishes.setSizes(sizeService.getByid(newDish.sizeId));
-        String imageUrl= uploadImageService.uploadImage(image);
+        Category cate = categoryRepository.find(newDish.categoryId);
+        dishes.setCategories(cate);
+        Size size = sizeRepository.find(newDish.sizeId);
+        dishes.setSizes(size);
+        String imageUrl= uploadImageService.uploadImage(image,"dishesimage/", dishes.getDishName());
         System.out.println(imageUrl);
         dishes.setImage(imageUrl);
         return dishesRepository.save(dishes);
