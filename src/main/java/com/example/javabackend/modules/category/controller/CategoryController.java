@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -53,6 +54,10 @@ public class CategoryController {
 
     // Delete Method
     // Delete Category
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Map<String, Object>> deleteCategory(@PathVariable Long categoryId) {
+        return categoryService.deleteCategory(categoryId);
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {

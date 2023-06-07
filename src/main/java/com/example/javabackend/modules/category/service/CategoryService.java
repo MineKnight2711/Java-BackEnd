@@ -3,11 +3,15 @@ package com.example.javabackend.modules.category.service;
 import com.example.javabackend.entity.Category;
 import com.example.javabackend.modules.category.DTO.CategoryDTO;
 import com.example.javabackend.utils.UploadImageService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.example.javabackend.modules.category.repository.ICategoryRepository;
@@ -42,5 +46,18 @@ public class CategoryService {
         option.setCategoryName(categoryName);
         return categoryRepository.save(option);
     }
+    public ResponseEntity<Map<String, Object>> deleteCategory(Long categoryId) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        Map<String, Object> response = new HashMap<>();
+        if (!category.isPresent()) {
+            response.put("success", false);
+            response.put("message", "Không tìm thấy danh mục với mã " + categoryId);
+            return ResponseEntity.notFound().build();
+        }
 
+        categoryRepository.delete(category.get());
+        response.put("success", true);
+        response.put("message", "Xoá danh mục thành công");
+        return ResponseEntity.ok().body(response);
+    }
 }

@@ -18,7 +18,7 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("C:/Users/Administrator/Desktop/DAJAVA/Java-BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json");
+        FileInputStream serviceAccount = new FileInputStream("src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json");
         FirebaseApp firebaseApp = null;
         List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
         for(FirebaseApp app : firebaseApps){
@@ -39,7 +39,7 @@ public class FirebaseConfig {
 
     @Bean
     public Firestore firestore() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("C:/Users/Administrator/Desktop/DAJAVA/Java-BackEnd/src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json");
+        FileInputStream serviceAccount = new FileInputStream("src/main/java/com/example/javabackend/shared/firebase/trasua5anhem-firebase-adminsdk-tg808-617f676327.json");
 
         Firestore firestore = FirestoreOptions.newBuilder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
