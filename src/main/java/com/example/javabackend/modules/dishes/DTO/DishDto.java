@@ -1,21 +1,21 @@
 package com.example.javabackend.modules.dishes.DTO;
 
 import com.example.javabackend.entity.Category;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-@Data
-@Getter
-@Setter
 public class DishDto {
-    private Long dishId;
-    private String dishName;
-    private String image;
-    private double price;
-    private Long sizeId;
-    private String sizeName;
-    private Long categoryId;
-    private String categoryName;
-    private Category category;
+    @JsonProperty("dishName")
+    public String dishName;
+    @JsonProperty("image")
+    public String image;
+    @JsonProperty("price")
+    public double price;
+    @JsonProperty("sizeId")
+    public Long sizeId;
+    @JsonProperty("categoryId")
+    public Long categoryId;
 }

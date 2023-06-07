@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SizeRepository extends JpaRepository<Size, Long> {
     @Query("SELECT u FROM Size u where u.SizeID = ?1")
-    Size findById(String id);
+    Size find(Long id);
 }
