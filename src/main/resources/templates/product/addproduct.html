@@ -1,4 +1,6 @@
-<!-- Begin Page Content -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -6,12 +8,17 @@
     <a href="/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Home </a>
 </div>
+    <div th:if="${addresult}" class="alert alert-dismissible fade show mt-3" th:classappend="${addresult.contains('thành công') ? 'alert-success' : 'alert-danger'}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p th:text="${addresult}"></p>
+    </div>
 
     <div class="row">
         <div class="col-xl-12 col-lg-8">
             <div class="card shadow mb-5">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Nhập Thông Tin</h6>
+
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -25,128 +32,142 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/User/Create">
-                    <input name="__RequestVerificationToken" type="hidden" value="your_token_here" />
+                <form method="post" th:action="@{/themsanpham}" th:object="${dish}" enctype="multipart/form-data">
+<!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="ProductName">Tên sản phẩm (*):</label>
-                                    <input type="text" id="ProductName" name="ProductName" class="form-control" required="" placeholder="Nhập tên sản phẩm">
+                                    <label for="dishName">Tên món ăn (*):</label>
+                                    <input type="text" id="dishName" name="dishName" th:field="*{dishName}" class="form-control" required="" placeholder="Nhập tên món ăn">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Category">Danh mục (*):</label>
-                                    <select id="Category" name="Category" class="form-control" required="">
-                                        <option value="">-- Chọn danh mục --</option>
-                                        <option value="Trà">Trà</option>
-                                        <option value="Trà sữa">Trà sữa</option>
-                                        <option value="Coffee">Coffee</option>
-                                        <option value="Soda">Soda</option>
-                                    </select>
-                                </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label" for="categoryId">Danh mục:</label>
+                                <select class="form-control" id="categoryId" name="categoryId" th:field="*{categoryId}">
+                                    <option value="">-- Chọn danh mục --</option>
+                                    <option th:each="category: ${categories}" th:value="${category.CategoryID}" th:text="${category.CategoryName}">
+                                        <img th:src="${category.image}" alt="Category Image" width="20" height="20" />
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Price">Giá tiền (*):</label>
-                                    <input type="number" id="Price" name="Price" class="form-control" required="" placeholder="Nhập giá tiền">
+                                    <label for="price">Giá tiền (*):</label>
+                                    <input type="number" id="price" name="price" class="form-control" required="" placeholder="Nhập giá tiền">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Size">Size:</label>
-                                    <select id="Size" name="Size" class="form-control">
-                                        <option value="">-- Chọn size --</option>
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                    </select>
-                                </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label" for="sizeId">Danh mục:</label>
+                                <select class="form-control" id="sizeId" name="sizeId" th:field="*{sizeId}">
+                                    <option value="">-- Chọn size --</option>
+                                    <option th:each="size: ${sizes}" th:value="${size.SizeID}" th:text="${size.SizeName}"></option>
+                                </select>
+                            </div>
+                            <div id="loading-spinner" style="display:none;">
+                                <i class="fa fa-spinner fa-spin"></i> Loading...
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image-input">Ảnh danh mục:</label>
+                            <label for="image-input">Ảnh món ăn:</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" accept="image/*" id="image-input" required="">
+                                <input type="file" class="custom-file-input" accept="image/*" id="image-input" name="file" required="">
                                 <label class="custom-file-label" for="image-input">Choose file</label>
                             </div>
-                            <div class="mt-3">
-                                <img id="image-preview" class="img-thumbnail" width="120" height="120">
-                            </div>
 
+                            <img id="image-preview" class="img-thumbnail" width="120" height="120">
                         </div>
-
-
                         <script>
-                        // Disable notifications for the "Download URL: undefined" message
+                            // Disable notifications for the "Download URL: undefined" message
                             console.warn = function() {};
-                              // Get references to the HTML elements
-                              const catename = document.querySelector('#CategoryName');
-                              const imageInput = document.querySelector('#image-input');
-                              const imagePreview = document.querySelector('#image-preview');
-                              const uploadButton = document.querySelector('#upload-button');
+                            // Get references to the HTML elements
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            const uploadButton = document.querySelector('#upload-button');
 
-                              // When the user selects an image, display a preview of the image
-                              imageInput.addEventListener('change', () => {
+                            // When the user selects an image, display a preview of the image
+                            imageInput.addEventListener('change', () => {
                                 const file = imageInput.files[0];
                                 if (file) {
-                                  const reader = new FileReader();
-                                  reader.onload = () => {
-                                    imagePreview.src = reader.result;
-                                  };
-                                  reader.readAsDataURL(file);
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
                                 }
-                              });
-
-                              // When the user clicks the upload button, send the image to the server
-                              uploadButton.addEventListener('click', (event) => {
-                                event.preventDefault(); // Prevent the default action of the button
-                                const file = imageInput.files[0];
-                                if (!file) {
-                                  // Display an error message if no file is selected
-                                  alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-                                  return;
-                                }
-                                const formData = new FormData();
-                                formData.append('image', file);
-                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
-
-                                fetch('/api/categories/add', {
-                                  method: 'POST',
-                                  body: formData
-                                })
-                                  .then(response => response.json())
-                                  .then(data => {
-                                    // Display the download URL of the uploaded file
-                                    alert(`Download URL: ${data.downloadUrl}`);
-                                  })
-                                  .catch(error => {
-                                    // Display an error message
-                                    alert(`Error: ${error.message}`);
-                                  });
-                              });
+                            });
                         </script>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary btn-icon-split btn-sm" id="upload-button">
-        <span class="icon text-white-50">
-          <i class="fas fa-check"></i>
-        </span>
+                                    <span class="icon text-white-50" style="display:block;">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+
                                     <span class="text">Thêm</span>
                                 </button>
+
                                 <h1 class="showno"></h1>
                                 <p class="text-muted">Các trường (*)là bắt buộc. Vui lòng điền đầy đủ!</p>
                             </div>
                         </div>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!--<script>-->
+<!--    // Disable notifications for the "Download URL: undefined" message-->
+<!--    console.warn = function() {};-->
+<!--    // Get references to the HTML elements-->
+<!--    const catename = document.querySelector('#CategoryName');-->
+<!--    const imageInput = document.querySelector('#image-input');-->
+<!--    const imagePreview = document.querySelector('#image-preview');-->
+<!--    const uploadButton = document.querySelector('#upload-button');-->
 
+<!--    // When the user selects an image, display a preview of the image-->
+<!--    imageInput.addEventListener('change', () => {-->
+<!--        const file = imageInput.files[0];-->
+<!--        if (file) {-->
+<!--            const reader = new FileReader();-->
+<!--            reader.onload = () => {-->
+<!--                imagePreview.src = reader.result;-->
+<!--            };-->
+<!--            reader.readAsDataURL(file);-->
+<!--        }-->
+<!--    });-->
+
+<!--    // When the user clicks the upload button, send the image to the server-->
+<!--    uploadButton.addEventListener('click', (event) => {-->
+<!--        event.preventDefault(); // Prevent the default action of the button-->
+<!--        const file = imageInput.files[0];-->
+<!--        if (!file) {-->
+<!--            // Display an error message if no file is selected-->
+<!--            alert('Bạn phải chọn một hình ảnh trước khi tải lên!');-->
+<!--            return;-->
+<!--        }-->
+<!--        const formData = new FormData();-->
+<!--        formData.append('image', file);-->
+<!--        formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info-->
+
+<!--        fetch('/api/categories/add', {-->
+<!--            method: 'POST',-->
+<!--            body: formData-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                // Display the download URL of the uploaded file-->
+<!--                alert(`Download URL: ${data.downloadUrl}`);-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                // Display an error message-->
+<!--                alert(`Error: ${error.message}`);-->
+<!--            });-->
+<!--    });-->
+<!--</script>-->
 <!-- /.container-fluid -->

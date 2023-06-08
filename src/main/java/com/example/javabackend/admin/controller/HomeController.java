@@ -1,5 +1,7 @@
-package com.example.javabackend.admin.controller.home;
+package com.example.javabackend.admin.controller;
 
+import com.example.javabackend.modules.category.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 
 public class HomeController {
-
+    @Autowired
+    private CategoryService categoryService;
     @RequestMapping("/")
    public String trangchu(Model m) {
         String strTieuDe = "Day la trang chu";
@@ -25,10 +28,6 @@ public class HomeController {
         return "/category/index";
     }
 
-    @GetMapping("/themsanpham")
-    public String addSanpham(Model m){
-        return "/product/index";
-    }
 
     @GetMapping("/themtopping")
     public String addTopping(Model m){

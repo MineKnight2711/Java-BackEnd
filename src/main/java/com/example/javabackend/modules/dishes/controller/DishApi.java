@@ -1,6 +1,5 @@
 package com.example.javabackend.modules.dishes.controller;
 
-import com.example.javabackend.entity.Category;
 import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/dish")
-public class DishController {
+public class DishApi {
     @Autowired
     private DishService dishesService;
     @Autowired
@@ -34,30 +33,22 @@ public class DishController {
     public List<Dishes> search(@Param("name") String name) {
         return (dishesService.searchDish(name));
     }
-
     @PostMapping("/add")
     public Dishes createDish(@RequestParam MultipartFile file,
                              @RequestParam("dishName") String dishName,
-                             @RequestParam("image") String image,
                              @RequestParam("price") Double price,
                              @RequestParam("sizeId") Long sizeId,
                              @RequestParam("categoryId") Long categoryId)throws IOException{
         System.out.println("Run api Add");
         DishDto dto = new DishDto();
         dto.dishName = dishName;
-        dto.image = image;
         dto.price = price;
         dto.sizeId = sizeId;
         dto.categoryId = categoryId;
         return this.dishesService.createDish(file,dto);
     }
 
-    @PostMapping("/add/product")
-    public DishDto createDish(@ModelAttribute DishDto dishDto)throws IOException{
-        System.out.println("Run api Add");
-        System.out.println(dishDto.dishName);
-        return dishDto;
-    }
+
     @PutMapping()
     public Dishes updateDish(@RequestBody Dishes dishes) {
         return this.dishesService.updateDish(dishes);
