@@ -34,8 +34,6 @@ public class DishController {
         return dishesService.getDishById(id);
     }
 
-
-
     @GetMapping("/search")
     public List<Dishes> search(@Param("name") String name) {
         return (dishesService.searchDish(name));

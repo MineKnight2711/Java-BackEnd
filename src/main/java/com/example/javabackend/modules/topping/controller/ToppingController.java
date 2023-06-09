@@ -1,11 +1,16 @@
 package com.example.javabackend.modules.topping.controller;
 
+import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.entity.Topping;
+import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.modules.topping.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,11 +29,14 @@ public class ToppingController {
         return this.toppingService.getById(id);
     }
 
-    @PostMapping()
-    public Topping create(@ModelAttribute ToppingDto dto) {
-        return this.toppingService.create(dto);
+    @PostMapping("/add")
+    public ModelAndView createTopping(@ModelAttribute ToppingDto toppingDto) throws IOException {
+        Topping createTopping = this.toppingService.create(toppingDto.file, toppingDto);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/themtopping");
+        mav.addObject("result", "success");
+        return mav;
     }
-
     @PutMapping("/{id}")
     public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
         return this.toppingService.update(id,dto);

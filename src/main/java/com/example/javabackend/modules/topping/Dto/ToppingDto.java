@@ -1,12 +1,19 @@
 package com.example.javabackend.modules.topping.Dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ToppingDto {
+    @JsonProperty("toppingName")
     public String toppingName;
+    @JsonProperty("price")
     public double price;
+    @JsonProperty("unit")
     public String unit;
+    @JsonProperty("image")
     public String image;
+
+    @JsonProperty("file")
     public MultipartFile file;
 
     public String getToppingName() {
