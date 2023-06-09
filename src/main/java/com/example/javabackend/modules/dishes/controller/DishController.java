@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/dish")
-public class DishApi {
+public class DishController {
     @Autowired
     private DishService dishesService;
     @Autowired
