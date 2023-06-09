@@ -26,19 +26,21 @@
                     </div>
                 </div>
                 <form method="post" action="/api/dish/add" enctype="multipart/form-data">
+                    <div id="notification"></div>
+
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here" />
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="ProductName">Tên sản phẩm (*):</label>
-                                    <input type="text" id="ProductName" name="ProductName" class="form-control" required="" placeholder="Nhập tên sản phẩm">
+                                    <label for="dishName">Tên sản phẩm (*):</label>
+                                    <input type="text" id="dishName" name="dishName" class="form-control" required="" placeholder="Nhập tên sản phẩm">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Category">Danh mục (*):</label>
-                                    <select id="Category" name="Category" class="form-control" required="">
+                                    <label for="categoryId">Danh mục (*):</label>
+                                    <select id="categoryId" name="categoryId" class="form-control" required="">
                                         <option value="">-- Chọn danh mục --</option>
                                         <option value="1">Trà</option>
                                         <option value="2">Trà sữa</option>
@@ -57,8 +59,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Size">Size:</label>
-                                    <select id="Size" name="Size" class="form-control">
+                                    <label for="sizeId">Size:</label>
+                                    <select id="sizeId" name="sizeId" class="form-control">
                                         <option value="">-- Chọn size --</option>
                                         <option value="1">S</option>
                                         <option value="2">M</option>
@@ -70,7 +72,7 @@
                         <div class="form-group">
                             <label for="image-input">Ảnh danh mục:</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="image">
+                                <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file">
                                 <label class="custom-file-label" for="image-input">Choose file</label>
                             </div>
                             <div class="mt-3">
@@ -84,7 +86,7 @@
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');
-                            const dishname=document.querySelector('#ProductName');
+                            const dishname=document.querySelector('#dishName');
                             const uploadButton = document.querySelector('#upload-button');
 
                             // When the user selects an image, display a preview of the image
@@ -118,13 +120,13 @@
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        // Display the download URL of the uploaded file
-                                        alert(`Upload thành công`);
-                                    })
+    // Display the download URL of the uploaded file
+    document.getElementById("notification").innerHTML = "<div class='alert alert-success'>Thêm sản phẩm thành công!</div>";
+})
                                     .catch(error => {
-                                        // Display an error message
-                                        alert(`Error: ${error.message}`);
-                                    });
+    // Display an error message
+    document.getElementById("notification").innerHTML = "<div class='alert alert-danger'>Không thể thêm sản phẩm!</div>";
+});
                             });
                         </script>
                         <div class="row">
