@@ -24,6 +24,8 @@ public class Topping {
     private String Unit;
     @DecimalMin(value = "0.0", inclusive = true)
     private double Price;
+    @Column(name = "Image",length = 1000)
+    private String Image;
     @OneToMany(mappedBy = "topping")
     private List<OrderDetailsTopping> orderDetailsToppings;
 }
