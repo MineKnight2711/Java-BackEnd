@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -41,14 +42,14 @@ public class DishController {
     }
 
     @PostMapping("/add")
-    public String createDish(@ModelAttribute DishDto dto, RedirectAttributes redirectAttributes) throws IOException {
+    public ModelAndView createDish(@ModelAttribute DishDto dto) throws IOException {
         Dishes createdDish = this.dishesService.createDish(dto.file, dto);
-        redirectAttributes.addFlashAttribute("successMessage", "Thêm sản phẩm thành công");
-        return "redirect:/themsanpham";
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/themsanpham");
+        mav.addObject("result", "success");
+        return mav;
     }
-
-
-
+    
     @PutMapping()
     public Dishes updateDish(@RequestBody Dishes dishes) {
         return this.dishesService.updateDish(dishes);
