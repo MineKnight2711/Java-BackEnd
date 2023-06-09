@@ -1,5 +1,6 @@
 package com.example.javabackend.modules.dishes.controller;
 
+import com.example.javabackend.entity.Category;
 import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
@@ -33,21 +34,12 @@ public class DishController {
     public List<Dishes> search(@Param("name") String name) {
         return (dishesService.searchDish(name));
     }
-    @PostMapping("/add")
-    public Dishes createDish(@RequestParam MultipartFile file,
-                             @RequestParam("dishName") String dishName,
-                             @RequestParam("price") Double price,
-                             @RequestParam("sizeId") Long sizeId,
-                             @RequestParam("categoryId") Long categoryId)throws IOException{
-        System.out.println("Run api Add");
-        DishDto dto = new DishDto();
-        dto.dishName = dishName;
-        dto.price = price;
-        dto.sizeId = sizeId;
-        dto.categoryId = categoryId;
-        return this.dishesService.createDish(file,dto);
-    }
 
+    @PostMapping("/add")
+    public Dishes createDish(@ModelAttribute DishDto dto)throws IOException{
+        System.out.println("Run api Add");
+        return this.dishesService.createDish(dto.file,dto);
+    }
 
     @PutMapping()
     public Dishes updateDish(@RequestBody Dishes dishes) {
