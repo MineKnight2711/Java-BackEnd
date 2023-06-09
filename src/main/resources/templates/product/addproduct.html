@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/User/Create">
+                <form method="post" action="/api/dish/add" enctype="multipart/form-data">
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here" />
                     <div class="card-body">
                         <div class="row">
@@ -40,10 +40,10 @@
                                     <label for="Category">Danh mục (*):</label>
                                     <select id="Category" name="Category" class="form-control" required="">
                                         <option value="">-- Chọn danh mục --</option>
-                                        <option value="Trà">Trà</option>
-                                        <option value="Trà sữa">Trà sữa</option>
-                                        <option value="Coffee">Coffee</option>
-                                        <option value="Soda">Soda</option>
+                                        <option value="1">Trà</option>
+                                        <option value="2">Trà sữa</option>
+                                        <option value="3">Coffee</option>
+                                        <option value="4">Soda</option>
                                     </select>
                                 </div>
                             </div>
@@ -60,9 +60,9 @@
                                     <label for="Size">Size:</label>
                                     <select id="Size" name="Size" class="form-control">
                                         <option value="">-- Chọn size --</option>
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
+                                        <option value="1">S</option>
+                                        <option value="2">M</option>
+                                        <option value="3">L</option>
                                     </select>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <label for="image-input">Ảnh danh mục:</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" accept="image/*" id="image-input" required="">
+                                <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="image">
                                 <label class="custom-file-label" for="image-input">Choose file</label>
                             </div>
                             <div class="mt-3">
@@ -81,55 +81,52 @@
 
 
                         <script>
-                        // Disable notifications for the "Download URL: undefined" message
-                            console.warn = function() {};
-                              // Get references to the HTML elements
-                              const catename = document.querySelector('#CategoryName');
-                              const imageInput = document.querySelector('#image-input');
-                              const imagePreview = document.querySelector('#image-preview');
-                              const uploadButton = document.querySelector('#upload-button');
+                            // Get references to the HTML elements
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            const dishname=document.querySelector('#ProductName');
+                            const uploadButton = document.querySelector('#upload-button');
 
-                              // When the user selects an image, display a preview of the image
-                              imageInput.addEventListener('change', () => {
+                            // When the user selects an image, display a preview of the image
+                            imageInput.addEventListener('change', () => {
                                 const file = imageInput.files[0];
                                 if (file) {
-                                  const reader = new FileReader();
-                                  reader.onload = () => {
-                                    imagePreview.src = reader.result;
-                                  };
-                                  reader.readAsDataURL(file);
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
                                 }
-                              });
+                            });
 
-                              // When the user clicks the upload button, send the image to the server
-                              uploadButton.addEventListener('click', (event) => {
+                            // When the user clicks the upload button, send the image to the server
+                            uploadButton.addEventListener('click', (event) => {
                                 event.preventDefault(); // Prevent the default action of the button
                                 const file = imageInput.files[0];
                                 if (!file) {
-                                  // Display an error message if no file is selected
-                                  alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-                                  return;
+                                    // Display an error message if no file is selected
+                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                    return;
                                 }
                                 const formData = new FormData();
                                 formData.append('image', file);
-                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
+                                formData.append('dishName', dishname.value); // Replace 'user_info' with the actual user info
 
-                                fetch('/api/categories/add', {
-                                  method: 'POST',
-                                  body: formData
+                                fetch('/api/dish/add', {
+                                    method: 'POST',
+                                    body: formData
                                 })
-                                  .then(response => response.json())
-                                  .then(data => {
-                                    // Display the download URL of the uploaded file
-                                    alert(`Download URL: ${data.downloadUrl}`);
-                                  })
-                                  .catch(error => {
-                                    // Display an error message
-                                    alert(`Error: ${error.message}`);
-                                  });
-                              });
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Display the download URL of the uploaded file
+                                        alert(`Upload thành công`);
+                                    })
+                                    .catch(error => {
+                                        // Display an error message
+                                        alert(`Error: ${error.message}`);
+                                    });
+                            });
                         </script>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary btn-icon-split btn-sm" id="upload-button">

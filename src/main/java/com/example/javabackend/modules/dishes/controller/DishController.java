@@ -36,20 +36,19 @@ public class DishController {
     }
 
     @PostMapping("/add")
-    public Dishes createDish(@RequestParam MultipartFile file,
+    public Dishes createDish(@RequestParam MultipartFile image,
                              @RequestParam("dishName") String dishName,
-                             @RequestParam("image") String image,
+
                              @RequestParam("price") Double price,
                              @RequestParam("sizeId") Long sizeId,
                              @RequestParam("categoryId") Long categoryId)throws IOException{
         System.out.println("Run api Add");
         DishDto dto = new DishDto();
         dto.dishName = dishName;
-        dto.image = image;
         dto.price = price;
         dto.sizeId = sizeId;
         dto.categoryId = categoryId;
-        return this.dishesService.createDish(file,dto);
+        return this.dishesService.createDish(image,dto);
     }
 
     @PostMapping("/add/product")
