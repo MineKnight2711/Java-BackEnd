@@ -4,11 +4,14 @@ import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.repository.IAccountRepository;
+import com.example.javabackend.utils.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +23,9 @@ import java.util.TimeZone;
 public class AccountService {
     @Autowired
     private IAccountRepository accountsRepository;
+
+    @Autowired
+    private UploadImageService uploadImageService;
 
     private void setResponseDto(Accounts acc, AccountResponseDto response) {
         response.setAccountId(acc.getAccountID());
@@ -70,7 +76,7 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
-    public AccountResponseDto createAccount(AccountsDTO accountsDTO) {
+    public AccountResponseDto createAccount(MultipartFile imageUrl, AccountsDTO accountsDTO) throws IOException {
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
@@ -80,6 +86,9 @@ public class AccountService {
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
         accounts.setEmail(accountsDTO.getEmail());
         accounts.setGender(accountsDTO.getGender());
+        String image= uploadImageService.uploadImage(imageUrl,"userimage/", accounts.getFullName());
+        System.out.println(imageUrl);
+        accounts.setImageUrl(image);
         if(accountsDTO.getBirthday()!=null){
             accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));
         }

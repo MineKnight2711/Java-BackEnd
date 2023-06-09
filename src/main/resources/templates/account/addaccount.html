@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/User/Create">
+                <form method="post" action="/api/accounts" enctype="multipart/form-data">
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
                     <div class="card-body">
                         <div class="row">
@@ -31,15 +31,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="FullName">Nhập họ và tên (*):</label>
-                                            <input type="text" id="FullName" name="FullName" class="form-control" required="" placeholder="Nhập họ và tên">
+                                            <label for="fullName">Nhập họ và tên (*):</label>
+                                            <input type="text" id="fullName" name="fullName" class="form-control" required="" placeholder="Nhập họ và tên">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Email">Nhập email (*):</label>
-                                            <input type="email" id="Email" name="Email" class="form-control" required="" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email">
+                                            <label for="email">Nhập email (*):</label>
+                                            <input type="email" id="email" name="email" class="form-control" required="" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email">
 
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
                                         <div class="form-group">
                                             <label for="Password">Nhập password (*):</label>
                                             <div class="input-group">
-                                                <input type="password" id="Password" name="Password" class="form-control" required="" placeholder="Nhập password">
+                                                <input type="password" id="password" name="password" class="form-control" required="" placeholder="Nhập password">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="showPassword"><i class="far fa-eye"></i></span>
                                                 </div>
@@ -56,8 +56,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Address">Nhập địa chỉ:</label>
-                                            <input type="text" id="Address" name="Address" class="form-control" placeholder="Nhập địa chỉ">
+                                            <label for="address">Nhập địa chỉ:</label>
+                                            <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ">
                                         </div>
                                     </div>
                                 </div>
@@ -66,42 +66,127 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="PhoneNumber">Nhập số điện thoại:</label>
-                                            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
+                                            <label for="phoneNumber">Nhập số điện thoại:</label>
+                                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Birthday">Chọn ngày sinh:</label>
-                                            <input type="date" id="Birthday" name="Birthday" class="form-control">
+                                            <label for="birthday">Chọn ngày sinh:</label>
+                                            <input type="date" id="birthday" name="birthday" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Gender">Chọn giới tính:</label>
-                                            <select class="form-control" id="Gender" name="Gender">
+                                            <label for="gender">Chọn giới tính:</label>
+                                            <select class="form-control" id="gender" name="Gender">
                                                 <option value="Nam">Nam</option>
                                                 <option value="Nữ">Nữ</option>
+                                                <option value="Khác">Khác</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="AccountType">Chọn loại tài khoản:</label>
-                                            <select class="form-control" id="AccountType" name="AccountType">
-                                                <option value="Admin">Admin</option>
-                                                <option value="Mod">Mod</option>
+                                            <label for="accountTypeId">Loại tài khoản:</label>
+                                            <select id="accountTypeId" name="accountTypeId" class="form-control">
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group" style="padding-top: 0;">
+                                    <label for="image-input">Avatar(*):</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file">
+                                        <label class="custom-file-label" for="image-input">Choose file</label>
+                                    </div>
+                                    <div class="mt-3">
+                                        <img id="image-preview" class="img-thumbnail" width="120" height="120">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!--Đây là script load loại toài khoản theo accountTypeName và get accountTypeId khi chọn-->
+                        <script>
+                            fetch('/api/account-types')
+                              .then(response => response.json())
+                              .then(categories => {
+                                const select = document.getElementById('accountTypeId');
+
+                                // Thêm tùy chọn mặc định
+                                const defaultOption = document.createElement('option');
+                                defaultOption.text = '-- Chọn loại tài khoản --';
+                                select.add(defaultOption);
+
+                                // Thêm các tùy chọn danh mục vào combobox
+                                categories.forEach(account => {
+                                  const option = document.createElement('option');
+                                  option.value = account.accountTypeID;
+                                  option.text = account.accountTypeName;
+                                  select.add(option);
+                                });
+                              })
+                              .catch(error => {
+                                console.error('Error fetching accounts:', error);
+                              });
+                        </script>
+                        <!-- Đóng script trên -->
+
+                        <script>
+                            // Get references to the HTML elements
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            const catename=document.querySelector('#CategoryName');
+                            const uploadButton = document.querySelector('#upload-button');
+
+                            // When the user selects an image, display a preview of the image
+                            imageInput.addEventListener('change', () => {
+                                const file = imageInput.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+
+                            // When the user clicks the upload button, send the image to the server
+                            uploadButton.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default action of the button
+                                const file = imageInput.files[0];
+                                if (!file) {
+                                    // Display an error message if no file is selected
+                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                    return;
+                                }
+                                const formData = new FormData();
+                                formData.append('image', file);
+                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
+
+                                fetch('/api/categories/add', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Display the download URL of the uploaded file
+                                        alert(`Upload thành công`);
+                                    })
+                                    .catch(error => {
+                                        // Display an error message
+                                        alert(`Error: ${error.message}`);
+                                    });
+                            });
+                        </script>
+
                         <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
-            <span class="icon text-white-50">
-              <i class="fas fa-check"></i>
-            </span>
+                            <span class="icon text-white-50">
+                              <i class="fas fa-check"></i>
+                            </span>
                             <span class="text">Thêm</span>
                         </button>
                         <h1 class="showno"></h1>
