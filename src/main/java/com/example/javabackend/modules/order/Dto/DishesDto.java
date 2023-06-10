@@ -7,7 +7,9 @@ import java.util.List;
 
 public class DishesDto {
     public Long dishId;
-    public List<Topping> listTopping;
+
+    public int quantity;
+    public List<ToppingDto> listTopping;
 
     public Long getDishId() {
         return dishId;
@@ -17,11 +19,19 @@ public class DishesDto {
         this.dishId = dishId;
     }
 
-    public List<Topping> getListTopping() {
+    public List<ToppingDto> getListTopping() {
         return listTopping;
     }
 
-    public void setListTopping(List<Topping> listTopping) {
+    public void setListTopping(List<ToppingDto> listTopping) {
         this.listTopping = listTopping;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

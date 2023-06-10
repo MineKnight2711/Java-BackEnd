@@ -49,8 +49,8 @@ public class DishService {
         return this.dishesRepository.findAll();
     }
 
-    public Optional<Dishes> getDishById(Long id) {
-        Optional<Dishes> response = dishesRepository.findById(id);
+    public Dishes getDishById(Long id) {
+        Dishes response = dishesRepository.findByDishId(id);
         return response;
     }
 
@@ -60,20 +60,6 @@ public class DishService {
                 .filter(dish -> dish.getDishName().contains(dishName))
                 .collect(Collectors.toList());
         return response;
-    }
-
-    public Dishes createDish2(DishDto newDish) {
-        Dishes dishes = new Dishes();
-        dishes.setDishName(newDish.dishName);
-        dishes.setPrice(newDish.price);
-        Category cate = categoryRepository.find(newDish.categoryId);
-        dishes.setCategories(cate);
-        Size size = sizeRepository.find(newDish.sizeId);
-        dishes.setSizes(size);
-        //String imageUrl= uploadImageService.uploadImage(image,"dishesimage/", dishes.getDishName());
-        //System.out.println(imageUrl);
-        //dishes.setImage(imageUrl);
-        return dishesRepository.save(dishes);
     }
 
     public Dishes createDish(MultipartFile image, DishDto newDish) throws IOException {
@@ -89,6 +75,10 @@ public class DishService {
         dishes.setImage(imageUrl);
         return dishesRepository.save(dishes);
     }
+
+//    public List<Dishes> getDishByCategory(Long id) {
+//
+//    }
 
 
     public Dishes updateDish(Dishes dishes) {
