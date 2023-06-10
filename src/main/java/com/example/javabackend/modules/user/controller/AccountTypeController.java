@@ -22,6 +22,7 @@ public class AccountTypeController {
     public List<AccountType> getAllAccountTypes() {
         return accountTypeService.getAllAccountTypes();
     }
+
     @PostMapping
     public AccountType createAccountType(@RequestBody AccountType accountType) {
         return accountTypeService.createAccountType(accountType);

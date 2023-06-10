@@ -1,16 +1,23 @@
 package com.example.javabackend.modules.user.controller;
 
+import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
+
 public class AccountController {
     @Autowired
     private AccountService accountsService;
@@ -30,8 +37,12 @@ public class AccountController {
     //Create Account
 
     @PostMapping
-    public AccountResponseDto createAccount(@ModelAttribute AccountsDTO accountsDTO) {
-        return accountsService.createAccount(accountsDTO);
+    public ModelAndView createAccount(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+        AccountResponseDto createAccount = this.accountsService.createAccount(accountsDTO.file, accountsDTO);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/themnguoiquantri");
+        mav.addObject("result", "success");
+        return mav;
     }
 
     //Login

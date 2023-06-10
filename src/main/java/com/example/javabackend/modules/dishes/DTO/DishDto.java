@@ -7,27 +7,19 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
-@Data
-@Getter
-@Setter
 public class DishDto {
-    @NotNull
     @JsonProperty("dishName")
     public String dishName;
-    @NotNull
     @JsonProperty("image")
     public String image;
-    @NotNull
     @JsonProperty("price")
     public double price;
-    @NotNull
     @JsonProperty("sizeId")
     public Long sizeId;
-    @NotNull
-    @JsonProperty("categoryId")
+
     public Long categoryId;
 
+    public MultipartFile file;
 
     public String getDishName() {
         return dishName;
@@ -69,4 +61,11 @@ public class DishDto {
         this.categoryId = categoryId;
     }
 
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 }
