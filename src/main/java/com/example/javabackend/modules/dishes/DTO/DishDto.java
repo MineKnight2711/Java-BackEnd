@@ -28,7 +28,6 @@ public class DishDto {
     @JsonProperty("categoryId")
     public Long categoryId;
 
-    public MultipartFile file;
 
     public String getDishName() {
         return dishName;
@@ -70,11 +69,4 @@ public class DishDto {
         this.categoryId = categoryId;
     }
 
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
 }

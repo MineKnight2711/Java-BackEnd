@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" th:action="@{/themsanpham}" th:object="${dish}" enctype="multipart/form-data">
+                <form method="post" action="/api/dish/add" th:object="${dish}" enctype="multipart/form-data">
 <!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
                                 <select class="form-control" id="categoryId" name="categoryId" th:field="*{categoryId}">
                                     <option value="">-- Chọn danh mục --</option>
                                     <option th:each="category: ${categories}" th:value="${category.CategoryID}" th:text="${category.CategoryName}">
-                                        <img th:src="${category.image}" alt="Category Image" width="20" height="20" />
+                                        <img th:src="${category.Image}" alt="Category Image" width="20" height="20" />
                                     </option>
                                 </select>
                             </div>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-6 mb-3">
-                                <label class="form-label" for="sizeId">Danh mục:</label>
+                                <label class="form-label" for="sizeId">Size:</label>
                                 <select class="form-control" id="sizeId" name="sizeId" th:field="*{sizeId}">
                                     <option value="">-- Chọn size --</option>
                                     <option th:each="size: ${sizes}" th:value="${size.SizeID}" th:text="${size.SizeName}"></option>
@@ -73,15 +73,16 @@
                         <div class="form-group">
                             <label for="image-input">Ảnh món ăn:</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" accept="image/*" id="image-input" name="file" required="">
+                                <input type="file" class="custom-file-input" accept="image/*" id="image-input"   required="">
                                 <label class="custom-file-label" for="image-input">Choose file</label>
                             </div>
-
+<!--                            <span class="text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></span>-->
                             <img id="image-preview" class="img-thumbnail" width="120" height="120">
                         </div>
                         <script>
                             // Disable notifications for the "Download URL: undefined" message
                             console.warn = function() {};
+                            const form = document.querySelector('form');
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');
@@ -98,6 +99,33 @@
                                     reader.readAsDataURL(file);
                                 }
                             });
+                            uploadButton.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default action of the button
+                                const file = imageInput.files[0];
+                                if (!file) {
+                                    // Display an error message if no file is selected
+                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                    return;
+                                }
+                                const formData = new FormData();
+                                formData.append('image', file);
+                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
+
+                                fetch('/api/categories/add', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Display the download URL of the uploaded file
+                                        alert(`Upload thành công`);
+                                    })
+                                    .catch(error => {
+                                        // Display an error message
+                                        alert(`Error: ${error.message}`);
+                                    });
+                            });
+
                         </script>
 
                         <div class="row">
@@ -117,6 +145,34 @@
 
                     </div>
                 </form>
+                <script>
+                    const form = document.querySelector('form');
+                    const imageInput = document.querySelector('#image-input');
+                    form.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        const file = imageInput.files[0];
+                        if (!file) {
+                            // Display an error message if no file is selected
+                            alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                            return;
+                        }// prevent the default form submission
+                        const formData = new FormData(form);
+                        formData.append('file', file);// create an instance of FormData to store the form data
+                        fetch('/api/dish/add', { // make a POST request to the specified endpoint
+                            method: 'POST',
+                            body: formData // pass the form data as the request body
+                        })
+                        .then(response => response.json()) // parse the response as JSON
+                        .then(data => {
+                            alert(JSON.stringify(data)); // display the response data as an alert
+                            // do something with the response data, such as displaying a success message
+                        })
+                        .catch(error => {
+                            alert(error.message); // display the error message as an alert
+                            // do something with the error, such as displaying an error message
+                        });
+                    });
+                </script>
             </div>
         </div>
     </div>

@@ -7,9 +7,13 @@ import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.dishes.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +26,7 @@ public class DishController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping("/list")
     public List<Dishes> getAllDishes() {
         return dishesService.getAllDishes();
     }
@@ -36,9 +40,18 @@ public class DishController {
     }
 
     @PostMapping("/add")
-    public Dishes createDish(@ModelAttribute DishDto dto)throws IOException{
+    public String createDish(@ModelAttribute("dto") @Valid DishDto dto, Model model, BindingResult result, @RequestParam("file") MultipartFile file)throws IOException{
         System.out.println("Run api Add");
-        return this.dishesService.createDish(dto.file,dto);
+        if(result.hasErrors()){
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors) {
+                model.addAttribute(error.getField() + "_error",
+                        error.getDefaultMessage());
+            }
+            return "/themsanpham";
+        }
+        this.dishesService.createDish(file,dto);
+        return "redirect:/themsanpham";
     }
 
     @PutMapping()
