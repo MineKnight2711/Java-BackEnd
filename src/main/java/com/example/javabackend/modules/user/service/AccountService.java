@@ -31,6 +31,7 @@ public class AccountService {
         response.setAccountId(acc.getAccountID());
         response.setAddress(acc.getAddress());
         response.setBirthday(acc.getBrithday());
+        response.setImageUrl(acc.getImageUrl());
         response.setEmail(acc.getEmail());
         response.setGender(acc.getGender());
         response.setAccountTypeId(acc.getAccountTypes().getAccountTypeID());
