@@ -10,5 +10,4 @@ public class OrderDto {
     public Date orderDate;
 
     public List<DishesDto> dishes;
-
 }
