@@ -25,7 +25,7 @@ public class DishController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping("/list")
     public List<Dishes> getAllDishes() {
         return dishesService.getAllDishes();
     }
