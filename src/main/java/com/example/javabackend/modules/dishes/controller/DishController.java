@@ -23,7 +23,7 @@ public class DishController {
     @Autowired
     private DishService dishesService;
 
-    @GetMapping()
+    @GetMapping
     public List<Dishes> getAllDishes() {
         return dishesService.getAllDishes();
     }
