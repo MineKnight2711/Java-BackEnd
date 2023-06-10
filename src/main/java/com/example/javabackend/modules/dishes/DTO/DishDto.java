@@ -16,7 +16,7 @@ public class DishDto {
     public double price;
     @JsonProperty("sizeId")
     public Long sizeId;
-    @JsonProperty("categoryId")
+
     public Long categoryId;
 
     public MultipartFile file;

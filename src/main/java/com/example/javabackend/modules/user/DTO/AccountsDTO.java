@@ -4,6 +4,7 @@ import com.example.javabackend.utils.DatetimeDeserialize;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Date;
@@ -14,13 +15,7 @@ public class AccountsDTO {
     private String password;
     private String imageUrl;
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+    public MultipartFile file;
 
     public AccountsDTO(Long accountID, String imageUrl, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
@@ -42,8 +37,9 @@ public class AccountsDTO {
     private String email;
     private String gender;
     @JsonProperty("birthday")
-    @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+//    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date birthday;
     private String address;
     private Long accountTypeId;
@@ -119,7 +115,13 @@ public class AccountsDTO {
     }
 
 
+    public MultipartFile getFile() {
+        return file;
+    }
 
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
     // các getter và setter
 
 }

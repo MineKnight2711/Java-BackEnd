@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 
 public class HomeController {
-
     @RequestMapping("/")
    public String trangchu(Model m) {
         String strTieuDe = "Day la trang chu";
@@ -30,6 +29,10 @@ public class HomeController {
         return "/product/index";
     }
 
+    @GetMapping("/qltopping")
+    public String qlTopping(Model m){
+        return "/manage/product/index";
+    }
     @GetMapping("/themtopping")
     public String addTopping(Model m){
         return "/topping/index";
@@ -39,10 +42,5 @@ public class HomeController {
     public String addAdmin(Model m){
         return "/account/index";
     }
-
-//    @GetMapping("/login")
-//    public String dangNhap(Model m){
-//        return "/login/index";
-//    }
 
 }
