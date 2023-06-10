@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("api/orders")
 public class OrdersController {
 
     @Autowired
@@ -20,10 +20,9 @@ public class OrdersController {
     public List<Orders> getAll() {
         return this.orderService.getAll();
     }
-
     @PostMapping("")
     public Orders createOrder(@RequestBody OrderDto createOrderDto) {
-        return orderService.createOrder(createOrderDto);
+        return this.orderService.createOrder(createOrderDto);
     }
 
     @GetMapping("/{orderId}")

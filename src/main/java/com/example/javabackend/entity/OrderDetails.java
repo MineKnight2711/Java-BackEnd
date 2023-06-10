@@ -25,18 +25,15 @@ public class OrderDetails {
     @JoinColumn(name = "DishID", nullable = false)
     private Dishes dishes;
 
-
     @ManyToOne
     @JoinColumn(name = "OrderID", nullable = false)
     private Orders orders;
-    @OneToMany(mappedBy = "orderDetails")
+
+    @Column(name = "Quantity", nullable = false)
+    private int quantity;
+
+    @OneToMany(mappedBy = "orderDetails", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderDetailsTopping> orderDetailsToppings;
-    @Column(name = "Address",length = 255)
-    private String Address;
-    @Column(name = "Status",length =30)
-    private String Status;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "DeliveredDate")
-    private Date DeliveredDate;
+
 }

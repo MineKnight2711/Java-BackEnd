@@ -19,21 +19,24 @@ import java.util.Optional;
 public class DishController {
     @Autowired
     private DishService dishesService;
-    @Autowired
-    private CategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping()
     public List<Dishes> getAllDishes() {
         return dishesService.getAllDishes();
     }
     @GetMapping("/{id}")
-    public Optional<Dishes> getDishById(@PathVariable Long id) {
+    public Dishes getDishById(@PathVariable Long id) {
         return dishesService.getDishById(id);
     }
     @GetMapping("/search")
     public List<Dishes> search(@Param("name") String name) {
         return (dishesService.searchDish(name));
     }
+
+//    @GetMapping("/category/{id}")
+//    public List<Dishes> getByCategory(@PathVariable Long id) {
+//        return this.dishesService.getDishByCategory(id);
+//    }
 
     @PostMapping("/add")
     public Dishes createDish(@ModelAttribute DishDto dto)throws IOException{
