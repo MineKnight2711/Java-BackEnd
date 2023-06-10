@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orderDetail")
+@RequestMapping("api/orderDetail")
 public class Order_DetailController {
     @Autowired
     private Order_DetailService orderDetailService;
 
-    @GetMapping("/{id}")
-    public List<OrderDetails> getByOrderId(@PathVariable Long orderId) {
-        return this.orderDetailService.getByOrderId(orderId);
+    @GetMapping("/id/{id}")
+    public List<OrderDetails> getByOrderId(@PathVariable Long id) {
+        System.out.println(id);
+        return this.orderDetailService.getByOrderId(id);
     }
 }

@@ -76,7 +76,7 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
-    public AccountResponseDto createAccount(MultipartFile imageUrl, AccountsDTO accountsDTO) throws IOException {
+    public AccountResponseDto createAccount(AccountsDTO accountsDTO) throws IOException {
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
@@ -86,8 +86,7 @@ public class AccountService {
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
         accounts.setEmail(accountsDTO.getEmail());
         accounts.setGender(accountsDTO.getGender());
-        String image= uploadImageService.uploadImage(imageUrl,"userimage/", accounts.getFullName());
-        System.out.println(imageUrl);
+        String image= uploadImageService.uploadImage(accountsDTO.file,"userimage/", accounts.getFullName());
         accounts.setImageUrl(image);
         if(accountsDTO.getBirthday()!=null){
             accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));

@@ -16,7 +16,16 @@ public class AccountsDTO {
     private String imageUrl;
 
     public MultipartFile file;
-
+    private String fullName;
+    private String phoneNumber;
+    private String email;
+    private String gender;
+    @JsonProperty("birthday")
+//    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    private String address;
+    private Long accountTypeId;
     public AccountsDTO(Long accountID, String imageUrl, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
         this.imageUrl=imageUrl;
@@ -31,18 +40,6 @@ public class AccountsDTO {
     }
 
     public AccountsDTO(){}
-
-    private String fullName;
-    private String phoneNumber;
-    private String email;
-    private String gender;
-    @JsonProperty("birthday")
-//    @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-
-    private Date birthday;
-    private String address;
-    private Long accountTypeId;
 
     public Long getAccountId() { return accountId; };
 

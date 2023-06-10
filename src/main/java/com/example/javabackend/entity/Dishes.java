@@ -46,5 +46,6 @@ public class Dishes {
 
     @OneToMany (mappedBy = "dishes", cascade = CascadeType.ALL)
     @JsonIgnore
+    @JsonManagedReference
     private List<OrderDetails> orderDetails;
 }
