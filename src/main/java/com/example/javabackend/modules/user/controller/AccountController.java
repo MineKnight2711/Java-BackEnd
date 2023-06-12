@@ -37,7 +37,8 @@ public class AccountController {
     //Create Account
 
     @PostMapping
-    public AccountResponseDto createAccount(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+    public AccountResponseDto createAccount(@RequestBody AccountsDTO accountsDTO) throws IOException {
+        System.out.println(accountsDTO);
         return this.accountsService.createAccount(accountsDTO);
     }
 

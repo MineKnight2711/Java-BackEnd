@@ -12,7 +12,7 @@ import java.util.List;
 public class SizeController {
     @Autowired
     private SizeService sizeService;
-    @GetMapping("/list")
+    @GetMapping()
     public List<Size> getAll() {
         return this.sizeService.getAll();
     }
