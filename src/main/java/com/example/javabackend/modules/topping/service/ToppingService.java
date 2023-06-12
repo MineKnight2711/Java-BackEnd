@@ -29,7 +29,7 @@ public class ToppingService {
     }
 
     public Topping getById(Long id) {
-        return this.toppingRepository.getById(id);
+        return this.toppingRepository.findByToppingId(id);
     }
 
     public Topping create(MultipartFile image, ToppingDto newTopping) throws IOException {
@@ -39,6 +39,12 @@ public class ToppingService {
         String imageUrl= uploadImageService.uploadImage(image,"toppingsimage/", topping.getToppingName());
         System.out.println(imageUrl);
         topping.setImage(imageUrl);
+        return this.toppingRepository.save(topping);
+    }
+
+    public Topping create(ToppingDto dto) {
+        Topping topping = new Topping();
+        setDto(dto, topping);
         return this.toppingRepository.save(topping);
     }
 

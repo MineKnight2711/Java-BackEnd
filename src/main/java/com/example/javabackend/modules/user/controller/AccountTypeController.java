@@ -24,7 +24,7 @@ public class AccountTypeController {
     }
 
     @PostMapping
-    public AccountType createAccountType(@RequestBody AccountType accountType) {
+    public AccountType createAccountType(@ModelAttribute AccountType accountType) {
         return accountTypeService.createAccountType(accountType);
     }
 

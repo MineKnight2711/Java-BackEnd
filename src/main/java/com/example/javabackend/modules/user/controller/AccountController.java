@@ -37,8 +37,13 @@ public class AccountController {
     //Create Account
 
     @PostMapping
-    public ModelAndView createAccount(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
-        AccountResponseDto createAccount = this.accountsService.createAccount(accountsDTO.file, accountsDTO);
+    public AccountResponseDto createAccount(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+        return this.accountsService.createAccount(accountsDTO);
+    }
+
+    @PostMapping("/web")
+    public ModelAndView createAccountWeb(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+        AccountResponseDto createAccount = this.accountsService.createAccount(accountsDTO);
         ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/themnguoiquantri");
         mav.addObject("result", "success");
@@ -50,7 +55,6 @@ public class AccountController {
     public AccountResponseDto login(@RequestBody UserLoginDto user) throws Exception {
         return accountsService.login(user);
     }
-
     @PutMapping("/update")
     public UpdateAccountDto updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
         return accountsService.updateUser(accountsDTO);

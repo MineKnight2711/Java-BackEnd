@@ -23,7 +23,7 @@ public class AccountTypeService {
 
     // Get By Id
     public AccountType getById(Long id) {
-        return this.accountTypeRepository.getById(id);
+        return this.accountTypeRepository.findByAccountTypeId(id);
     }
 
     //Create New

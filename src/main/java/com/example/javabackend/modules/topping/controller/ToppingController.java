@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/topping")
+@RequestMapping("api/topping")
 public class ToppingController {
     @Autowired
     ToppingService toppingService;
@@ -36,6 +36,10 @@ public class ToppingController {
         mav.setViewName("redirect:/themtopping");
         mav.addObject("result", "success");
         return mav;
+    }
+    @PostMapping()
+    public Topping create(@ModelAttribute ToppingDto dto) {
+        return this.toppingService.create(dto);
     }
     @PutMapping("/{id}")
     public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
