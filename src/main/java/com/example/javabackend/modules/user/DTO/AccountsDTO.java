@@ -21,8 +21,8 @@ public class AccountsDTO {
     private String email;
     private String gender;
     @JsonProperty("birthday")
-//    @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthday;
     private String address;
     private Long accountTypeId;
@@ -53,6 +53,14 @@ public class AccountsDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getFullName() {

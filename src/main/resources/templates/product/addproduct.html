@@ -1,4 +1,6 @@
 <!-- Begin Page Content -->
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">THÊM MÓN MỚI ĐI CHỦ NHÂN</h1>
@@ -23,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/api/dish/add" enctype="multipart/form-data">
+                <form method="post" action="/api/dish/add" enctype="multipart/form-data" th:object="${dish}">
                     <div id="notification"></div>
 
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here" />
@@ -35,12 +37,14 @@
                                     <input type="text" id="dishName" name="dishName" class="form-control" required="" placeholder="Nhập tên sản phẩm">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="categoryId">Danh mục:</label>
-                                    <select id="categoryId" name="categoryId" class="form-control">
-                                    </select>
-                                </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label" for="categoryId">Danh mục:</label>
+                                <select class="form-control" id="categoryId" name="categoryId" th:field="*{categoryId}">
+                                    <option value="">-- Chọn danh mục --</option>
+                                    <option th:each="category: ${categories}" th:value="${category.CategoryID}" th:text="${category.CategoryName}">
+                                        <img th:src="${category.image}" alt="Category Image" width="20" height="20" />
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -50,16 +54,16 @@
                                     <input type="number" id="Price" name="Price" class="form-control" required="" placeholder="Nhập giá tiền">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="sizeId">Danh mục:</label>
-                                    <select id="sizeId" name="sizeId" class="form-control">
-                                    </select>
-                                </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label" for="sizeId">Chọn size</label>
+                                <select class="form-control" id="sizeId" name="sizeId" th:field="*{sizeId}">
+                                    <option value="">-- Chọn size --</option>
+                                    <option th:each="size: ${sizes}" th:value="${size.SizeID}" th:text="${size.SizeName}"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image-input">Ảnh danh mục:</label>
+                            <label for="image-input">Ảnh sản phẩm:</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file">
                                 <label class="custom-file-label" for="image-input">Choose file</label>
@@ -69,55 +73,55 @@
                             </div>
                         </div>
                         <!--Đây là script load danh mục theo categoryName và get CategoryId khi chọn-->
-                        <script>
-                            fetch('/api/categories/list')
-                              .then(response => response.json())
-                              .then(categories => {
-                                const select = document.getElementById('categoryId');
+<!--                        <script>-->
+<!--                            fetch('/api/categories/list')-->
+<!--                              .then(response => response.json())-->
+<!--                              .then(categories => {-->
+<!--                                const select = document.getElementById('categoryId');-->
 
-                                // Thêm tùy chọn mặc định
-                                const defaultOption = document.createElement('option');
-                                defaultOption.text = '-- Chọn danh mục --';
-                                select.add(defaultOption);
+<!--                                // Thêm tùy chọn mặc định-->
+<!--                                const defaultOption = document.createElement('option');-->
+<!--                                defaultOption.text = '&#45;&#45; Chọn danh mục &#45;&#45;';-->
+<!--                                select.add(defaultOption);-->
 
-                                // Thêm các tùy chọn danh mục vào combobox
-                                categories.forEach(category => {
-                                  const option = document.createElement('option');
-                                  option.value = category.categoryID;
-                                  option.text = category.categoryName;
-                                  select.add(option);
-                                });
-                              })
-                              .catch(error => {
-                                console.error('Error fetching categories:', error);
-                              });
-                        </script>
+<!--                                // Thêm các tùy chọn danh mục vào combobox-->
+<!--                                categories.forEach(category => {-->
+<!--                                  const option = document.createElement('option');-->
+<!--                                  option.value = category.categoryID;-->
+<!--                                  option.text = category.categoryName;-->
+<!--                                  select.add(option);-->
+<!--                                });-->
+<!--                              })-->
+<!--                              .catch(error => {-->
+<!--                                console.error('Error fetching categories:', error);-->
+<!--                              });-->
+<!--                        </script>-->
                         <!-- Đóng script trên -->
 
                         <!--Đây là script load danh mục theo categoryName và get CategoryId khi chọn-->
-                        <script>
-                            fetch('/api/size')
-                              .then(response => response.json())
-                              .then(categories => {
-                                const select = document.getElementById('sizeId');
+<!--                        <script>-->
+<!--                            fetch('/api/size')-->
+<!--                              .then(response => response.json())-->
+<!--                              .then(categories => {-->
+<!--                                const select = document.getElementById('sizeId');-->
 
-                                // Thêm tùy chọn mặc định
-                                const defaultOption = document.createElement('option');
-                                defaultOption.text = '-- Chọn size --';
-                                select.add(defaultOption);
+<!--                                // Thêm tùy chọn mặc định-->
+<!--                                const defaultOption = document.createElement('option');-->
+<!--                                defaultOption.text = '&#45;&#45; Chọn size &#45;&#45;';-->
+<!--                                select.add(defaultOption);-->
 
-                                // Thêm các tùy chọn danh mục vào combobox
-                                categories.forEach(category => {
-                                  const option = document.createElement('option');
-                                  option.value = category.sizeID;
-                                  option.text = category.sizeName;
-                                  select.add(option);
-                                });
-                              })
-                              .catch(error => {
-                                console.error('Error fetching categories:', error);
-                              });
-                        </script>
+<!--                                // Thêm các tùy chọn danh mục vào combobox-->
+<!--                                categories.forEach(category => {-->
+<!--                                  const option = document.createElement('option');-->
+<!--                                  option.value = category.sizeID;-->
+<!--                                  option.text = category.sizeName;-->
+<!--                                  select.add(option);-->
+<!--                                });-->
+<!--                              })-->
+<!--                              .catch(error => {-->
+<!--                                console.error('Error fetching categories:', error);-->
+<!--                              });-->
+<!--                        </script>-->
                         <!-- Đóng script trên -->
 
                         <script>

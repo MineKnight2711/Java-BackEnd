@@ -87,8 +87,14 @@ public class AccountService {
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
         accounts.setEmail(accountsDTO.getEmail());
         accounts.setGender(accountsDTO.getGender());
-        String image= uploadImageService.uploadImage(accountsDTO.file,"userimage/", accounts.getFullName());
-        accounts.setImageUrl(image);
+        if(accountsDTO.file!=null){
+            String image= uploadImageService.uploadImage(accountsDTO.file,"userimage/", accounts.getFullName());
+            accounts.setImageUrl(image);
+        }
+        else{
+            accounts.setImageUrl(accountsDTO.getImageUrl());
+        }
+
         if(accountsDTO.getBirthday()!=null){
             accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));
         }
