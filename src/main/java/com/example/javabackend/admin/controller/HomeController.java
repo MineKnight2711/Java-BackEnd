@@ -55,4 +55,14 @@ public class HomeController {
         return "/account/index";
     }
 
+    @GetMapping("/qlsanpham")
+    public String qlSanPham(Model m){
+        return "/manage/product/index";
+    }
+
+    @GetMapping("/suatopping")
+    public String suatopping(Model m){
+        return "/manage/topping/index";
+    }
+
 }

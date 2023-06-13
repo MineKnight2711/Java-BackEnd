@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thyme leaf.org/thyme leaf-extras-springsecurity4" lang="en">
+
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">QUẢN LÝ SẢN PHẨM</h1>
@@ -12,16 +16,41 @@
                     <h6 class="m-0 font-weight-bold text-primary">Danh Sách sản phẩm</h6>
                 </div>
                 <div class="card-body">
-                    <table id="topping-table" class="table table-bordered">
+                    <table id="product-table1" class="table table-bordered" >
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Hình ảnh</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Danh mục</th>
-                            <th scope="col">Size</th>
+                            <th>ID</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Giá</th>
+                            <th>Danh mục</th>
+                            <th>Size</th>
+                            <th>Thao tác</th>
+
                         </tr>
+                        <tr th:each="dishes: ${dishes}">
+                            <td th:text="${dishes.dishID}"></td>
+                            <td th:text="${dishes.dishName}"></td>
+                            <td th:text="${dishes.image}"></td>
+                            <td th:text="${dishes.price}"></td>
+                            <td th:text="${dishes.categoryID}"></td>
+                            <td th:text="${dishes.sizeID}"></td>
+                            <td th:text="${dishes.dishName}"></td>
+                            <td >
+                                <a class="styled-button" th:href="@{/books/edit/{id}(id=${book.id})}">Sửa</a> |
+                                <a class="styled-button" th:href="@{/books/delete/{id}(id=${book.id})}" onclick="deleteBook(this);return false">Xoá</a>
+                            </td>
+                        </tr>
+
+<!--                        <tr>-->
+<!--                            <th scope="col">ID</th>-->
+<!--                            <th scope="col">Tên sản phẩm</th>-->
+<!--                            <th scope="col">Hình ảnh</th>-->
+<!--                            <th scope="col">Giá</th>-->
+<!--                            <th scope="col">Danh mục</th>-->
+<!--                            <th scope="col">Size</th>-->
+<!--                            <th scope="col">Thao tác</th>-->
+<!--                        </tr>-->
                         </thead>
                         <tbody>
                         <!-- Thêm các hàng khác vào đây -->
@@ -74,51 +103,57 @@
                         </nav>
                     </div>
 
-                    <script>
-                       fetch('/api/topping')
-                      .then(response => response.json())
-                      .then(data => {
-                        const tableBody = document.querySelector('#topping-table tbody');
-                        for (const topping of data) {
-                          const row = tableBody.insertRow();
+<!--                    <script>-->
+<!--                       fetch('/api/dish')-->
+<!--                      .then(response => response.json())-->
+<!--                      .then(data => {-->
+<!--                        const tableBody = document.querySelector('#product-table tbody');-->
+<!--                        for (const dishes of data) {-->
+<!--                          const row = tableBody.insertRow();-->
 
-                            const IdCell = row.insertCell();
-                          IdCell.textContent = topping.toppingID;
+<!--                            const IdCell = row.insertCell();-->
+<!--                          IdCell.textContent = dishes.dishID;-->
 
-                          const toppingNameCell = row.insertCell();
-                          toppingNameCell.textContent = topping.toppingName;
+<!--                          const productNameCell = row.insertCell();-->
+<!--                          productNameCell.textContent = dishes.dishName;-->
 
-                          const priceCell = row.insertCell();
-                          priceCell.textContent = topping.price;
+<!--                          const imageCell = row.insertCell();-->
+<!--                          imageCell.textContent = dishes.image;-->
 
-                          const unitCell = row.insertCell();
-                          unitCell.textContent = topping.unit;
+<!--                          const priceCell = row.insertCell();-->
+<!--                          priceCell.textContent = dishes.price;-->
 
-                          const actionCell = row.insertCell();
-                    actionCell.classList.add('action-cell'); // Thêm class 'action-cell' cho cột Thao tác
-                         const editButton = document.createElement('button');
-                    editButton.classList.add('btn', 'btn-primary'); // Thêm class 'btn' và 'btn-primary' cho button sửa
-                          editButton.textContent = 'Sửa';
-                          editButton.addEventListener('click', () => {
-                            // Xử lý sự kiện khi click vào button sửa
-                            // ở đây bạn có thể mở một form để sửa thông tin của topping
-                            console.log('Sửa topping:', topping.toppingName);
-                          });
-                          actionCell.appendChild(editButton); // Thêm button sửa vào cột Thao tác
+<!--                           const categoryId = row.insertCell();-->
+<!--                          categoryId.textContent = dishes.categoryID;-->
 
-                        const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('btn', 'btn-danger'); // Thêm class 'btn' và 'btn-danger' cho button xoá
-                          deleteButton.textContent = 'Xoá';
-                          deleteButton.addEventListener('click', () => {
-                            // Xử lý sự kiện khi click vào button xoá
-                            // ở đây bạn có thể gửi một request đến API để xoá topping
-                            console.log('Xoá topping:', topping.toppingName);
-                            row.remove(); // Xoá hàng khỏi bảng
-                          });
-                          actionCell.appendChild(deleteButton); // Thêm button xoá vào cột Thao tác
-                        }
-                      });
-                    </script>
+<!--                           const sizeCell = row.insertCell();-->
+<!--                          sizeCell.textContent = dishes.sizeID;-->
+
+<!--                          const actionCell = row.insertCell();-->
+<!--                    actionCell.classList.add('action-cell'); // Thêm class 'action-cell' cho cột Thao tác-->
+<!--                         const editButton = document.createElement('button');-->
+<!--                    editButton.classList.add('btn', 'btn-primary'); // Thêm class 'btn' và 'btn-primary' cho button sửa-->
+<!--                          editButton.textContent = 'Sửa';-->
+<!--                          editButton.addEventListener('click', () => {-->
+<!--                            // Xử lý sự kiện khi click vào button sửa-->
+<!--                            // ở đây bạn có thể mở một form để sửa thông tin của topping-->
+<!--                            console.log('Sửa topping:', topping.toppingName);-->
+<!--                          });-->
+<!--                          actionCell.appendChild(editButton); // Thêm button sửa vào cột Thao tác-->
+
+<!--                        const deleteButton = document.createElement('button');-->
+<!--                    deleteButton.classList.add('btn', 'btn-danger'); // Thêm class 'btn' và 'btn-danger' cho button xoá-->
+<!--                          deleteButton.textContent = 'Xoá';-->
+<!--                          deleteButton.addEventListener('click', () => {-->
+<!--                            // Xử lý sự kiện khi click vào button xoá-->
+<!--                            // ở đây bạn có thể gửi một request đến API để xoá topping-->
+<!--                            console.log('Xoá topping:', topping.toppingName);-->
+<!--                            row.remove(); // Xoá hàng khỏi bảng-->
+<!--                          });-->
+<!--                          actionCell.appendChild(deleteButton); // Thêm button xoá vào cột Thao tác-->
+<!--                        }-->
+<!--                      });-->
+<!--                    </script>-->
 
 
 
