@@ -46,14 +46,8 @@ public class AccountController {
         System.out.println(accountsDTO);
         return this.accountsService.createAccount(accountsDTO);
     }
-    @PostMapping("/web")
-    public ModelAndView createAccountWeb(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
-        AccountResponseDto createAccount = this.accountsService.createAccount(accountsDTO);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/themnguoiquantri");
-        mav.addObject("result", "success");
-        return mav;
-    }
+
+
 
     //Login
     @PostMapping("/login")

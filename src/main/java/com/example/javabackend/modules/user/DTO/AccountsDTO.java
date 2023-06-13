@@ -4,26 +4,37 @@ import com.example.javabackend.utils.DatetimeDeserialize;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.util.Date;
 
 public class AccountsDTO {
     private Long accountId;
+    @NotNull
     private String password;
+    @NotNull
     private String imageUrl;
+    @NotNull
 
     public MultipartFile file;
+    @NotNull
     private String fullName;
+    @NotNull
     private String phoneNumber;
+    @NotNull
     private String email;
+    @NotNull
     private String gender;
+    @NotNull
     @JsonProperty("birthday")
     @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+    @NotNull
     private String address;
     private Long accountTypeId;
     public AccountsDTO(Long accountID, String imageUrl, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {

@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-
+@RequestMapping("/")
 public class HomeController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
     private SizeService sizeService;
-    @Autowired
-    private AccountTypeService accountTypeService;
-    @RequestMapping("/")
+
+    @GetMapping("/")
    public String trangchu(Model m) {
         String strTieuDe = "Day la trang chu";
         m.addAttribute("Tieu de trang", strTieuDe);
@@ -55,12 +54,6 @@ public class HomeController {
         return "/topping/index";
     }
 
-    @GetMapping("/themnguoiquantri")
-    public String addAdmin(Model m){
-        m.addAttribute("newaccount",new AccountsDTO());
-        m.addAttribute("accounttypes", accountTypeService.getAllAccountTypes());
-        return "/account/index";
 
-    }
 
 }

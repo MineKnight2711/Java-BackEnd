@@ -34,9 +34,13 @@ public class SecurityConfig {
             Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/css/**", "/js/**", "/", "/register","/api/accounts/**", "/error")
-                        .permitAll().anyRequest()
+                        .requestMatchers( "/css/**", "/js/**", "/", "/api/**","/register", "/error")
+                        .permitAll()
+                        .requestMatchers( "/themnguoiquantri")
+                        .permitAll()
+                        .anyRequest()
                         .authenticated()
+
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
