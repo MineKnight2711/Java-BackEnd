@@ -41,7 +41,11 @@ public class AccountController {
         System.out.println(accountsDTO);
         return this.accountsService.createAccount(accountsDTO);
     }
-
+    @PostMapping("/test")
+    public AccountResponseDto createAccountTest(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+        System.out.println(accountsDTO);
+        return this.accountsService.createAccount(accountsDTO);
+    }
     @PostMapping("/web")
     public ModelAndView createAccountWeb(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
         AccountResponseDto createAccount = this.accountsService.createAccount(accountsDTO);

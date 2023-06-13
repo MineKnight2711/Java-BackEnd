@@ -1,8 +1,12 @@
 package com.example.javabackend.admin.controller;
 
+import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.size.service.SizeService;
+import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
+import com.example.javabackend.modules.user.DTO.AccountsDTO;
+import com.example.javabackend.modules.user.service.AccountTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,8 @@ public class HomeController {
     private CategoryService categoryService;
     @Autowired
     private SizeService sizeService;
+    @Autowired
+    private AccountTypeService accountTypeService;
     @RequestMapping("/")
    public String trangchu(Model m) {
         String strTieuDe = "Day la trang chu";
@@ -51,7 +57,10 @@ public class HomeController {
 
     @GetMapping("/themnguoiquantri")
     public String addAdmin(Model m){
+        m.addAttribute("newaccount",new AccountsDTO());
+        m.addAttribute("accounttypes", accountTypeService.getAllAccountTypes());
         return "/account/index";
+
     }
 
 }

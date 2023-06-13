@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">THÊM MỚI NGƯỜI DÙNG MỚI ĐI CHỦ NHÂN ^-^!</h1>
@@ -23,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/api/accounts" enctype="multipart/form-data">
+                <form method="post" action="/api/accounts" enctype="multipart/form-data" th:object="${newaccount}">
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
                     <div class="card-body">
                         <div class="row">
@@ -74,7 +76,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="birthday">Chọn ngày sinh:</label>
-                                            <input type="date" id="birthday" name="birthday" class="form-control">
+                                            <input type="date" id="birthday" name="birthday" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -210,39 +212,12 @@
                               }
                             });
                         </script>
-                        <!--Đây là script load loại toài khoản theo accountTypeName và get accountTypeId khi chọn-->
-                        <script>
-                            fetch('/api/account-types')
-                              .then(response => response.json())
-                              .then(categories => {
-                                const select = document.getElementById('accountTypeId');
 
-                                // Thêm tùy chọn mặc định
-                                const defaultOption = document.createElement('option');
-                                defaultOption.text = '-- Chọn loại tài khoản --';
-                                select.add(defaultOption);
-
-                                // Thêm các tùy chọn danh mục vào combobox
-                                categories.forEach(account => {
-                                  const option = document.createElement('option');
-                                  option.value = account.accountTypeID;
-                                  option.text = account.accountTypeName;
-                                  select.add(option);
-                                });
-                              })
-                              .catch(error => {
-                                console.error('Error fetching accounts:', error);
-                              });
-                        </script>
-                        <!-- Đóng script trên -->
 
                         <script>
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');
-                            const catename=document.querySelector('#CategoryName');
-                            const uploadButton = document.querySelector('#upload-button');
-
                             // When the user selects an image, display a preview of the image
                             imageInput.addEventListener('change', () => {
                                 const file = imageInput.files[0];
@@ -253,34 +228,6 @@
                                     };
                                     reader.readAsDataURL(file);
                                 }
-                            });
-
-                            // When the user clicks the upload button, send the image to the server
-                            uploadButton.addEventListener('click', (event) => {
-                                event.preventDefault(); // Prevent the default action of the button
-                                const file = imageInput.files[0];
-                                if (!file) {
-                                    // Display an error message if no file is selected
-                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-                                    return;
-                                }
-                                const formData = new FormData();
-                                formData.append('image', file);
-                                formData.append('categoryName', catename.value); // Replace 'user_info' with the actual user info
-
-                                fetch('/api/categories/add', {
-                                    method: 'POST',
-                                    body: formData
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        // Display the download URL of the uploaded file
-                                        alert(`Upload thành công`);
-                                    })
-                                    .catch(error => {
-                                        // Display an error message
-                                        alert(`Error: ${error.message}`);
-                                    });
                             });
                         </script>
 

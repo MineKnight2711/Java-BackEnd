@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.Date;
 
 public class AccountsDTO {
-
     private Long accountId;
     private String password;
     private String imageUrl;

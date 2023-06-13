@@ -24,21 +24,21 @@ public class LoginController {
         return "/login/index";
     }
 
-    @PostMapping("/login")
-    public String processLoginForm(@RequestParam("email") String email,
-                                   @RequestParam("password") String password,
-                                   Model model) {
-        UserLoginDto dto = new UserLoginDto();
-        dto.setUsername(email);
-        dto.setPassword(password);
-        var response = this.accountService.login(dto);
-        System.out.println(response.getStatus());
-        if (response.getStatus() == "Success") {
-            model.addAttribute("account", response.getStatus());
-            return "/indexSB";
-        } else {
-            model.addAttribute("error", response.getStatus());
-            return "/login/index";
-        }
-    }
+//    @PostMapping("/login")
+//    public String processLoginForm(@RequestParam("email") String email,
+//                                   @RequestParam("password") String password,
+//                                   Model model) {
+//        UserLoginDto dto = new UserLoginDto();
+//        dto.setUsername(email);
+//        dto.setPassword(password);
+//        var response = this.accountService.login(dto);
+//        System.out.println(response.getStatus());
+//        if (response.getStatus() == "Success") {
+//            model.addAttribute("account", response.getStatus());
+//            return "/indexSB";
+//        } else {
+//            model.addAttribute("error", response.getStatus());
+//            return "/login/index";
+//        }
+//    }
 }
