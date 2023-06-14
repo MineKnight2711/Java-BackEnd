@@ -94,7 +94,6 @@ public class AccountService {
         else{
             accounts.setImageUrl(accountsDTO.getImageUrl());
         }
-
         if(accountsDTO.getBirthday()!=null){
             accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));
         }
@@ -120,7 +119,7 @@ public class AccountService {
 
     public Date parseBirthday(Date birthday) {
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(timeZone);
 
         String formattedDate = dateFormat.format(birthday);

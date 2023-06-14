@@ -18,7 +18,8 @@ public class OrderDetailsTopping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "Quantity", nullable = false)
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "order_details_id")
     @JsonManagedReference
