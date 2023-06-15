@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -172,6 +173,7 @@ public class AccountService {
             user.setStatus("Pass Wrong");
             return user;
         }
+
         account.setPassword(BCrypt.hashpw(user.getNewPass(), BCrypt.gensalt()));
         accountsRepository.save(account);
         user.setPassword("");
@@ -179,4 +181,5 @@ public class AccountService {
         user.setStatus("Success");
         return user;
     }
+
 }

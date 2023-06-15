@@ -40,15 +40,15 @@ public class AccountController {
     //Create Account
 
     @PostMapping
-    public AccountResponseDto createAccount(@RequestBody AccountsDTO accountsDTO) throws IOException {
+    public AccountResponseDto createAccount(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
         System.out.println(accountsDTO);
         return this.accountsService.createAccount(accountsDTO);
     }
-    @PostMapping("/test")
-    public AccountResponseDto createAccountTest(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
-        System.out.println(accountsDTO);
-        return this.accountsService.createAccount(accountsDTO);
-    }
+//    @PostMapping("/test")
+//    public AccountResponseDto createAccountTest(@ModelAttribute AccountsDTO accountsDTO) throws IOException {
+//        System.out.println(accountsDTO);
+//        return this.accountsService.createAccount(accountsDTO);
+//    }
 
 
 
@@ -61,17 +61,15 @@ public class AccountController {
     public UpdateAccountDto updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
         return accountsService.updateUser(accountsDTO);
     }
-
     @PutMapping("/password")
     public ChangePassDto changePass(@RequestBody ChangePassDto user) {
         return this.accountsService.changePass(user);
     }
-
     @PostMapping("/otp")
     public ResponseEntity<String> sendOtpToEmail(@RequestParam String email) {
         try {
             boolean result = passwordResetService.sendOtpToEmail(email);
-            if(result==true) {
+            if(result) {
                 return ResponseEntity.ok("Đã gửi otp đến hộp thư của bạn");
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản");
@@ -79,5 +77,15 @@ public class AccountController {
         } catch (MessagingException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gửi mail không thành công!");
         }
+    }
+    @PutMapping("/changepassword/{email}")
+    public ResponseEntity<String> changePassword(
+            @PathVariable("email") String email,
+            @RequestParam("otpValue") String otpValue,
+            @RequestParam("newPassword") String newPassword) {
+
+        String status=passwordResetService.changePassword(email,otpValue,newPassword);
+
+        return ResponseEntity.ok(status);
     }
 }

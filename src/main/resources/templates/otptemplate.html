@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OTP for password reset</title>
+  <title>Mã OTP reset password</title>
 </head>
 <body>
-<p>Dear <span th:utext="${name}"></span>,</p>
-<p>Your OTP for resetting your password is: <span th:utext="${otp}"></span>. Please enter this OTP within 5 minutes to reset your password.</p>
-<p>If you did not request a password reset, please ignore this email.</p>
-<p>Regards,</p>
+<p>Xin chào <span th:utext="${name}"></span>,</p>
+<p>Mã xác thực để đặt lại mật khẩu của bạn là: <span th:utext="${otp}"></span>.
+  Mã này có hiệu lực trong <span th:utext="${otpExpiryTime}"></span> phút.</p>
+<p>Vui lòng không chia sẻ mã này cho bất cứ ai khác.</p>
+<p>Trân trọng,</p>
 <p>Năm anh em siêu nhân</p>
 </body>
 </html>
