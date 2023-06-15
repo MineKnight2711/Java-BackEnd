@@ -34,7 +34,7 @@ public class SecurityConfig {
             Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/css/**", "/js/**", "/", "/api/**","/register", "/error")
+                        .requestMatchers( "/css/**", "/js/**", "/", "/api/**","/api/dish/**","/register", "/error")
                         .permitAll()
                         .requestMatchers( "/themnguoiquantri")
                         .permitAll()
@@ -51,7 +51,7 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/admin")
+                        .defaultSuccessUrl("/",true)
                         .permitAll()
                 )
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")

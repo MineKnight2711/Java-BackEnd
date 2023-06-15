@@ -3,6 +3,8 @@ package com.example.javabackend.modules.user.controller;
 import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.service.AccountService;
+import com.example.javabackend.modules.user.service.PasswordResetService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,8 @@ import java.util.List;
 public class AccountController {
     @Autowired
     private AccountService accountsService;
-
+    @Autowired
+    private PasswordResetService passwordResetService;
     //Get All User
     @GetMapping("/all")
     public List<AccountsDTO> getAllAccount() {
@@ -64,5 +67,17 @@ public class AccountController {
         return this.accountsService.changePass(user);
     }
 
-
+    @PostMapping("/otp")
+    public ResponseEntity<String> sendOtpToEmail(@RequestParam String email) {
+        try {
+            boolean result = passwordResetService.sendOtpToEmail(email);
+            if(result==true) {
+                return ResponseEntity.ok("Đã gửi otp đến hộp thư của bạn");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không tìm thấy tài khoản");
+            }
+        } catch (MessagingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gửi mail không thành công!");
+        }
+    }
 }

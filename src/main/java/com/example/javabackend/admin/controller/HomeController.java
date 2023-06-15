@@ -22,7 +22,7 @@ public class HomeController {
     private SizeService sizeService;
 
     @GetMapping("/")
-   public String trangchu(Model m) {
+    public String trangchu(Model m) {
         String strTieuDe = "Day la trang chu";
         m.addAttribute("Tieu de trang", strTieuDe);
         return "indexSB";
@@ -53,7 +53,5 @@ public class HomeController {
     public String addTopping(Model m){
         return "/topping/index";
     }
-
-
 
 }
