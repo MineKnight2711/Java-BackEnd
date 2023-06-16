@@ -5,9 +5,7 @@ import com.example.javabackend.entity.Topping;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.modules.topping.service.ToppingService;
-import jakarta.jws.WebParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,61 +41,10 @@ public class ToppingController {
     public Topping create(@ModelAttribute ToppingDto dto) {
         return this.toppingService.create(dto);
     }
-//    @PutMapping("/{id}")
-//    public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
-//        return this.toppingService.update(id,dto);
-//    }
-
-
-//    @GetMapping("/edit/{id}")
-//    public ModelAndView editToppingForm(@PathVariable Long id, Model model) {
-//        Topping topping = toppingService.getById(id);
-//        model.addAttribute("topping", topping);
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("redirect:/edit-topping");
-//
-//        return mav;
-//    }
-//
-//    @PutMapping("/edit/{id}")
-//    public ModelAndView updateTopping(@PathVariable Long id, ToppingDto dto) {
-//        toppingService.update(id, dto);
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("redirect:/edit-topping");
-//        return mav;
-//
-////        return "redirect:/topping";
-//    }
-//    @GetMapping("/edit-topping/{id}")
-//    public ModelAndView editToppingForm(@PathVariable("id") Long id, Model model) {
-//        Topping topping = toppingService.getById(id);
-//        ModelAndView mav = new ModelAndView();
-//        model.addAttribute("topping", topping);
-//        mav.setViewName("redirect:/edit-topping/{id}");
-//       return mav;
-//    }
-
-
-//    @PutMapping("/edit/{id}")
-//    public String updateTopping(@PathVariable Long id, ToppingDto dto) {
-//        toppingService.update(id, dto);
-//        Topping topping= toppingService.getById(id);
-//
-//        return "redirect:/api/topping";
-//    }
-
-//    @PutMapping("/edit/{id}")
-//    public ModelAndView updateTopping(@PathVariable Long id, ToppingDto dto, Model model) {
-//        toppingService.update(id, dto);
-//        Topping topping= toppingService.getById(id);
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("redirect:/qltopping");
-//        return mav;
-////        return "redirect:/topping";
-//    }
-
-
-
+    @PutMapping("/{id}")
+    public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
+        return this.toppingService.update(id,dto);
+    }
 
     @GetMapping("/delete/{id}")
     public ModelAndView deleteTopping(@PathVariable("id") Long id) throws IOException{

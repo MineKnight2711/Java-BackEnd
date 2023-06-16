@@ -61,9 +61,12 @@ public class HomeController {
         return "/manage/product/index";
     }
 
-    @GetMapping("/suatopping")
-    public String suatopping(Model m){
-        return "/manage/topping/index";
+    @GetMapping("/qltopping")
+    public String showAllTopping(Model model) {
+        List<Topping> toppings = toppingService.getAll();
+        model.addAttribute("toppings", toppings);
+        model.addAttribute("toppingsTitle", "Danh sách các topping");
+        return "manage/topping/index";
     }
 
 }
