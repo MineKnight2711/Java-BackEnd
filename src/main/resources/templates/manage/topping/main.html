@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
 <div class="container-fluid">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">SỬA TOPPING ĐI CHỦ NHÂN</h1>
@@ -22,52 +24,37 @@
             </div>
           </div>
         </div>
-        <form method="post" action="/api/topping/add" enctype="multipart/form-data">
-          <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
+<!--        <form th:action="@{/toppings/edit}" th:object="${toppings}" method="post">-->
+
+          <form >
+
           <div class="card-body">
             <div class="form-row">
               <div class="form-group col-md-3">
-                <label for="ToppingName">Tên topping:</label>
-                <input type="text" id="ToppingName" name="toppingName" class="form-control" placeholder="Nhập tên topping">
+                <label for="toppingName">Tên topping:</label>
+                <input type="text" id="toppingName" name="toppingName"  class="form-control" placeholder="Nhập tên topping">
               </div>
               <div class="form-group col-md-3">
                 <label for="price">Giá:</label>
-                <input type="number" id="price" name="price" class="form-control" placeholder="Nhập giá">
+                <input type="number" id="price" name="price"  class="form-control" placeholder="Nhập giá">
               </div>
               <div class="form-group col-md-3">
                 <label for="Unit">Đơn vị tính:</label>
-                <input type="text" id="unit" name="unit" class="form-control" placeholder="Nhập đơn vị tính">
+                <input type="text" id="unit" name="unit"  class="form-control" placeholder="Nhập đơn vị tính">
               </div>
 
             </div>
             <div class="form-group col-md-3">
               <label for="image-input">Ảnh topping:</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file">
+                <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file" th:field="*{file}">
                 <label class="custom-file-label" for="image-input">Choose file</label>
               </div>
               <div class="mt-3">
                 <img id="image-preview" class="img-thumbnail" width="120" height="120">
               </div>
             </div>
-            <script>
-                          fetch('/api/topping')
-                            .then(response => response.json())
-                            .then(data => {
-                              const tableBody = document.querySelector('#topping-table tbody');
-                              for (const topping of data) {
-                                const row = tableBody.insertRow();
-                                const toppingNameCell = row.insertCell();
-                                toppingNameCell.textContent = topping.toppingName;
 
-                                const priceCell = row.insertCell();
-                                priceCell.textContent = topping.price;
-
-                                const unitCell = row.insertCell();
-                                unitCell.textContent = topping.unit;
-                              }
-                            });
-                        </script>
             <script>
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');

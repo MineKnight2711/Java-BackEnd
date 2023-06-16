@@ -51,7 +51,7 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/admin")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .rememberMe(rememberMe -> rememberMe.key("uniqueAndSecret")

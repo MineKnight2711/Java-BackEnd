@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">QUẢN LÝ TOPPING</h1>
@@ -11,6 +14,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Danh Sách Topping</h6>
                 </div>
+
                 <div class="card-body">
                     <table id="topping-table" class="table table-bordered">
                         <thead>
@@ -18,8 +22,21 @@
                             <th scope="col">ID</th>
                             <th scope="col">Tên topping</th>
                             <th scope="col">Giá</th>
+                            <th scope="col">Hình ảnh</th>
                             <th scope="col">Đơn vị tính</th>
                             <th scope="col">Thao tác</th>
+                            </tr>
+
+                        <tr th:each="topping: ${toppings}">
+                            <td th:text="${topping.toppingID}"></td>
+                            <td th:text="${topping.toppingName}"></td>
+                            <td th:text="${topping.price}"></td>
+                            <td><img th:src="${topping.image}" alt="" width="100" height="100"></td>
+                            <td th:text="${topping.unit}"></td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{/edit-topping(id=${topping.toppingID})}">Sửa</a>
+                                <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}" onclick="return confirm('Are you sure?')">Xoá</a>
+                            </td>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,7 +56,7 @@
                         </style>
 
                     <style>
-                      button {
+                      .styled-button {
                         background-color: #007bff;
                         border: none;
                         color: #fff;
@@ -51,9 +68,8 @@
                         transition: background-color 0.3s ease;
                       }
 
-                      button:hover {
-                        background-color: #0062cc;
-                      }
+
+
                     </style>
                     <div class="float-right">
                         <nav>
@@ -73,51 +89,53 @@
                         </nav>
                     </div>
 
-                    <script>
-                       fetch('/api/topping')
-                      .then(response => response.json())
-                      .then(data => {
-                        const tableBody = document.querySelector('#topping-table tbody');
-                        for (const topping of data) {
-                          const row = tableBody.insertRow();
 
-                            const IdCell = row.insertCell();
-                          IdCell.textContent = topping.toppingID;
 
-                          const toppingNameCell = row.insertCell();
-                          toppingNameCell.textContent = topping.toppingName;
+<!--                    <script>-->
+<!--                       fetch('/api/topping')-->
+<!--                      .then(response => response.json())-->
+<!--                      .then(data => {-->
+<!--                        const tableBody = document.querySelector('#topping-table tbody');-->
+<!--                        for (const topping of data) {-->
+<!--                          const row = tableBody.insertRow();-->
 
-                          const priceCell = row.insertCell();
-                          priceCell.textContent = topping.price;
+<!--                            const IdCell = row.insertCell();-->
+<!--                          IdCell.textContent = topping.toppingID;-->
 
-                          const unitCell = row.insertCell();
-                          unitCell.textContent = topping.unit;
+<!--                          const toppingNameCell = row.insertCell();-->
+<!--                          toppingNameCell.textContent = topping.toppingName;-->
 
-                          const actionCell = row.insertCell();
-                    actionCell.classList.add('action-cell'); // Thêm class 'action-cell' cho cột Thao tác
-                         const editButton = document.createElement('button');
-                    editButton.classList.add('btn', 'btn-primary'); // Thêm class 'btn' và 'btn-primary' cho button sửa
-                          editButton.textContent = 'Sửa';
-                          editButton.addEventListener('click', () => {
-                            // Xử lý sự kiện khi click vào button sửa
-                            // ở đây bạn có thể mở một form để sửa thông tin của topping
-                            console.log('Sửa topping:', topping.toppingName);
-                          });
-                          actionCell.appendChild(editButton); // Thêm button sửa vào cột Thao tác
+<!--                          const priceCell = row.insertCell();-->
+<!--                          priceCell.textContent = topping.price;-->
 
-                        const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('btn', 'btn-danger'); // Thêm class 'btn' và 'btn-danger' cho button xoá
-                          deleteButton.textContent = 'Xoá';
-                          deleteButton.addEventListener('click', () => {
-                            // Xử lý sự kiện khi click vào button xoá
-                            // ở đây bạn có thể gửi một request đến API để xoá topping
-                            console.log('Xoá topping:', topping.toppingName);
-                            row.remove(); // Xoá hàng khỏi bảng
-                          });
-                          actionCell.appendChild(deleteButton); // Thêm button xoá vào cột Thao tác
-                        }
-                      });
-                    </script>
+<!--                          const unitCell = row.insertCell();-->
+<!--                          unitCell.textContent = topping.unit;-->
+
+<!--                          const actionCell = row.insertCell();-->
+<!--                    actionCell.classList.add('action-cell'); // Thêm class 'action-cell' cho cột Thao tác-->
+<!--                         const editButton = document.createElement('button');-->
+<!--                    editButton.classList.add('btn', 'btn-primary'); // Thêm class 'btn' và 'btn-primary' cho button sửa-->
+<!--                          editButton.textContent = 'Sửa';-->
+<!--                          editButton.addEventListener('click', () => {-->
+<!--                            // Xử lý sự kiện khi click vào button sửa-->
+<!--                            // ở đây bạn có thể mở một form để sửa thông tin của topping-->
+<!--                            console.log('Sửa topping:', topping.toppingName);-->
+<!--                          });-->
+<!--                          actionCell.appendChild(editButton); // Thêm button sửa vào cột Thao tác-->
+
+<!--                        const deleteButton = document.createElement('button');-->
+<!--                    deleteButton.classList.add('btn', 'btn-danger'); // Thêm class 'btn' và 'btn-danger' cho button xoá-->
+<!--                          deleteButton.textContent = 'Xoá';-->
+<!--                          deleteButton.addEventListener('click', () => {-->
+<!--                            // Xử lý sự kiện khi click vào button xoá-->
+<!--                            // ở đây bạn có thể gửi một request đến API để xoá topping-->
+<!--                            console.log('Xoá topping:', topping.toppingName);-->
+<!--                            row.remove(); // Xoá hàng khỏi bảng-->
+<!--                          });-->
+<!--                          actionCell.appendChild(deleteButton); // Thêm button xoá vào cột Thao tác-->
+<!--                        }-->
+<!--                      });-->
+<!--                    </script>-->
 
 
 
@@ -162,7 +180,9 @@
                             });
                         </script>
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>

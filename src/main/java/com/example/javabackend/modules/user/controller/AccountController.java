@@ -46,9 +46,6 @@ public class AccountController {
         System.out.println(accountsDTO);
         return this.accountsService.createAccount(accountsDTO);
     }
-
-
-
     //Login
     @PostMapping("/login")
     public AccountResponseDto login(@RequestBody UserLoginDto user) throws Exception {

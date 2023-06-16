@@ -1,9 +1,11 @@
 package com.example.javabackend.admin.controller;
 
 import com.example.javabackend.entity.AccountType;
+import com.example.javabackend.entity.Topping;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.size.service.SizeService;
+import com.example.javabackend.modules.topping.service.ToppingService;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
 import com.example.javabackend.modules.user.service.AccountTypeService;
@@ -13,9 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    @Autowired
+    ToppingService toppingService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -45,17 +51,10 @@ public class HomeController {
         return "/product/index";
     }
 
-    @GetMapping("/qltopping")
-    public String qlTopping(Model m){
-        return "/manage/topping/index";
-    }
-
     @GetMapping("/themtopping")
     public String addTopping(Model m){
         return "/topping/index";
     }
-
-
 
     @GetMapping("/qlsanpham")
     public String qlSanPham(Model m){

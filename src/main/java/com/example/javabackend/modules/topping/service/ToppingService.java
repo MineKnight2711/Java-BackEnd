@@ -50,6 +50,9 @@ public class ToppingService {
     }
 
 
+    public void deleteTopping(Long id) {
+        toppingRepository.deleteById(id);
+    }
 
     public Topping update(Long id,ToppingDto dto) {
         Topping option = this.toppingRepository.getById(id);

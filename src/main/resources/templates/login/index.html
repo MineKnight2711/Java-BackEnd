@@ -9,6 +9,7 @@
   <meta name="author" content="">
 
   <title>ĐĂNG NHẬP QUẢN TRỊ WEB</title>
+
   <link rel="icon" href="images/icon.ico" type="image/x-icon">
 
   <!-- Custom fonts for this template-->
@@ -41,7 +42,7 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
-
+                <input type="hidden" name="continue" value="/" />
                 <form th:action="@{/login}" method="post" >
                   <fieldset>
                     <div th:if="${param.error}" class="alert alert-danger"> Invalid username and password.</div>
