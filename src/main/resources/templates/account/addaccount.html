@@ -25,7 +25,11 @@
                         </div>
                     </div>
                 </div>
+
+                <form method="post" action="/api/accounts/web" enctype="multipart/form-data">
+
                 <form method="post" th:action="@{/themnguoiquantri}" enctype="multipart/form-data" th:object="${newaccount}">
+
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
                     <div class="card-body">
                         <div class="row">
@@ -75,6 +79,8 @@
                                             <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="birthday">Chọn ngày sinh:</label>
@@ -115,6 +121,11 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+                        </script>
+
                         <script>
                           const table = document.querySelector('#account-table');
                           const rowsPerPage = 3;

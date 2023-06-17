@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">QUẢN LÝ TOPPING</h1>
+        <a href="/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Home </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-8">
+            <div class="card shadow mb-5">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh Sách Topping</h6>
+                </div>
+
+                <div class="card-body">
+                    <table id="topping-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tên topping</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Hình ảnh</th>
+                            <th scope="col">Đơn vị tính</th>
+                            <th scope="col">Thao tác</th>
+                            </tr>
+
+                        <tr th:each="topping: ${toppings}">
+                            <td th:text="${topping.toppingID}"></td>
+                            <td th:text="${topping.toppingName}"></td>
+                            <td th:text="${topping.price}"></td>
+                            <td><img th:src="${topping.image}" alt="" width="100" height="100"></td>
+                            <td th:text="${topping.unit}"></td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{/edit(id=${topping.toppingID})}">Cập nhật</a>
+<!--                                <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}" onclick="return confirm('Are you sure?')">Xoá</a>-->
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Thêm các hàng khác vào đây -->
+                        </tbody>
+                    </table>
+
+
+                    <style>
+                          .table-bordered {
+                            border: 1px solid #dee2e6;
+                          }
+                          .table-bordered th,
+                          .table-bordered td {
+                            border: 1px solid #dee2e6;
+                          }
+                        </style>
+
+                    <style>
+                      .styled-button {
+                        background-color: #007bff;
+                        border: none;
+                        color: #fff;
+                        padding: 8px 16px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                      }
+
+
+
+                    </style>
+                    <div class="float-right">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang trước</a>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Trang sau</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <script>
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            const dishname=document.querySelector('#dishName');
+                            const uploadButton = document.querySelector('#upload-button');
+                            imageInput.addEventListener('change', () => {
+                                const file = imageInput.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                            uploadButton.addEventListener('click', (event) => {
+                                event.preventDefault(); // Prevent the default action of the button
+                                const file = imageInput.files[0];
+                                if (!file) {
+                                    // Display an error message if no file is selected
+                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                                    return;
+                                }
+                                const formData = new FormData();
+                                formData.append('image', file);
+                                formData.append('toppingName', toppingName.value); // Replace 'user_info' with the actual user info
+
+                                fetch('/api/topping/add', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                    document.getElementById("notification").innerHTML = "<div class='alert alert-success'>Thêm sản phẩm thành công!</div>";
+                                    })
+                                    .catch(error => {
+                                    document.getElementById("notification").innerHTML = "<div class='alert alert-danger'>Không thể thêm sản phẩm!</div>";
+                                });
+                            });
+                        </script>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

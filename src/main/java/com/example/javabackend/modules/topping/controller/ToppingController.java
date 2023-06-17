@@ -45,8 +45,14 @@ public class ToppingController {
     public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
         return this.toppingService.update(id,dto);
     }
-    @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        return this.toppingService.delete(id);
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteTopping(@PathVariable("id") Long id) throws IOException{
+        toppingService.deleteTopping(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/qltopping");
+        mav.addObject("result", "success");
+        return mav;
     }
+
 }

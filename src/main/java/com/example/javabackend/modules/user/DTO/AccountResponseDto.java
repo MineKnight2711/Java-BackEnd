@@ -14,7 +14,7 @@ public class AccountResponseDto {
     private String address;
     private Long accountTypeId;
     private String status;
-    public AccountResponseDto(Long accountID,String imageUrl, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+    public AccountResponseDto(Long accountID, String imageUrl, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
         this.imageUrl=imageUrl;
         this.fullName = fullName;

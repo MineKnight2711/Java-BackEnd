@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ToppingService {
@@ -48,6 +49,11 @@ public class ToppingService {
         String imageUrl=uploadImageService.uploadImage(dto.file,"toppingsimage/",topping.getToppingName());
         topping.setImage(imageUrl);
         return this.toppingRepository.save(topping);
+    }
+
+
+    public void deleteTopping(Long id) {
+        toppingRepository.deleteById(id);
     }
 
     public Topping update(Long id,ToppingDto dto) {

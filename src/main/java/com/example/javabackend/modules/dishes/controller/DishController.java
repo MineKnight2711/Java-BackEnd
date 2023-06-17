@@ -28,7 +28,9 @@ public class DishController {
 
     @GetMapping
     public List<Dishes> getAllDishes() {
-        return dishesService.getAllDishes();
+        return this.dishesService.getAllDishes();
+
+
     }
     @GetMapping("/{id}")
     public Dishes getDishById(@PathVariable Long id) {
