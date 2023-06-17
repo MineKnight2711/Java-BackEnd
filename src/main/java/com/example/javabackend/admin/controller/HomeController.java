@@ -59,8 +59,6 @@ public class HomeController {
         return "/topping/index";
     }
 
-
-
     @GetMapping("/qltopping")
     public String qlTopping(Model model) {
         List<Topping> toppings = toppingService.getAll();
