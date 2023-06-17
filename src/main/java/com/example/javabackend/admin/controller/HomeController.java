@@ -1,9 +1,9 @@
 package com.example.javabackend.admin.controller;
 
-import com.example.javabackend.entity.AccountType;
-import com.example.javabackend.entity.Topping;
+import com.example.javabackend.entity.*;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
+import com.example.javabackend.modules.dishes.service.DishService;
 import com.example.javabackend.modules.size.service.SizeService;
 import com.example.javabackend.modules.topping.service.ToppingService;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
@@ -22,6 +22,9 @@ import java.util.List;
 public class HomeController {
     @Autowired
     ToppingService toppingService;
+
+    @Autowired
+    DishService dishService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -56,17 +59,31 @@ public class HomeController {
         return "/topping/index";
     }
 
-    @GetMapping("/qlsanpham")
-    public String qlSanPham(Model m){
-        return "/manage/product/index";
-    }
+
 
     @GetMapping("/qltopping")
-    public String showAllTopping(Model model) {
+    public String qlTopping(Model model) {
         List<Topping> toppings = toppingService.getAll();
         model.addAttribute("toppings", toppings);
-        model.addAttribute("toppingsTitle", "Danh sách các topping");
         return "manage/topping/index";
     }
+    @GetMapping("/qldanhmuc")
+    public String qlDanhMuc(Model model) {
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
+        return "manage/category/index";
+    }
+    @GetMapping("/qlsanpham")
+    public String qlSanPham(Model model) {
+        List<Dishes> dishes = dishService.getAllDishes();
+        model.addAttribute("dishes", dishes);
+        return "manage/product/index";
+    }
 
+    @GetMapping("/qlsize")
+    public String qlSize(Model model) {
+        List<Size> sizes = sizeService.getAll();
+        model.addAttribute("sizes", sizes);
+        return "manage/size/index";
+    }
 }
