@@ -6,6 +6,8 @@ import com.example.javabackend.modules.order.Dto.OrderDto;
 import com.example.javabackend.modules.order.repository.OrderRepository;
 import com.example.javabackend.modules.order_detail.repository.Order_DetailRepository;
 import com.example.javabackend.modules.order_detail_topping.repository.OrderDetailToppingRepository;
+import com.example.javabackend.modules.size.repository.SizeRepository;
+import com.example.javabackend.modules.size.service.SizeService;
 import com.example.javabackend.modules.topping.repository.ToppingRepository;
 import com.example.javabackend.modules.user.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class OrderService {
     private IAccountRepository accountRepository;
     @Autowired
     private ToppingRepository toppingRepository;
+    @Autowired
+    private SizeService sizeService;
     @Autowired
     private Order_DetailRepository orderDetailRepository;
     @Autowired
@@ -55,6 +59,9 @@ public class OrderService {
             System.out.println(createOrderDto.dishes.get(i).dishId);
             OrderDetails orderDetail = new OrderDetails();
             orderDetail.setOrders(order);
+            System.out.println(createOrderDto.dishes.get(i).sizeId);
+            Size size=sizeService.getByid(createOrderDto.dishes.get(i).sizeId);
+            orderDetail.setSizes(size);
             orderDetail.setQuantity(createOrderDto.dishes.get(i).quantity);
             Dishes dishes = dishRepository.findByDishId(createOrderDto.dishes.get(i).dishId);
             //System.out.println(dishes.getDishName());
