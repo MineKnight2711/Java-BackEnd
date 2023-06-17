@@ -4,13 +4,14 @@ import com.example.javabackend.entity.AccountType;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.user.DTO.*;
 import com.example.javabackend.modules.user.repository.IAccountRepository;
+import com.example.javabackend.utils.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import org.springframework.stereotype.Service;
-
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +22,14 @@ public class AccountService {
     @Autowired
     private IAccountRepository accountsRepository;
 
+    @Autowired
+    private UploadImageService uploadImageService;
+
     private void setResponseDto(Accounts acc, AccountResponseDto response) {
         response.setAccountId(acc.getAccountID());
         response.setAddress(acc.getAddress());
         response.setBirthday(acc.getBrithday());
+        response.setImageUrl(acc.getImageUrl());
         response.setEmail(acc.getEmail());
         response.setGender(acc.getGender());
         response.setAccountTypeId(acc.getAccountTypes().getAccountTypeID());
@@ -70,7 +75,7 @@ public class AccountService {
                 accounts.getAccountTypes().getAccountTypeID()
         );
     }
-    public AccountResponseDto createAccount(AccountsDTO accountsDTO) {
+    public AccountResponseDto createAccount(AccountsDTO accountsDTO) throws IOException {
         Accounts accounts = new Accounts();
         // set các giá trị cho đối tượng accounts từ accountsDTO
         String salt = BCrypt.gensalt();
@@ -80,6 +85,13 @@ public class AccountService {
         accounts.setPhoneNumber(accountsDTO.getPhoneNumber());
         accounts.setEmail(accountsDTO.getEmail());
         accounts.setGender(accountsDTO.getGender());
+        if(accountsDTO.file!=null){
+            String image= uploadImageService.uploadImage(accountsDTO.file,"userimage/", accounts.getFullName());
+            accounts.setImageUrl(image);
+        }
+        else{
+            accounts.setImageUrl(accountsDTO.getImageUrl());
+        }
         if(accountsDTO.getBirthday()!=null){
             accounts.setBrithday(parseBirthday(accountsDTO.getBirthday()));
         }
@@ -161,6 +173,7 @@ public class AccountService {
             user.setStatus("Pass Wrong");
             return user;
         }
+
         account.setPassword(BCrypt.hashpw(user.getNewPass(), BCrypt.gensalt()));
         accountsRepository.save(account);
         user.setPassword("");
@@ -168,4 +181,5 @@ public class AccountService {
         user.setStatus("Success");
         return user;
     }
+
 }

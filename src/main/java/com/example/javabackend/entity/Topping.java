@@ -27,5 +27,6 @@ public class Topping {
     @Column(name = "Image",length = 1000)
     private String Image;
     @OneToMany(mappedBy = "topping")
+    @JsonIgnore
     private List<OrderDetailsTopping> orderDetailsToppings;
 }

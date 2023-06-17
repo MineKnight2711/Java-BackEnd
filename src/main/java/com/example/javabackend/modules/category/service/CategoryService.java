@@ -46,18 +46,17 @@ public class CategoryService {
         option.setCategoryName(categoryName);
         return categoryRepository.save(option);
     }
-    public ResponseEntity<Map<String, Object>> deleteCategory(Long categoryId) {
+    public Map<String, Object> deleteCategory(Long categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
         Map<String, Object> response = new HashMap<>();
         if (!category.isPresent()) {
             response.put("success", false);
             response.put("message", "Không tìm thấy danh mục với mã " + categoryId);
-            return ResponseEntity.notFound().build();
+            return response;
         }
-
         categoryRepository.delete(category.get());
         response.put("success", true);
         response.put("message", "Xoá danh mục thành công");
-        return ResponseEntity.ok().body(response);
+        return response;
     }
 }

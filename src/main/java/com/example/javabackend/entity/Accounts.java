@@ -35,7 +35,6 @@ public class Accounts {
     @Column(name = "ImageUrl",length = 1000)
     private String ImageUrl;
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "NgaySinh phai nho hon ngay hien tai")
     @Column(name = "Brithday")
     private Date Brithday;

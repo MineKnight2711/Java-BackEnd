@@ -64,6 +64,7 @@ public class OrderService {
                 detailsTopping.setOrderDetails(orderDetail);
                 Topping topping = toppingRepository.findByToppingId(createOrderDto.dishes.get(i).listTopping.get(j).toppingId);
                 detailsTopping.setTopping(topping);
+                detailsTopping.setQuantity(createOrderDto.dishes.get(i).listTopping.get(j).quantity);
                 orderDetailToppingRepository.save(detailsTopping);
             }
         }

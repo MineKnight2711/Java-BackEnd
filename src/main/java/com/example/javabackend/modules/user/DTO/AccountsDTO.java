@@ -4,24 +4,39 @@ import com.example.javabackend.utils.DatetimeDeserialize;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.util.Date;
 
 public class AccountsDTO {
-
     private Long accountId;
+    @NotNull
     private String password;
+    @NotNull
     private String imageUrl;
+    @NotNull
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
+    public MultipartFile file;
+    @NotNull
+    private String fullName;
+    @NotNull
+    private String phoneNumber;
+    @NotNull
+    private String email;
+    @NotNull
+    private String gender;
+    @NotNull
+    @JsonProperty("birthday")
+    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    @NotNull
+    private String address;
+    private Long accountTypeId;
     public AccountsDTO(Long accountID, String imageUrl, String password, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
         this.accountId = accountID;
         this.imageUrl=imageUrl;
@@ -37,17 +52,6 @@ public class AccountsDTO {
 
     public AccountsDTO(){}
 
-    private String fullName;
-    private String phoneNumber;
-    private String email;
-    private String gender;
-    @JsonProperty("birthday")
-    @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
-    private String address;
-    private Long accountTypeId;
-
     public Long getAccountId() { return accountId; };
 
     public void setAccountId(Long accountId) {
@@ -60,6 +64,14 @@ public class AccountsDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getFullName() {
@@ -119,7 +131,13 @@ public class AccountsDTO {
     }
 
 
+    public MultipartFile getFile() {
+        return file;
+    }
 
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
     // các getter và setter
 
 }

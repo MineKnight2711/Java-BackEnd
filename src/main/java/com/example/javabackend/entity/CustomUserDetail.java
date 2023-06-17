@@ -21,7 +21,7 @@ public class CustomUserDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        String[] roles = userRepository.getRolesOfUser (accounts.getAccountID());
+        String[] roles = userRepository.getRolesOfUser(accounts.getAccountID());
         for (String role: roles) {
             authorities.add(new SimpleGrantedAuthority (role));
         }

@@ -20,21 +20,21 @@ public class OrdersController {
     public List<Orders> getAll() {
         return this.orderService.getAll();
     }
-    @PostMapping("")
-    public Orders createOrder(@RequestBody OrderDto createOrderDto) {
-        return this.orderService.createOrder(createOrderDto);
-    }
 
     @GetMapping("/{orderId}")
     public Orders getOrderById(@PathVariable Long orderId) throws Exception {
         return orderService.getByOrderId(orderId);
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping("/account/{accountId}")
     public List<Orders> getOrdersByAccountId(@PathVariable Long accountId) {
         return orderService.getByAccountId(accountId);
     }
 
+    @PostMapping("")
+    public Orders createOrder(@RequestBody OrderDto createOrderDto) {
+        return this.orderService.createOrder(createOrderDto);
+    }
     @PutMapping("/{orderId}/cancel")
     public String cancelOrder(@PathVariable Long orderId) {
         var option = orderService.cancelOrder(orderId);

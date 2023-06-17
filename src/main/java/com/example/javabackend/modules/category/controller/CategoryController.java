@@ -24,7 +24,7 @@ public class CategoryController {
 
     //Get method
     //Get List Category
-    @GetMapping()
+    @GetMapping
     public List<Category> getAllCategories() {
         return this.categoryService.getAllCategories();
     }
@@ -48,14 +48,15 @@ public class CategoryController {
     @PutMapping("edit/{id}")
     public Category updateCategory(
             @PathVariable Long id,
-            @Param("categoryName") String categoryName) {
+            @Param("categoryName") String categoryName
+            ) {
         return this.categoryService.updateCategory(id, categoryName);
     }
 
     // Delete Method
     // Delete Category
     @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Map<String, Object>> deleteCategory(@PathVariable Long categoryId) {
+    public Map<String, Object> deleteCategory(@PathVariable Long categoryId) {
         return categoryService.deleteCategory(categoryId);
     }
 

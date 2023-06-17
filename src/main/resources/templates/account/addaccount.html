@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">THÊM MỚI NGƯỜI DÙNG MỚI ĐI CHỦ NHÂN ^-^!</h1>
@@ -23,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" action="/User/Create">
+                <form method="post" th:action="@{/themnguoiquantri}" enctype="multipart/form-data" th:object="${newaccount}">
                     <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
                     <div class="card-body">
                         <div class="row">
@@ -31,23 +33,24 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="FullName">Nhập họ và tên (*):</label>
-                                            <input type="text" id="FullName" name="FullName" class="form-control" required="" placeholder="Nhập họ và tên">
-
+                                            <label for="fullName">Nhập họ và tên (*):</label>
+                                            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Nhập họ và tên" th:field="*{fullName}">
+                                            <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Email">Nhập email (*):</label>
-                                            <input type="email" id="Email" name="Email" class="form-control" required="" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email">
-
+                                            <label for="email">Nhập email (*):</label>
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email" th:field="*{email}">
+                                            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="Password">Nhập password (*):</label>
                                             <div class="input-group">
-                                                <input type="password" id="Password" name="Password" class="form-control" required="" placeholder="Nhập password">
+                                                <input type="password" id="password" name="password" class="form-control" th:field="*{password}" placeholder="Nhập password">
+                                                <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="showPassword"><i class="far fa-eye"></i></span>
                                                 </div>
@@ -56,8 +59,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Address">Nhập địa chỉ:</label>
-                                            <input type="text" id="Address" name="Address" class="form-control" placeholder="Nhập địa chỉ">
+                                            <label for="address">Nhập địa chỉ:</label>
+                                            <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ">
+                                            <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -66,42 +70,147 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="PhoneNumber">Nhập số điện thoại:</label>
-                                            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
-
+                                            <label for="phoneNumber">Nhập số điện thoại:</label>
+                                            <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
+                                            <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Birthday">Chọn ngày sinh:</label>
-                                            <input type="date" id="Birthday" name="Birthday" class="form-control">
+                                            <label for="birthday">Chọn ngày sinh:</label>
+                                            <input type="date" id="birthday" name="birthday" th:field="*{birthday}" class="form-control" >
+                                            <span class="text-danger" th:if="${#fields.hasErrors('birthday')}" >Ngày sinh không hợp lệ</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="Gender">Chọn giới tính:</label>
-                                            <select class="form-control" id="Gender" name="Gender">
+                                            <label for="gender">Chọn giới tính:</label>
+                                            <select class="form-control" id="gender" name="gender" th:field="*{gender}">
                                                 <option value="Nam">Nam</option>
                                                 <option value="Nữ">Nữ</option>
+                                                <option value="Khác">Khác</option>
                                             </select>
+<!--                                            <span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>-->
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="AccountType">Chọn loại tài khoản:</label>
-                                            <select class="form-control" id="AccountType" name="AccountType">
-                                                <option value="Admin">Admin</option>
-                                                <option value="Mod">Mod</option>
-                                            </select>
-                                        </div>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label" for="accountTypeId">Chọn loại tài khoản:</label>
+                                        <select class="form-control" id="accountTypeId" name="accountTypeId" th:field="*{accountTypeId}">
+                                            <option value="">-- Chọn loại tài khoản --</option>
+                                            <option th:each="accounttype: ${accounttypes}" th:value="${accounttype.AccountTypeID}" th:text="${accounttype.AccountTypeName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group" style="padding-top: 0;">
+                                    <label for="image-input">Avatar(*):</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" required="" accept="image/*" id="image-input" name="file" th:field="*{file}">
+                                        <label class="custom-file-label" for="image-input">Choose file</label>
+                                    </div>
+                                    <div class="mt-3">
+                                        <img id="image-preview" class="img-thumbnail" width="120" height="120">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <script>
+                          const table = document.querySelector('#account-table');
+                          const rowsPerPage = 3;
+                          let currentPage = 1;
+
+                          // Hàm để tính toán số lượng trang và cập nhật nút phân trang
+                          function updatePagination() {
+                            const totalRows = table.tBodies[0].rows.length;
+                            const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+                            const pagination = document.querySelector('.pagination');
+                            pagination.innerHTML = '';
+
+                            // Tạo nút phân trang cho từng trang
+                            for (let i = 1; i <= totalPages; i++) {
+                              const li = document.createElement('li');
+                              li.classList.add('page-item');
+                              li.id = `page-${i}`;
+
+                              const a = document.createElement('a');
+                              a.classList.add('page-link');
+                              a.href = '#';
+                              a.dataset.page = i.toString();
+                              a.textContent = i.toString();
+
+                              li.appendChild(a);
+                              pagination.appendChild(li);
+                            }
+
+                            // Cập nhật trạng thái của nút phân trang
+                            const previousPage = document.querySelector('#previous-page');
+                            if (currentPage === 1) {
+                              previousPage.classList.add('disabled');
+                            } else {
+                              previousPage.classList.remove('disabled');
+                            }
+
+                            const nextPage = document.querySelector('#next-page');
+                            if (currentPage === totalPages) {
+                              nextPage.classList.add('disabled');
+                            } else {
+                              nextPage.classList.remove('disabled');
+                            }
+                          }
+
+                          // Hàm để hiển thị các hàng tương ứng với trang được chọn
+                          function displayTableRows() {
+                            const startIndex = (currentPage - 1) * rowsPerPage;
+                            const endIndex = startIndex + rowsPerPage;
+                            const rows = table.tBodies[0].rows;
+
+                            for (let i = 0; i < rows.length; i++) {
+                              if (i >= startIndex && i < endIndex) {
+                                rows[i].style.display = '';
+                              } else {
+                                rows[i].style.display = 'none';
+                              }
+                            }
+                          }
+
+                          // Khởi tạo bảng và phân trang
+                          updatePagination();
+                          displayTableRows();
+
+                          // Bắt sự kiện khi người dùng chuyển trang  const paginationLinks = document.querySelectorAll('.pagination a');
+                          paginationLinks.forEach(link => {
+                            link.addEventListener('click', (event) => {
+                              event.preventDefault();
+                              currentPage = parseInt(link.dataset.page);
+                              updatePagination();
+                              displayTableRows();
+                            });
+                          });
+                        </script>
+
+                        <script>
+                            // Get references to the HTML elements
+                            const imageInput = document.querySelector('#image-input');
+                            const imagePreview = document.querySelector('#image-preview');
+                            // When the user selects an image, display a preview of the image
+                            imageInput.addEventListener('change', () => {
+                                const file = imageInput.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        imagePreview.src = reader.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                        </script>
+
                         <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
-            <span class="icon text-white-50">
-              <i class="fas fa-check"></i>
-            </span>
+                            <span class="icon text-white-50">
+                              <i class="fas fa-check"></i>
+                            </span>
                             <span class="text">Thêm</span>
                         </button>
                         <h1 class="showno"></h1>
@@ -120,67 +229,41 @@
                             <h6 class="m-0 font-weight-bold text-primary">Danh Sách Người Quản Trị</h6>
                         </div>
                         <div class="card-body">
-                            <table class="table">
+                            <table id="account-table" class="table table-bordered">
                                 <thead>
                                 <tr>
-
-                                    <th scope="col" style="border: 1px solid #ddd;">Họ và tên</th><th scope="col" style="border: 1px solid #ddd;">Email</th>
-                                    <th scope="col" style="border: 1px solid #ddd;">Số điện thoại</th>
-                                    <th scope="col" style="border: 1px solid #ddd;">Địa chỉ</th>
-                                    <th scope="col" style="border: 1px solid #ddd;">Chức vụ</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">Chức vụ</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td style="border: 1px solid #ddd;">Topping 1</td>
-                                    <td style="border: 1px solid #ddd;">10,000</td>
-
-                                    <td style="border: 1px solid #ddd;">Gram</td>
-                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd;">Topping 1</td>
-                                    <td style="border: 1px solid #ddd;">10,000</td>
-
-                                    <td style="border: 1px solid #ddd;">Gram</td>
-                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd;">Topping 1</td>
-                                    <td style="border: 1px solid #ddd;">10,000</td>
-
-                                    <td style="border: 1px solid #ddd;">Gram</td>
-                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd;">Topping 1</td>
-                                    <td style="border: 1px solid #ddd;">10,000</td>
-
-                                    <td style="border: 1px solid #ddd;">Gram</td>
-                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd;">Topping 1</td>
-                                    <td style="border: 1px solid #ddd;">10,000</td>
-
-                                    <td style="border: 1px solid #ddd;">Gram</td>
-                                    <td style="border: 1px solid #ddd;">Gram</td><td style="border: 1px solid #ddd;">Gram</td>
-                                </tr>
                                 </tbody>
                             </table>
+
+                            <style>
+                          .table-bordered {
+                            border: 1px solid #dee2e6;
+                          }
+                          .table-bordered th,
+                          .table-bordered td {
+                            border: 1px solid #dee2e6;
+                          }
+                        </style>
                             <div class="float-right">
                                 <nav>
                                     <ul class="pagination">
-                                        <li class="page-item disabled">
+                                        <li class="page-item disabled" id="previous-page">
                                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang trước</a>
                                         </li>
-                                        <li class="page-item active" aria-current="page">
-                                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                        <li class="page-item active" aria-current="page" id="page-1">
+                                            <a class="page-link" href="#" data-page="1">1 <span class="sr-only">(current)</span></a>
                                         </li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Trang sau</a>
+                                        <!-- Các nút phân trang tương tự cho các trang khác -->
+                                        <li class="page-item" id="next-page">
+                                            <a class="page-link" href="#" data-page="2">Trang sau</a>
                                         </li>
                                     </ul>
                                 </nav>

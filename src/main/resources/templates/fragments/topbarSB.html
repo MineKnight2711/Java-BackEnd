@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thyme leaf.org/thyme leaf-extras-springsecurity4" lang="en">
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -166,8 +170,7 @@
 
     <div class="topbar-divider d-none d-sm-block"></div>
 
-    <!-- Nav Item - User Information -->
-    <li class="nav-item dropdown no-arrow">
+    <li sec:authorize="isAuthenticated()"class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
@@ -190,13 +193,26 @@
           Activity Log
         </a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-          Logout
-        </a>
+        <form id="logout-form" th:action="@{/logout}">
+          <button type="button" class="dropdown-item" onclick="confirmLogout()">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            Logout
+          </button>
+        </form>
+
+        <script>
+          function confirmLogout() {
+            if (confirm("Bạn có chắc muốn thoát?")) {
+              document.getElementById("logout-form").submit();
+            }
+          }
+        </script>
+
       </div>
     </li>
-
+    <li sec:authorize="!isAuthenticated()">
+      <a class="btn btn-outline-primary" href="/login">Login</a>
+    </li>
   </ul>
 
 </nav>

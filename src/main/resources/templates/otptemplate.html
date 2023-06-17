@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mã OTP reset password</title>
+</head>
+<body>
+<p>Xin chào <span th:utext="${name}"></span>,</p>
+<p>Mã xác thực để đặt lại mật khẩu của bạn là: <span th:utext="${otp}"></span>.
+  Mã này có hiệu lực trong <span th:utext="${otpExpiryTime}"></span> phút.</p>
+<p>Vui lòng không chia sẻ mã này cho bất cứ ai khác.</p>
+<p>Trân trọng,</p>
+<p>Năm anh em siêu nhân</p>
+</body>
+</html>
