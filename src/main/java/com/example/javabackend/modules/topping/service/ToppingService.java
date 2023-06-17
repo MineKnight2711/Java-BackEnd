@@ -55,4 +55,9 @@ public class ToppingService {
         setDto(dto, option);
         return this.toppingRepository.save(option);
     }
+    public String delete(Long id){
+        Topping option = this.toppingRepository.getById(id);
+        this.toppingRepository.delete(option);
+        return "Success";
+    }
 }

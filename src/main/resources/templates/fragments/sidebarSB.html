@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thyme leaf.org/thyme leaf-extras-springsecurity4" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" >
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
     xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -94,7 +94,7 @@
                 <h6 class="collapse-header">Section Heading</h6>
                 <a class="collapse-item" href="/Admin/About/Index">Sản phẩm</a>
                 <a class="collapse-item" href="/Admin/Footer/Index">Danh mục</a>
-                <a class="collapse-item" href="/Admin/Footer/Index">Topping</a>
+                <a class="collapse-item" th:href="@{/topping}">Topping</a>
                 <a class="collapse-item" href="/Admin/Footer/Index">Đơn hàng</a>
             </div>
         </div>

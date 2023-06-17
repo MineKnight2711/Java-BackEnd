@@ -45,4 +45,8 @@ public class ToppingController {
     public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
         return this.toppingService.update(id,dto);
     }
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        return this.toppingService.delete(id);
+    }
 }

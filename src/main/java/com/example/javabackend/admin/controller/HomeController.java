@@ -44,12 +44,6 @@ public class HomeController {
         m.addAttribute("sizes", sizeService.getAll());
         return "/product/index";
     }
-
-    @GetMapping("/qltopping")
-    public String qlTopping(Model m){
-        return "/manage/product/index";
-    }
-
     @GetMapping("/themtopping")
     public String addTopping(Model m){
         return "/topping/index";
