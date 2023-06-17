@@ -2,12 +2,12 @@ package com.example.javabackend.modules.order.Dto;
 
 import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.entity.Topping;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
 public class DishesDto {
     public Long dishId;
-
     public int quantity;
     public List<ToppingDto> listTopping;
 

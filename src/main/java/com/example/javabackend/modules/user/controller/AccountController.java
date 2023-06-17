@@ -49,6 +49,4 @@ public class AccountController {
     public ChangePassDto changePass(@RequestBody ChangePassDto user) {
         return this.accountsService.changePass(user);
     }
-
-
 }

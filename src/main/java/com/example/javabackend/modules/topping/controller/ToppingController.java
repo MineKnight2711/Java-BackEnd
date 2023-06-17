@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/topping")
+@RequestMapping("api/topping")
 public class ToppingController {
     @Autowired
     ToppingService toppingService;
 
-    @GetMapping()
+    @GetMapping
     public List<Topping> getAll() {
         return this.toppingService.getAll();
     }

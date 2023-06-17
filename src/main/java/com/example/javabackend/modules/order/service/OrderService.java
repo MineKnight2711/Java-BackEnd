@@ -51,13 +51,12 @@ public class OrderService {
         order.setOrderDate(java.sql.Date.valueOf(LocalDate.now()));
         Orders response = this.orderRepository.save(order);
         for(int i = 0; i < createOrderDto.dishes.size(); i++) {
-            System.out.println(createOrderDto.dishes.size());
             System.out.println(createOrderDto.dishes.get(i).dishId);
             OrderDetails orderDetail = new OrderDetails();
             orderDetail.setOrders(order);
+            System.out.println(createOrderDto.dishes.get(i).quantity);
             orderDetail.setQuantity(createOrderDto.dishes.get(i).quantity);
             Dishes dishes = dishRepository.findByDishId(createOrderDto.dishes.get(i).dishId);
-            //System.out.println(dishes.getDishName());
             orderDetail.setDishes(dishes);
             orderDetailRepository.save(orderDetail);
             for (int j = 0; j < createOrderDto.dishes.get(i).listTopping.size(); j++) {

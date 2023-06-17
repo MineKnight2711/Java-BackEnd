@@ -43,7 +43,7 @@ public class AccountsDTO {
     private String gender;
     @JsonProperty("birthday")
     @JsonDeserialize(using = DatetimeDeserialize.class)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private String address;
     private Long accountTypeId;
