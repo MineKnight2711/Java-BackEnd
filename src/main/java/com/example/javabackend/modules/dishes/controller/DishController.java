@@ -25,9 +25,7 @@ public class DishController {
 
     @GetMapping
     public List<Dishes> getAllDishes() {
-        return this.dishesService.getAllDishes();
-
-
+        return dishesService.getAllDishes();
     }
     @GetMapping("/{id}")
     public Dishes getDishById(@PathVariable Long id) {
@@ -39,10 +37,16 @@ public class DishController {
         return (dishesService.searchDish(name));
     }
 
-//    @GetMapping("/category/{id}")
-//    public List<Dishes> getByCategory(@PathVariable Long id) {
-//        return this.dishesService.getDishByCategory(id);
-//    }
+
+    // Delete Dishes Web
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteDishes(@PathVariable("id") Long id) throws IOException{
+        dishesService.deleteDishes(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/qlsanpham");
+        mav.addObject("result", "success");
+        return mav;
+    }
 
     @PostMapping("/add")
     public ModelAndView createDish(@ModelAttribute DishDto dto) throws IOException {
@@ -52,7 +56,7 @@ public class DishController {
         mav.addObject("result", "success");
         return mav;
     }
-    
+
     @PutMapping()
     public Dishes updateDish(@RequestBody Dishes dishes) {
         return this.dishesService.updateDish(dishes);

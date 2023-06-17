@@ -35,6 +35,8 @@
                             <td th:text="${dish.price}"></td>
                             <td>
                                 <a class="btn btn-primary" th:href="@{/edit(id=${dish.dishID})}">Cập nhật</a>
+                                <a class="btn btn-danger" th:href="@{/api/dish/delete/{id}(id=${dish.dishID})}" onclick="return confirm('Are you sure?')">Xoá</a>
+
                             </td>
                         </tr>
                         </thead>

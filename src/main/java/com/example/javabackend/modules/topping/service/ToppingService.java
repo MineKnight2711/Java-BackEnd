@@ -1,5 +1,6 @@
 package com.example.javabackend.modules.topping.service;
 
+import com.example.javabackend.entity.Category;
 import com.example.javabackend.entity.Topping;
 import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.modules.topping.repository.ToppingRepository;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,10 +52,12 @@ public class ToppingService {
         return this.toppingRepository.save(topping);
     }
 
-
+    //Delete topping web
     public void deleteTopping(Long id) {
         toppingRepository.deleteById(id);
     }
+
+
 
     public Topping update(Long id,ToppingDto dto) {
         Topping option = this.toppingRepository.getById(id);

@@ -28,7 +28,7 @@
                             <td th:text="${size.sizeName}"></td>
                             <td>
                                 <a class="btn btn-primary" th:href="@{/edit(id=${size.sizeID})}">Cập nhật</a>
-<!--                                <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}" onclick="return confirm('Are you sure?')">Xoá</a>-->
+                                <a class="btn btn-danger" th:href="@{/api/size/delete/{id}(id=${size.sizeID})}" onclick="return confirm('Are you sure?')">Xoá</a>
                             </td>
                         </tr>
                         </thead>

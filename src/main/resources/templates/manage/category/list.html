@@ -31,7 +31,7 @@
                             <td><img th:src="${category.image}" alt="" width="100" height="100"></td>
                             <td>
                                 <a class="btn btn-primary" th:href="@{/category(id=${category.categoryID})}">Cập nhật</a>
-<!--                                <a class="btn btn-danger" th:href="@{/api/categories/{id}(id=${category.categoryID})}" onclick="return confirm('Are you sure?')">Xoá</a>-->
+                                <a class="btn btn-danger" th:href="@{/api/categories/delete/{id}(id=${category.categoryID})}" onclick="return confirm('Are you sure?')">Xoá</a>
                             </td>
                         </tr>
                         </thead>

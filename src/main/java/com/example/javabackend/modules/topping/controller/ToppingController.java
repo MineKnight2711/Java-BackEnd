@@ -46,6 +46,7 @@ public class ToppingController {
         return this.toppingService.update(id,dto);
     }
 
+    // Delete Topping Web
     @GetMapping("/delete/{id}")
     public ModelAndView deleteTopping(@PathVariable("id") Long id) throws IOException{
         toppingService.deleteTopping(id);
