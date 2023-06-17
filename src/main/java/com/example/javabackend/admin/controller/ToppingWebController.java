@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
+@RequestMapping("/qltopping")
 public class ToppingWebController {
     @Autowired
     private ToppingService toppingService;
+
     @GetMapping("/suatopping/{topingId}")
     public String editTopping(@PathVariable("topingId") Long topingId, Model m){
         Topping topping=toppingService.getById(topingId);

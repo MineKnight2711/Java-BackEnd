@@ -49,6 +49,7 @@ public class HomeController {
     public String qlTopping(Model m){
         return "/manage/product/index";
     }
+
     @GetMapping("/themtopping")
     public String addTopping(Model m){
         return "/topping/index";
