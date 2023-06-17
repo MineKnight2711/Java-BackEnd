@@ -24,7 +24,7 @@ public class CategoryController {
 
     //Get method
     //Get List Category
-    @GetMapping()
+    @GetMapping
     public List<Category> getAllCategories() {
         return this.categoryService.getAllCategories();
     }

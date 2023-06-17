@@ -38,7 +38,7 @@ public class ToppingController {
         return mav;
     }
     @PostMapping()
-    public Topping create(@ModelAttribute ToppingDto dto) {
+    public Topping create(@ModelAttribute ToppingDto dto) throws IOException {
         return this.toppingService.create(dto);
     }
     @PutMapping("/{id}")

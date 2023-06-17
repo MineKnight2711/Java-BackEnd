@@ -34,10 +34,7 @@ public class Dishes {
     @DecimalMin(value = "0.0", inclusive = true)//Cách 2 dùng package javax.validation(phải cài đặt package này)
     @Column(name = "Price")
     private double Price;
-    //Quan hệ 1 nhiều tới bản Size
-    @ManyToOne
-    @JoinColumn(name = "SizeID")
-    private Size sizes;
+
     //Quan hệ 1 nhiều tới bản Category
     @ManyToOne
     @JsonManagedReference

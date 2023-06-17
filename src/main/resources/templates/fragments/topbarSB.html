@@ -193,12 +193,20 @@
           Activity Log
         </a>
         <div class="dropdown-divider"></div>
-        <form th:action="@{/logout}">
-          <button type="submit" class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+        <form id="logout-form" th:action="@{/logout}">
+          <button type="button" class="dropdown-item" onclick="confirmLogout()">
             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
             Logout
           </button>
         </form>
+
+        <script>
+          function confirmLogout() {
+            if (confirm("Bạn có chắc muốn thoát?")) {
+              document.getElementById("logout-form").submit();
+            }
+          }
+        </script>
 
       </div>
     </li>

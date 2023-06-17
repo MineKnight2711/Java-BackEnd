@@ -25,5 +25,5 @@ public class Size {
     private double Price;
     @OneToMany (mappedBy = "sizes", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Dishes> dishes;
+    private List<OrderDetails> orderDetails;
 }

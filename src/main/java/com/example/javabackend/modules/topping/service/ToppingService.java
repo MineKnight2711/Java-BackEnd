@@ -42,9 +42,11 @@ public class ToppingService {
         return this.toppingRepository.save(topping);
     }
 
-    public Topping create(ToppingDto dto) {
+    public Topping create(ToppingDto dto) throws IOException {
         Topping topping = new Topping();
         setDto(dto, topping);
+        String imageUrl=uploadImageService.uploadImage(dto.file,"toppingsimage/",topping.getToppingName());
+        topping.setImage(imageUrl);
         return this.toppingRepository.save(topping);
     }
 

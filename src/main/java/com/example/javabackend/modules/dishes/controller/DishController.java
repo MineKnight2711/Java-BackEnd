@@ -7,9 +7,12 @@ import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.dishes.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +33,14 @@ public class DishController {
     @GetMapping("/{id}")
     public Dishes getDishById(@PathVariable Long id) {
         return dishesService.getDishById(id);
+    }
+    @GetMapping("getByCategory/{categoryId}")
+    public ResponseEntity<List<Dishes>> loadDishByCategory(@PathVariable("categoryId") Long categoryId) {
+        List<Dishes> dishes = dishesService.loadDishByCategory(categoryId);
+        if (dishes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(dishes);
+        }
+        return ResponseEntity.ok(dishes);
     }
 
     @GetMapping("/search")
