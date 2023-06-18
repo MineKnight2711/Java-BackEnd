@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="layout :: link-css"></th:block>
+    <title>Sửa sách</title>
+</head>
+<body>
+<div class="container">
+    <h1>Sửa sách</h1>
+    <form th:action="@{/api/topping}" th:object="${toppings}" method="put">
+        <input type="hidden" th:field="*{toppingID}">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="title">Tên topping:</label>
+            <input class="form-control" type="text" th:field="*{toppingName}" id="title">
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="author">DVT:</label>
+            <input class="form-control" type="text" th:field="*{unit}" id="author">
+        </div>
+        <div class="col-6 mb-3">
+            <label class="form-label" for="price">Giá:</label>
+            <input class="form-control" type="text" th:field="*{price}" id="price">
+        </div>
+
+        <input type="submit" value="Save">
+    </form>
+    <br>
+    <!--  <a th:href="@{/books}">Back to List</a>-->
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

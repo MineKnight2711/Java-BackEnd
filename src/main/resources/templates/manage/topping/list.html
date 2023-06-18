@@ -37,7 +37,7 @@
                                 <img th:src="${topping.image}" alt="" width="100" height="100"></td>
                             <td th:text="${topping.unit}"></td>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/edit(id=${topping.toppingID})}">Cập nhật</a>
+                                <a class="btn btn-primary" th:href="@{/api/topping/edit/{id}(id=${topping.toppingID})}">Cập nhật</a>
                                 <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}"  onclick="return confirm('Are you sure?')">Xoá</a>
                             </td>
                         </tr>

@@ -6,6 +6,7 @@ import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.modules.topping.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,14 +38,29 @@ public class ToppingController {
         mav.addObject("result", "success");
         return mav;
     }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView editTopping(@PathVariable("id") Long id, Model model) {
+        Topping toppings = toppingService.getById(id);
+        ModelAndView mav = new ModelAndView();
+        if (toppings != null) {
+            mav.addObject("topping", toppings);
+            mav.setViewName("redirect:/edit-topping/{id}");
+            return mav;
+        }else {
+            return null;
+        }
+    }
+
+    @PutMapping("/edit/{id}")
+    public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
+        return this.toppingService.update(id,dto);
+    }
     @PostMapping()
     public Topping create(@ModelAttribute ToppingDto dto) {
         return this.toppingService.create(dto);
     }
-    @PutMapping("/{id}")
-    public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
-        return this.toppingService.update(id,dto);
-    }
+
 
     // Delete Topping Web
     @GetMapping("/delete/{id}")
