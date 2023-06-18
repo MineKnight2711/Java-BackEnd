@@ -59,13 +59,15 @@ public class OrderService {
             Dishes dishes = dishRepository.findByDishId(createOrderDto.dishes.get(i).dishId);
             orderDetail.setDishes(dishes);
             orderDetailRepository.save(orderDetail);
-            for (int j = 0; j < createOrderDto.dishes.get(i).listTopping.size(); j++) {
-                OrderDetailsTopping detailsTopping = new OrderDetailsTopping();
-                detailsTopping.setOrderDetails(orderDetail);
-                Topping topping = toppingRepository.findByToppingId(createOrderDto.dishes.get(i).listTopping.get(j).toppingId);
-                detailsTopping.setTopping(topping);
-                detailsTopping.setQuantity(createOrderDto.dishes.get(i).listTopping.get(j).quantity);
-                orderDetailToppingRepository.save(detailsTopping);
+            if(createOrderDto.dishes.get(i).listTopping.size() != 0) {
+                for (int j = 0; j < createOrderDto.dishes.get(i).listTopping.size(); j++) {
+                    OrderDetailsTopping detailsTopping = new OrderDetailsTopping();
+                    detailsTopping.setOrderDetails(orderDetail);
+                    Topping topping = toppingRepository.findByToppingId(createOrderDto.dishes.get(i).listTopping.get(j).toppingId);
+                    detailsTopping.setTopping(topping);
+                    detailsTopping.setQuantity(createOrderDto.dishes.get(i).listTopping.get(j).quantity);
+                    orderDetailToppingRepository.save(detailsTopping);
+                }
             }
         }
         return response;

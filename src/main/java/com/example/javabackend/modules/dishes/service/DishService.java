@@ -71,7 +71,6 @@ public class DishService {
         dishes.setPrice(newDish.price);
         Category cate = categoryRepository.find(newDish.categoryId);
         dishes.setCategories(cate);
-        Size size = sizeRepository.find(newDish.sizeId);
 
         String imageUrl= uploadImageService.uploadImage(image,"dishesimage/", dishes.getDishName());
         System.out.println(imageUrl);

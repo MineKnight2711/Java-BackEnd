@@ -14,8 +14,6 @@ public class DishDto {
     public String image;
     @JsonProperty("price")
     public double price;
-    @JsonProperty("sizeId")
-    public Long sizeId;
 
     public Long categoryId;
 
@@ -45,13 +43,6 @@ public class DishDto {
         this.price = price;
     }
 
-    public Long getSizeId() {
-        return sizeId;
-    }
-
-    public void setSizeId(Long sizeId) {
-        this.sizeId = sizeId;
-    }
 
     public Long getCategoryId() {
         return categoryId;

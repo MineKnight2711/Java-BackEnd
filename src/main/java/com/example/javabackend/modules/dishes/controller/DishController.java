@@ -25,7 +25,6 @@ import java.util.Optional;
 public class DishController {
     @Autowired
     private DishService dishesService;
-
     @GetMapping
     public List<Dishes> getAllDishes() {
         return dishesService.getAllDishes();
