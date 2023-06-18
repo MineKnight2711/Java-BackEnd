@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html  xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/headTagSB"/>
+
+            <!-- Begin Page Content -->
 
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -7,9 +10,7 @@
         <a href="/admin" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Home </a>
     </div>
-    <form id="deleteTopping" method="post">
-        <input type="hidden" id="deleteId" name="id">
-    </form>
+
     <div class="row">
         <div class="col-xl-12 col-lg-8">
             <div class="card shadow mb-5">
@@ -27,7 +28,7 @@
                             <th scope="col">Hình ảnh</th>
                             <th scope="col">Đơn vị tính</th>
                             <th scope="col">Thao tác</th>
-                            </tr>
+                        </tr>
 
                         <tr th:each="topping: ${toppings}">
                             <td th:text="${topping.toppingID}"></td>
@@ -37,8 +38,8 @@
                                 <img th:src="${topping.image}" alt="" width="100" height="100"></td>
                             <td th:text="${topping.unit}"></td>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/topping/edit/{id}(id=${topping.toppingID})}">Cập nhật</a>
-                                <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}"  onclick="return confirm('Are you sure?')">Xoá</a>
+                                <a class="btn btn-primary" th:href="@{topping/edit/{id}(id=${topping.toppingID})}">Sửa</a>
+                                <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}" onclick="return confirm('Are you sure?')">Xoá</a>
                             </td>
                         </tr>
                         </thead>
@@ -49,27 +50,30 @@
 
 
                     <style>
-                          .table-bordered {
+                        .table-bordered {
                             border: 1px solid #dee2e6;
-                          }
-                          .table-bordered th,
-                          .table-bordered td {
+                        }
+                        .table-bordered th,
+                        .table-bordered td {
                             border: 1px solid #dee2e6;
-                          }
-                        </style>
+                        }
+                    </style>
 
                     <style>
-                      .styled-button {
-                        background-color: #007bff;
-                        border: none;
-                        color: #fff;
-                        padding: 8px 16px;
-                        font-size: 14px;
-                        font-weight: bold;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        transition: background-color 0.3s ease;
-                      }
+                        .styled-button {
+                            background-color: #007bff;
+                            border: none;
+                            color: #fff;
+                            padding: 8px 16px;
+                            font-size: 14px;
+                            font-weight: bold;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+                        }
+
+
+
                     </style>
                     <div class="float-right">
                         <nav>
@@ -89,8 +93,15 @@
                         </nav>
                     </div>
 
+
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>
+
+<!-- /.container-fluid -->
+
+

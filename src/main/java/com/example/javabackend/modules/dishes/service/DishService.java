@@ -3,12 +3,14 @@ package com.example.javabackend.modules.dishes.service;
 import com.example.javabackend.entity.Category;
 import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.entity.Size;
+import com.example.javabackend.entity.Topping;
 import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.dishes.repository.IDishRepository;
 import com.example.javabackend.modules.category.repository.CategoryRepository;
 import com.example.javabackend.modules.size.repository.SizeRepository;
 import com.example.javabackend.modules.size.service.SizeService;
+import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.utils.UploadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,13 @@ public class DishService {
 //        Category cate = categoryRepository.getById(dish.getCategories().getCategoryID());
 //        //dto.setCategory(cate);
 //    }
-
+    private void setDto(DishDto dto, Dishes result) {
+        Category category=categoryRepository.find(dto.getCategoryId());
+        result.setDishName(dto.dishName);
+        result.setCategories(category);
+        result.setImage(dto.image);
+        result.setPrice(dto.price);
+    }
     public List<Dishes> getAllDishes() {
         return this.dishesRepository.findAll();
     }
@@ -71,8 +79,6 @@ public class DishService {
         dishes.setPrice(newDish.price);
         Category cate = categoryRepository.find(newDish.categoryId);
         dishes.setCategories(cate);
-        Size size = sizeRepository.find(newDish.sizeId);
-
         String imageUrl= uploadImageService.uploadImage(image,"dishesimage/", dishes.getDishName());
         System.out.println(imageUrl);
         dishes.setImage(imageUrl);
@@ -88,8 +94,19 @@ public class DishService {
     }
 
 
-    public Dishes updateDish(Dishes dishes) {
-        return this.dishesRepository.save(dishes);
+    public Dishes updateDish(Long id,MultipartFile file,DishDto dto) throws IOException {
+        Dishes dish = this.dishesRepository.getById(id);
+        uploadImageService.deleteExistImage("dishesimage/",dish.getDishName());
+        String imageUrl;
+        if(file!=null){
+            imageUrl=uploadImageService.uploadImage(file,"dishesimage/",dish.getDishName());
+        }
+        else{
+            imageUrl= dish.getImage();
+        }
+        setDto(dto,dish);
+        dish.setImage(imageUrl);
+        return this.dishesRepository.save(dish);
     }
 
 }

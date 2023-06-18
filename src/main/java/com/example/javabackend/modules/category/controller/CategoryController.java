@@ -33,7 +33,7 @@ public class CategoryController {
     //Get method
     //Get By ID Category
     @GetMapping("/find/{id}")
-    public Optional<Category> getCategoryById(@PathVariable Long id) {
+    public Category getCategoryById(@PathVariable Long id) {
         return this.categoryService.getCategoryById(id);
     }
 
@@ -46,12 +46,9 @@ public class CategoryController {
 
     //Put method
     //Edit ID Category
-    @PutMapping("edit/{id}")
-    public Category updateCategory(
-            @PathVariable Long id,
-            @Param("categoryName") String categoryName
-            ) {
-        return this.categoryService.updateCategory(id, categoryName);
+    @PutMapping("/edit/{id}")
+    public Category updateCategory(@PathVariable("id") Long id,@RequestParam("file") MultipartFile file, @ModelAttribute CategoryDTO categoryDTO) throws IOException {
+        return this.categoryService.updateCategory(id,file,categoryDTO);
     }
 
     // Delete Method

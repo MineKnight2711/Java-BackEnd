@@ -1,16 +1,17 @@
 package com.example.javabackend.modules.category.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
-@Data
+
 public class CategoryDTO {
-    private String categoryName;
-    private String image;
-
+    @JsonProperty("categoryName")
+    public String categoryName;
+    @JsonProperty("image")
+    public String image;
     public String getCategoryName() {
         return categoryName;
     }

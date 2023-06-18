@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Sửa sách</h1>
+    <h1>Sửa topping</h1>
     <form enctype="multipart/form-data" th:object="${topping}">
         <input type="hidden" id="toppingId" name="toppingID" th:value="*{toppingID}">
         <div class="col-6 mb-3">
@@ -38,12 +38,22 @@
     <script>
         const imageInput = document.querySelector('#image-input');
         const imagePreview = document.querySelector('#image-preview');
-        const toppingname= document.querySelector('#toppingName');
+        const toppingName= document.querySelector('#toppingName');
         const price= document.querySelector('#price')
         const unit= document.querySelector('#unit')
         const toppingId = document.querySelector('#toppingId').value;
 
         const updateButton = document.querySelector('#update-button');
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imagePreview.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
         updateButton.addEventListener('click', (event) => {
             event.preventDefault(); // Prevent the default action of the button
             const file = imageInput.files[0];
@@ -54,7 +64,7 @@
             }
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('toppingName', toppingname.value);
+            formData.append('toppingName', toppingName.value);
             formData.append('price', price.value);
             formData.append('unit', unit.value);
             fetch(`/api/topping/edit/${toppingId}`, {

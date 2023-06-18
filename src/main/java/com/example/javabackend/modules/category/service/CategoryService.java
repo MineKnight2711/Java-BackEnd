@@ -1,7 +1,9 @@
 package com.example.javabackend.modules.category.service;
 
 import com.example.javabackend.entity.Category;
+import com.example.javabackend.entity.Dishes;
 import com.example.javabackend.modules.category.DTO.CategoryDTO;
+import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.utils.UploadImageService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,10 @@ public class CategoryService {
     private ICategoryRepository categoryRepository;
     @Autowired
     private UploadImageService uploadImageService;
-
+    private void setDto(CategoryDTO dto, Category result) {
+        result.setCategoryName(dto.categoryName);
+        result.setImage(dto.image);
+    }
     //Ham get list category
     public List<Category> getAllCategories() {
         return this.categoryRepository.findAll();
@@ -37,14 +42,23 @@ public class CategoryService {
         category.setImage(imageUrl);
         return categoryRepository.save(category);
     }
-    public Optional<Category> getCategoryById(Long id){
-        return categoryRepository.findById(id);
+    public Category getCategoryById(Long id){
+        return categoryRepository.find(id);
     }
     //Ham update lai category
-    public Category updateCategory(Long id,String categoryName){
-        Category option = this.categoryRepository.getById(id);
-        option.setCategoryName(categoryName);
-        return categoryRepository.save(option);
+    public Category updateCategory(Long id,MultipartFile file, CategoryDTO dto) throws IOException {
+        Category category = this.categoryRepository.getById(id);
+        uploadImageService.deleteExistImage("categoriesimage/",category.getCategoryName());
+        String imageUrl;
+        if(file!=null){
+            imageUrl=uploadImageService.uploadImage(file,"categoriesimage/",dto.getCategoryName());
+        }
+        else{
+            imageUrl= dto.getImage();
+        }
+        setDto(dto,category);
+        category.setImage(imageUrl);
+        return this.categoryRepository.save(category);
     }
     public Map<String, Object> deleteCategory(Long categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);

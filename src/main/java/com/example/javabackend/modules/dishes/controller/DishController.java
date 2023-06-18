@@ -68,8 +68,8 @@ public class DishController {
         return mav;
     }
 
-    @PutMapping()
-    public Dishes updateDish(@RequestBody Dishes dishes) {
-        return this.dishesService.updateDish(dishes);
+    @PutMapping("/edit/{id}")
+    public Dishes updateDish(@PathVariable("id") Long id,@RequestParam("file") MultipartFile file, @ModelAttribute DishDto dto) throws IOException {
+        return this.dishesService.updateDish(id,file,dto);
     }
 }
