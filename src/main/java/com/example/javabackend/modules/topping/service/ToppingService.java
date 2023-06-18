@@ -61,9 +61,18 @@ public class ToppingService {
 
 
 
-    public Topping update(Long id,ToppingDto dto) {
+    public Topping update(Long id,ToppingDto dto) throws IOException {
         Topping option = this.toppingRepository.getById(id);
+        uploadImageService.deleteExistImage("toppingsimage/",option.getToppingName());
         setDto(dto, option);
+        String imageUrl;
+        if(dto.file!=null){
+            imageUrl=uploadImageService.uploadImage(dto.file,"toppingsimage/",option.getToppingName());
+        }
+        else{
+            imageUrl= option.getImage();
+        }
+        option.setImage(imageUrl);
         return this.toppingRepository.save(option);
     }
     public String delete(Long id){

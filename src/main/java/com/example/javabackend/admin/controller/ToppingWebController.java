@@ -27,6 +27,6 @@ public class ToppingWebController {
     public String editTopping(@PathVariable("id") Long id, Model m){
         Topping topping=toppingService.getById(id);
         m.addAttribute("topping",topping);
-        return "/topping/edit";
+        return "/manage/topping/edit";
     }
 }

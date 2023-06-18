@@ -3,31 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <th:block th:replace="layout :: link-css"></th:block>
-    <title>Sửa sách</title>
+    <title>Sửa topping</title>
 </head>
 <body>
 <div class="container">
     <h1>Sửa sách</h1>
-    <form th:action="@{/api/topping}" th:object="${toppings}" method="put">
-        <input type="hidden" th:field="*{toppingID}">
+    <form enctype="multipart/form-data" th:object="${topping}">
+        <input type="hidden" id="toppingId" name="toppingID" th:value="*{toppingID}">
         <div class="col-6 mb-3">
-            <label class="form-label" for="title">Tên topping:</label>
-            <input class="form-control" type="text" th:field="*{toppingName}" id="title">
+            <label class="form-label" for="toppingName">Tên topping:</label>
+            <input class="form-control" type="text" id="toppingName" name="toppingName" th:field="*{toppingName}" >
         </div>
         <div class="col-6 mb-3">
-            <label class="form-label" for="author">DVT:</label>
-            <input class="form-control" type="text" th:field="*{unit}" id="author">
+            <label class="form-label" for="unit">DVT:</label>
+            <input class="form-control" type="text" id="unit" name="unit" th:field="*{unit}" >
         </div>
         <div class="col-6 mb-3">
             <label class="form-label" for="price">Giá:</label>
-            <input class="form-control" type="text" th:field="*{price}" id="price">
+            <input class="form-control" type="text" id="price" name="price" th:field="*{price}" >
         </div>
 
-        <input type="submit" value="Save">
+        <div class="form-group col-md-3">
+            <label for="image-input">Ảnh topping:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" accept="image/*" id="image-input" name="file">
+                <label class="custom-file-label" for="image-input">Choose file</label>
+            </div>
+            <div class="mt-3">
+                <img id="image-preview" th:src="${topping.Image}" class="img-thumbnail" width="120" height="120">
+            </div>
+        </div>
+        <input id="update-button" type="submit" value="Save">
     </form>
+    <script>
+        const imageInput = document.querySelector('#image-input');
+        const imagePreview = document.querySelector('#image-preview');
+        const toppingname= document.querySelector('#toppingName');
+        const price= document.querySelector('#price')
+        const unit= document.querySelector('#unit')
+        const toppingId = document.querySelector('#toppingId').value;
+
+        const updateButton = document.querySelector('#update-button');
+        updateButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent the default action of the button
+            const file = imageInput.files[0];
+            if (!file) {
+                // Display an error message if no file is selected
+                alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('toppingName', toppingname.value);
+            formData.append('price', price.value);
+            formData.append('unit', unit.value);
+            fetch(`/api/topping/edit/${toppingId}`, {
+                method: 'PUT',
+                body: formData
+            })
+            .then(data => {
+                alert('Cập nhật topping thành công!');
+                imagePreview.src = data.image;
+                window.location.href = "/qltopping";
+            })
+            .catch(error => {
+                document.getElementById("notification").innerHTML = "<div class='alert alert-danger'>Không thể cập nhật sản phẩm!</div>";
+            });
+        });
+    </script>
     <br>
     <!--  <a th:href="@{/books}">Back to List</a>-->
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 </body>
 </html>
+

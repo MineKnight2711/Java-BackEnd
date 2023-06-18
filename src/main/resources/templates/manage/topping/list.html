@@ -37,7 +37,7 @@
                                 <img th:src="${topping.image}" alt="" width="100" height="100"></td>
                             <td th:text="${topping.unit}"></td>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/api/topping/edit/{id}(id=${topping.toppingID})}">Cập nhật</a>
+                                <a class="btn btn-primary" th:href="@{/topping/edit/{id}(id=${topping.toppingID})}">Cập nhật</a>
                                 <a class="btn btn-danger" th:href="@{/api/topping/delete/{id}(id=${topping.toppingID})}"  onclick="return confirm('Are you sure?')">Xoá</a>
                             </td>
                         </tr>
@@ -88,46 +88,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <script>
-                            const imageInput = document.querySelector('#image-input');
-                            const imagePreview = document.querySelector('#image-preview');
-                            const dishname=document.querySelector('#dishName');
-                            const uploadButton = document.querySelector('#upload-button');
-                            imageInput.addEventListener('change', () => {
-                                const file = imageInput.files[0];
-                                if (file) {
-                                    const reader = new FileReader();
-                                    reader.onload = () => {
-                                        imagePreview.src = reader.result;
-                                    };
-                                    reader.readAsDataURL(file);
-                                }
-                            });
-                            uploadButton.addEventListener('click', (event) => {
-                                event.preventDefault(); // Prevent the default action of the button
-                                const file = imageInput.files[0];
-                                if (!file) {
-                                    // Display an error message if no file is selected
-                                    alert('Bạn phải chọn một hình ảnh trước khi tải lên!');
-                                    return;
-                                }
-                                const formData = new FormData();
-                                formData.append('image', file);
-                                formData.append('toppingName', toppingName.value); // Replace 'user_info' with the actual user info
 
-                                fetch('/api/topping/add', {
-                                    method: 'POST',
-                                    body: formData
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                    document.getElementById("notification").innerHTML = "<div class='alert alert-success'>Thêm sản phẩm thành công!</div>";
-                                    })
-                                    .catch(error => {
-                                    document.getElementById("notification").innerHTML = "<div class='alert alert-danger'>Không thể thêm sản phẩm!</div>";
-                                });
-                            });
-                        </script>
                 </div>
             </div>
         </div>

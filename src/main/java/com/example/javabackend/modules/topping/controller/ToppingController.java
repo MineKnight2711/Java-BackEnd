@@ -53,7 +53,7 @@ public class ToppingController {
     }
 
     @PutMapping("/edit/{id}")
-    public Topping update(@PathVariable Long id, @RequestBody ToppingDto dto) {
+    public Topping update(@PathVariable Long id, @ModelAttribute ToppingDto dto) throws IOException {
         return this.toppingService.update(id,dto);
     }
     @PostMapping()
