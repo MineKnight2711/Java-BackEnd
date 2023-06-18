@@ -26,11 +26,9 @@
                     </div>
                 </div>
 
-                <form method="post" action="/api/accounts/web" enctype="multipart/form-data">
 
                 <form method="post" th:action="@{/themnguoiquantri}" enctype="multipart/form-data" th:object="${newaccount}">
 
-                    <input name="__RequestVerificationToken" type="hidden" value="your_token_here">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -38,14 +36,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="fullName">Nhập họ và tên (*):</label>
-                                            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Nhập họ và tên" th:field="*{fullName}">
+                                            <input type="text" id="fullName" name="fullName" class="form-control" required="" placeholder="Nhập họ và tên" th:field="*{fullName}" >
                                             <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email">Nhập email (*):</label>
-                                            <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email" th:field="*{email}">
+                                            <input type="email" id="email" name="email" class="form-control" required="" placeholder="Nhập email" title="Vui lòng nhập đúng địa chỉ email" th:field="*{email}">
                                             <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                                         </div>
                                     </div>
@@ -53,7 +51,7 @@
                                         <div class="form-group">
                                             <label for="Password">Nhập password (*):</label>
                                             <div class="input-group">
-                                                <input type="password" id="password" name="password" class="form-control" th:field="*{password}" placeholder="Nhập password">
+                                                <input type="password" id="password" name="password" class="form-control" th:field="*{password}" required="" placeholder="Nhập password">
                                                 <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="showPassword"><i class="far fa-eye"></i></span>
@@ -64,7 +62,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address">Nhập địa chỉ:</label>
-                                            <input type="text" id="address" name="address" th:field="*{address}" class="form-control" placeholder="Nhập địa chỉ">
+                                            <input type="text" id="address" name="address" th:field="*{address}" class="form-control" required="" placeholder="Nhập địa chỉ">
                                             <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
                                         </div>
                                     </div>
@@ -75,7 +73,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phoneNumber">Nhập số điện thoại:</label>
-                                            <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="form-control" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
+                                            <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="form-control" required="" placeholder="Nhập số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại có 10 chữ số">
                                             <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                                         </div>
                                     </div>
@@ -84,14 +82,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="birthday">Chọn ngày sinh:</label>
-                                            <input type="date" id="birthday" name="birthday" th:field="*{birthday}" class="form-control" >
+                                            <input type="date" id="birthday" name="birthday" th:field="*{birthday}" required="" class="form-control" >
                                             <span class="text-danger" th:if="${#fields.hasErrors('birthday')}" >Ngày sinh không hợp lệ</span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="gender">Chọn giới tính:</label>
-                                            <select class="form-control" id="gender" name="gender" th:field="*{gender}">
+                                            <select class="form-control"  required="" id="gender" name="gender" th:field="*{gender}">
                                                 <option value="Nam">Nam</option>
                                                 <option value="Nữ">Nữ</option>
                                                 <option value="Khác">Khác</option>
@@ -101,7 +99,7 @@
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label class="form-label" for="accountTypeId">Chọn loại tài khoản:</label>
-                                        <select class="form-control" id="accountTypeId" name="accountTypeId" th:field="*{accountTypeId}">
+                                        <select class="form-control" required="" id="accountTypeId" name="accountTypeId" th:field="*{accountTypeId}">
                                             <option value="">-- Chọn loại tài khoản --</option>
                                             <option th:each="accounttype: ${accounttypes}" th:value="${accounttype.AccountTypeID}" th:text="${accounttype.AccountTypeName}"></option>
                                         </select>
@@ -121,86 +119,33 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         </script>
-
                         <script>
-                          const table = document.querySelector('#account-table');
-                          const rowsPerPage = 3;
-                          let currentPage = 1;
+                          let accountTypes = [];
+                          fetch('/api/account-types')
+                            .then(response => response.json())
+                            .then(data => accountTypes = data);
 
-                          // Hàm để tính toán số lượng trang và cập nhật nút phân trang
-                          function updatePagination() {
-                            const totalRows = table.tBodies[0].rows.length;
-                            const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-                            const pagination = document.querySelector('.pagination');
-                            pagination.innerHTML = '';
-
-                            // Tạo nút phân trang cho từng trang
-                            for (let i = 1; i <= totalPages; i++) {
-                              const li = document.createElement('li');
-                              li.classList.add('page-item');
-                              li.id = `page-${i}`;
-
-                              const a = document.createElement('a');
-                              a.classList.add('page-link');
-                              a.href = '#';
-                              a.dataset.page = i.toString();
-                              a.textContent = i.toString();
-
-                              li.appendChild(a);
-                              pagination.appendChild(li);
-                            }
-
-                            // Cập nhật trạng thái của nút phân trang
-                            const previousPage = document.querySelector('#previous-page');
-                            if (currentPage === 1) {
-                              previousPage.classList.add('disabled');
-                            } else {
-                              previousPage.classList.remove('disabled');
-                            }
-
-                            const nextPage = document.querySelector('#next-page');
-                            if (currentPage === totalPages) {
-                              nextPage.classList.add('disabled');
-                            } else {
-                              nextPage.classList.remove('disabled');
-                            }
-                          }
-
-                          // Hàm để hiển thị các hàng tương ứng với trang được chọn
-                          function displayTableRows() {
-                            const startIndex = (currentPage - 1) * rowsPerPage;
-                            const endIndex = startIndex + rowsPerPage;
-                            const rows = table.tBodies[0].rows;
-
-                            for (let i = 0; i < rows.length; i++) {
-                              if (i >= startIndex && i < endIndex) {
-                                rows[i].style.display = '';
-                              } else {
-                                rows[i].style.display = 'none';
+                          fetch('/api/accounts/all')
+                            .then(response => response.json())
+                            .then(data => {
+                              const tableBody = document.querySelector('#account-table tbody');
+                              for (const account of data) {
+                                const row = tableBody.insertRow();
+                                const fullNameCell = row.insertCell();
+                                fullNameCell.textContent = account.fullName;
+                                const emailCell = row.insertCell();
+                                emailCell.textContent = account.email;
+                                const phoneCell = row.insertCell();
+                                phoneCell.textContent = account.phoneNumber;
+                                const addressCell = row.insertCell();
+                                addressCell.textContent = account.address;
+                                const accountTypeCell = row.insertCell();
+                                const accountType = accountTypes.find(type => type.accountTypeID === account.accountTypeId);
+                                accountTypeCell.textContent = accountType ? accountType.accountTypeName : '';
                               }
-                            }
-                          }
-
-                          // Khởi tạo bảng và phân trang
-                          updatePagination();
-                          displayTableRows();
-
-                          // Bắt sự kiện khi người dùng chuyển trang  const paginationLinks = document.querySelectorAll('.pagination a');
-                          paginationLinks.forEach(link => {
-                            link.addEventListener('click', (event) => {
-                              event.preventDefault();
-                              currentPage = parseInt(link.dataset.page);
-                              updatePagination();
-                              displayTableRows();
                             });
-                          });
                         </script>
-
                         <script>
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');

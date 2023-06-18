@@ -50,7 +50,7 @@ public class AccountController {
         return accountsService.login(user);
     }
     @PutMapping("/update")
-    public UpdateAccountDto updateAccount(@RequestBody UpdateAccountDto accountsDTO) throws Exception {
+    public AccountResponseDto updateAccount(@ModelAttribute UpdateAccountDto accountsDTO) throws Exception {
         return accountsService.updateUser(accountsDTO);
     }
     @PutMapping("/password")

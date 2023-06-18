@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers( "/css/**", "/js/**", "/", "/api/**","/api/dish/**","/register", "/error")
                         .permitAll()
                         .requestMatchers( "/themnguoiquantri")
-                        .permitAll()
+                        .authenticated()
                         .anyRequest()
                         .authenticated()
                 )

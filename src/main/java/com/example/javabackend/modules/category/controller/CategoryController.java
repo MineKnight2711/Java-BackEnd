@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,6 +59,16 @@ public class CategoryController {
     @DeleteMapping("/{categoryId}")
     public Map<String, Object> deleteCategory(@PathVariable Long categoryId) {
         return categoryService.deleteCategory(categoryId);
+    }
+
+    // Delete Category Web
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteCategoryWeb(@PathVariable("id") Long id) throws IOException{
+        categoryService.deleteCategory(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/qldanhmuc");
+        mav.addObject("result", "success");
+        return mav;
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

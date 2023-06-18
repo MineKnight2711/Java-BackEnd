@@ -83,6 +83,10 @@ public class DishService {
 //
 //    }
 
+    public void deleteDishes(Long id) {
+        dishesRepository.deleteById(id);
+    }
+
 
     public Dishes updateDish(Dishes dishes) {
         return this.dishesRepository.save(dishes);

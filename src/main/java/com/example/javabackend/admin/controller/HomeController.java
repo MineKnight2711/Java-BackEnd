@@ -5,6 +5,7 @@ import com.example.javabackend.modules.category.service.CategoryService;
 import com.example.javabackend.modules.dishes.DTO.DishDto;
 import com.example.javabackend.modules.dishes.service.DishService;
 import com.example.javabackend.modules.size.service.SizeService;
+import com.example.javabackend.modules.topping.Dto.ToppingDto;
 import com.example.javabackend.modules.topping.service.ToppingService;
 import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
 import com.example.javabackend.modules.user.DTO.AccountsDTO;
@@ -12,8 +13,8 @@ import com.example.javabackend.modules.user.service.AccountTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -84,4 +85,13 @@ public class HomeController {
         model.addAttribute("sizes", sizes);
         return "manage/size/index";
     }
+
+    @GetMapping("/edit-topping/{id}")
+    public String qlToppingWW(Model model) {
+        List<Topping> toppings = toppingService.getAll();
+        model.addAttribute("topping", toppings);
+        return "manage/topping/edit";
+    }
+
+
 }

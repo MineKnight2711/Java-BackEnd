@@ -1,32 +1,49 @@
 package com.example.javabackend.modules.user.DTO;
 
+import com.example.javabackend.utils.DatetimeDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class UpdateAccountDto {
 
     private Long accountId;
-    private String password;
+    private String fullName;
+    private String phoneNumber;
+    @NotNull
+    @JsonProperty("birthday")
+    @JsonDeserialize(using = DatetimeDeserialize.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    private String address;
+    private String imageUrl;
 
-    public UpdateAccountDto(Long accountID, String fullName, String phoneNumber, String email, String gender, Date birthday, String address, Long accountTypeId) {
+    public UpdateAccountDto(Long accountID, String fullName, String phoneNumber, Date birthday, String address,String imageUrl) {
         this.accountId = accountID;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.gender = gender;
         this.birthday = birthday;
         this.address = address;
-        this.accountTypeId = accountTypeId;
+        this.imageUrl=imageUrl;
     }
 
     public UpdateAccountDto(){}
 
-    private String fullName;
-    private String phoneNumber;
-    private String email;
-    private String gender;
-    private Date birthday;
-    private String address;
-    private Long accountTypeId;
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Long getAccountId() { return accountId; };
 
@@ -46,21 +63,7 @@ public class UpdateAccountDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public Date getBirthday() {
         return birthday;
@@ -78,13 +81,7 @@ public class UpdateAccountDto {
         this.address = address;
     }
 
-    public Long getAccountTypeId() {
-        return accountTypeId;
-    }
 
-    public void setAccountTypeId(Long accountTypeId) {
-        this.accountTypeId = accountTypeId;
-    }
 
 
 

@@ -27,4 +27,9 @@ public class SizeService {
     public Size edit(Size size) {
         return this.sizeRepository.save(size);
     }
+
+    //Delete size web
+    public void deleteSize(Long id) {
+        sizeRepository.deleteById(id);
+    }
 }

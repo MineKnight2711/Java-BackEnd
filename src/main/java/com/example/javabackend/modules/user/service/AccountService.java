@@ -129,28 +129,29 @@ public class AccountService {
         }
         return parsedBirthday;
     }
-    public UpdateAccountDto updateUser(UpdateAccountDto accountUpdate) throws Exception {
+    public AccountResponseDto updateUser(UpdateAccountDto accountUpdate) throws Exception {
+
         Accounts acc = accountsRepository.getById(accountUpdate.getAccountId());
+        AccountResponseDto accountResponseDto = new AccountResponseDto();
         if (acc == null) {
-            throw new Exception("User not found with username: " + accountUpdate.getEmail());
+            accountResponseDto.setStatus("Không tìm thấy tài khoản");
+            return accountResponseDto;
         }
         acc.setFullName(accountUpdate.getFullName());
-        acc.setEmail(accountUpdate.getEmail());
         acc.setPhoneNumber(accountUpdate.getPhoneNumber());
         acc.setAddress(accountUpdate.getAddress());
-        acc.setGender(accountUpdate.getGender());
-        acc.setBrithday(accountUpdate.getBirthday());
+        acc.setImageUrl(accountUpdate.getImageUrl());
+        if(accountUpdate.getBirthday()!=null){
+            acc.setBrithday(parseBirthday(accountUpdate.getBirthday()));
+        }
+        else{
+            acc.setBrithday(null);
+        }
+        setResponseDto(acc,accountResponseDto);
+        accountResponseDto.setStatus("Cập nhật thành công!");
         accountsRepository.save(acc);
-        return new UpdateAccountDto(
-                acc.getAccountID(),
-                acc.getFullName(),
-                acc.getPhoneNumber(),
-                acc.getEmail(),
-                acc.getGender(),
-                acc.getBrithday(),
-                acc.getAddress(),
-                acc.getAccountTypes().getAccountTypeID()
-        );
+
+        return accountResponseDto;
     }
 
     public AccountResponseDto login(UserLoginDto user) {

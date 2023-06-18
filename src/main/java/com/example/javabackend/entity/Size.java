@@ -20,6 +20,7 @@ public class Size {
     private Long SizeID;
     @Column(name = "SizeName",length = 50)
     private String SizeName;
+    //inclusive ở đây tưức là bao gồm cả trường hợp 0.0 và giá trị double truyền và phải lớn hơn HOẶC bằng 0.0
     @DecimalMin(value = "0.0", inclusive = true)
     @Column(name = "Price")
     private double Price;

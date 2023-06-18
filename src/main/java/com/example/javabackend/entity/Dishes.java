@@ -31,7 +31,9 @@ public class Dishes {
     @Column(name = "Image",length = 1000)
     private String Image;
     //@PositiveOrZero | cách 1 dùng BeanValidation 2.0
-    @DecimalMin(value = "0.0", inclusive = true)//Cách 2 dùng package javax.validation(phải cài đặt package này)
+    //Cách 2 dùng package javax.validation(phải cài đặt package này)
+    //inclusive ở đây tưức là bao gồm cả trường hợp 0.0 và giá trị double truyền và phải lớn hơn HOẶC bằng 0.0
+    @DecimalMin(value = "0.0", inclusive = true)
     @Column(name = "Price")
     private double Price;
 
