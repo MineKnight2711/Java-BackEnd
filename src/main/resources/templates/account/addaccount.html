@@ -123,6 +123,34 @@
                         </script>
 
                         <script>
+                          // Lấy danh sách tất cả các chức vụ
+                          let accountTypes = [];
+                          fetch('/api/account-types')
+                            .then(response => response.json())
+                            .then(data => accountTypes = data);
+
+                          fetch('/api/accounts/all')
+                            .then(response => response.json())
+                            .then(data => {
+                              const tableBody = document.querySelector('#account-table tbody');
+                              for (const account of data) {
+                                const row = tableBody.insertRow();
+                                const fullNameCell = row.insertCell();
+                                fullNameCell.textContent = account.fullName;
+                                const emailCell = row.insertCell();
+                                emailCell.textContent = account.email;
+                                const phoneCell = row.insertCell();
+                                phoneCell.textContent = account.phoneNumber;
+                                const addressCell = row.insertCell();
+                                addressCell.textContent = account.address;
+                                const accountTypeCell = row.insertCell();
+                                const accountType = accountTypes.find(type => type.accountTypeID === account.accountTypeId);
+                                accountTypeCell.textContent = accountType ? accountType.accountTypeName : '';
+                              }
+                            });
+                        </script>
+
+                        <script>
                             // Get references to the HTML elements
                             const imageInput = document.querySelector('#image-input');
                             const imagePreview = document.querySelector('#image-preview');
