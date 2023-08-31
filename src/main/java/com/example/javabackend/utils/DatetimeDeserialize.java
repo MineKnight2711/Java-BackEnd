@@ -19,7 +19,7 @@ public class DatetimeDeserialize extends JsonDeserializer<Date> {
         try {
             return dateFormat.parse(dateStr);
         } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format: " + dateStr);
+            throw new IllegalArgumentException("Định dạng không hợp lệ: " + dateStr);
         }
     }
 }

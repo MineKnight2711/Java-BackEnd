@@ -38,10 +38,8 @@ public class Accounts {
     @Past(message = "NgaySinh phai nho hon ngay hien tai")
     @Column(name = "Brithday")
     private Date Brithday;
-
     @Column(name = "Address",length = 255)
     private String Address;
-
     @ManyToOne
     @JsonManagedReference
     @JoinColumn(name = "AccountTypeID")
