@@ -1,5 +1,5 @@
 package com.example.javabackend.config;
-import com.example.javabackend.modules.user.service.CustomUserService;
+import com.example.javabackend.modules.account.service.CustomUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

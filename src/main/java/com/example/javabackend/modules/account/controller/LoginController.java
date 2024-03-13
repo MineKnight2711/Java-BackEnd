@@ -1,18 +1,11 @@
-package com.example.javabackend.modules.user.controller;
+package com.example.javabackend.modules.account.controller;
 
-import com.example.javabackend.entity.Accounts;
-
-import com.example.javabackend.modules.user.DTO.AccountsDTO;
-import com.example.javabackend.modules.user.DTO.UserLoginDto;
-import com.example.javabackend.modules.user.repository.IAccountRepository;
-import com.example.javabackend.modules.user.service.AccountService;
+import com.example.javabackend.modules.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/login")

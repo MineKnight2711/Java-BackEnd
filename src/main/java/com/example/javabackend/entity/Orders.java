@@ -44,4 +44,9 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<OrderDetails> orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "DeliverID", referencedColumnName = "DeliverID")
+    private Deliver deliver;
+
 }

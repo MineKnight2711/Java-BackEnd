@@ -1,4 +1,4 @@
-package com.example.javabackend.modules.user.service;
+package com.example.javabackend.modules.account.service;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 

@@ -1,10 +1,10 @@
-package com.example.javabackend.modules.user.service;
+package com.example.javabackend.modules.account.service;
 
 
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.entity.CustomUserDetail;
 
-import com.example.javabackend.modules.user.repository.IAccountRepository;
+import com.example.javabackend.modules.account.repository.IAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;

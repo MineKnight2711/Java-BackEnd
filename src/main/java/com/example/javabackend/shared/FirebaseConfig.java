@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @Configuration

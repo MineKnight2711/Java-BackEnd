@@ -1,4 +1,4 @@
-package com.example.javabackend.modules.user.DTO;
+package com.example.javabackend.modules.account.DTO;
 
 import java.time.LocalDateTime;
 

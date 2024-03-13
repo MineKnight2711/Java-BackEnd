@@ -1,9 +1,8 @@
 package com.example.javabackend.admin.controller;
 
-import com.example.javabackend.modules.user.DTO.AccountResponseDto;
-import com.example.javabackend.modules.user.DTO.AccountsDTO;
-import com.example.javabackend.modules.user.service.AccountService;
-import com.example.javabackend.modules.user.service.AccountTypeService;
+import com.example.javabackend.modules.account.DTO.AccountsDTO;
+import com.example.javabackend.modules.account.service.AccountService;
+import com.example.javabackend.modules.account.service.AccountTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +11,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;

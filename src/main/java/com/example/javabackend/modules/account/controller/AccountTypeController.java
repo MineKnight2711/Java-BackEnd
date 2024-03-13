@@ -1,13 +1,8 @@
-package com.example.javabackend.modules.user.controller;
+package com.example.javabackend.modules.account.controller;
 
 import com.example.javabackend.entity.AccountType;
-import com.example.javabackend.modules.user.DTO.AccountTypeDTO;
-import com.example.javabackend.modules.user.service.AccountTypeService;
+import com.example.javabackend.modules.account.service.AccountTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

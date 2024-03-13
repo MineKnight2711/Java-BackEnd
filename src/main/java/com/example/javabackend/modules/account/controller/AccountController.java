@@ -1,17 +1,13 @@
-package com.example.javabackend.modules.user.controller;
+package com.example.javabackend.modules.account.controller;
 
-import com.example.javabackend.entity.Dishes;
-import com.example.javabackend.modules.user.DTO.*;
-import com.example.javabackend.modules.user.service.AccountService;
-import com.example.javabackend.modules.user.service.PasswordResetService;
+import com.example.javabackend.modules.account.DTO.*;
+import com.example.javabackend.modules.account.service.AccountService;
+import com.example.javabackend.modules.account.service.PasswordResetService;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 
 
 import java.io.IOException;

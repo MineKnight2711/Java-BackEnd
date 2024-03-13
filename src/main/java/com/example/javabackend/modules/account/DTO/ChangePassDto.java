@@ -1,4 +1,4 @@
-package com.example.javabackend.modules.user.DTO;
+package com.example.javabackend.modules.account.DTO;
 
 public class ChangePassDto {
     private String email;

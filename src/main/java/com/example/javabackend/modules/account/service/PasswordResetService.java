@@ -1,9 +1,9 @@
-package com.example.javabackend.modules.user.service;
+package com.example.javabackend.modules.account.service;
 
 import com.example.javabackend.entity.Accounts;
-import com.example.javabackend.modules.user.DTO.ChangePassDto;
-import com.example.javabackend.modules.user.DTO.otpDTO;
-import com.example.javabackend.modules.user.repository.IAccountRepository;
+import com.example.javabackend.modules.account.DTO.ChangePassDto;
+import com.example.javabackend.modules.account.DTO.otpDTO;
+import com.example.javabackend.modules.account.repository.IAccountRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.context.Context;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
 

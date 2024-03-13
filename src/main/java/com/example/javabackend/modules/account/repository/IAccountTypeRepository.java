@@ -1,7 +1,6 @@
-package com.example.javabackend.modules.user.repository;
+package com.example.javabackend.modules.account.repository;
 
 import com.example.javabackend.entity.AccountType;
-import com.example.javabackend.entity.Topping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
