@@ -12,12 +12,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.threeten.bp.temporal.ChronoUnit;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.context.Context;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+
 import java.util.Random;
 
 @Service
@@ -36,8 +38,10 @@ public class PasswordResetService {
 
         // Tạo ngẫu nhiên OTP
         otp = generateOtp();
-        long remainingMinutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), otp.getOtpExpiryTime());
-
+        Duration duration = Duration.between(LocalDateTime.now(), otp.getOtpExpiryTime());
+//        long remainingMinutes = long remainingMinutes = LocalDateTime.now().until(otp.getOtpExpiryTime(), ChronoUnit.MINUTES);
+        long seconds = Math.abs(duration.getSeconds());
+        long remainingMinutes = seconds / 60;
         // Tiìm kiếm account dựa trên email
         Accounts accounts  = accountRepository.findByEmail(email);
         if(accounts!=null){

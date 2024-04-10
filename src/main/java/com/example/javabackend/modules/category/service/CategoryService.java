@@ -20,7 +20,8 @@ import com.example.javabackend.modules.category.repository.ICategoryRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class CategoryService {
+public class CategoryService
+{
     @Autowired
     private ICategoryRepository categoryRepository;
     @Autowired

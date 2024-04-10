@@ -23,7 +23,5 @@ public class AccountType {
     @OneToMany (mappedBy = "accountTypes", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Accounts> accounts;
-    @OneToMany (mappedBy = "accountTypes", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Deliver> delivers;
+
 }

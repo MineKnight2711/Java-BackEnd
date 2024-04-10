@@ -1,14 +1,11 @@
 package com.example.javabackend.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.*;
-
 @Entity
 @Data
 @Getter

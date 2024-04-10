@@ -22,19 +22,15 @@ public class Deliver {
 
     @Column(name = "PhoneNumber")
     private String phoneNumber;
-
     @Column(name = "WorkState")
     private Boolean workState;
     @Column(name = "longitude")
     private Double longitude;
     @Column(name = "latitude")
     private Double latitude;
-
+    @Column(name = "imageUrl")
+    private String imageUrl;
     @OneToMany(mappedBy = "deliver")
     private List<Orders> orders;
 
-    @ManyToOne
-    @JsonManagedReference
-    @JoinColumn(name = "AccountTypeID")
-    private AccountType accountTypes;
 }
