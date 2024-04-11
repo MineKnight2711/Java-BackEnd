@@ -1,4 +1,4 @@
-package com.example.javabackend.api.service;
+package com.example.javabackend.api.login.service;
 
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.account.DTO.AccountResponseDto;
@@ -37,31 +37,20 @@ public class AccountServiceTest
         testAccount.setBrithday(new Date());
         testAccount.setAddress("123 Main St");
     }
-//    @Test
-//    public void findByEmailSuccess() {
-//        UserLoginDto loginDto = new UserLoginDto("huynhphuocdat2@gmail.com", "Aa@12345");
-////        when(accountRepository.findByEmail(loginDto.getUsername())).thenReturn(testAccount);
-//
-//        AccountResponseDto response = accountService.login(loginDto);
-//
-//        Assertions.assertThat(response).isNotNull();
-//        Assertions.assertThat(response.getStatus()).isEqualTo("Success");
-//    }
+
     @Test
     public void loginWithValidCredentials() {
-        UserLoginDto loginDto = new UserLoginDto("huynhphuocdat2@gmail.com", "Aa@12345");
-//        when(accountRepository.findByEmail(loginDto.getUsername())).thenReturn(testAccount);
+        UserLoginDto loginDto = new UserLoginDto("huynhphuocdat2@gmail.com", "Aa@123456");
 
         AccountResponseDto response = accountService.login(loginDto);
 
-        Assertions.assertThat(response).isNull();
-//        Assertions.assertThat(response.getStatus()).isEqualTo("Success");
+        Assertions.assertThat(response.getStatus()).isEqualTo("Success");
     }
 
     @Test
     public void loginWithInvalidUsername() {
         UserLoginDto loginDto = new UserLoginDto("invaliduser@example.com", "Aa@12345");
-//        when(accountRepository.findByEmail(loginDto.getUsername())).thenReturn(null);
+
 
         AccountResponseDto response = accountService.login(loginDto);
 
@@ -71,7 +60,6 @@ public class AccountServiceTest
     @Test
     public void loginWithInvalidPassword() {
         UserLoginDto loginDto = new UserLoginDto("huynhphuocdat2@gmail.com", "wrongpassword");
-//        when(accountRepository.findByEmail(loginDto.getUsername())).thenReturn(testAccount);
 
         AccountResponseDto response = accountService.login(loginDto);
 

@@ -106,6 +106,10 @@ public class AccountService {
         accounts = accountsRepository.save(accounts);
         AccountResponseDto accountResponseDto = new AccountResponseDto();
         setResponseDto(accounts,accountResponseDto);
+        if (accountsDTO.getBirthday() == null) {
+            accountResponseDto.setBirthday(null);
+        }
+        accountResponseDto.setStatus("Success");
         return accountResponseDto;
     }
 

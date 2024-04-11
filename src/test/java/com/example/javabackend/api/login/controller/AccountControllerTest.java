@@ -1,5 +1,5 @@
 
-package com.example.javabackend.api.controller;
+package com.example.javabackend.api.login.controller;
 import com.example.javabackend.modules.account.DTO.AccountResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

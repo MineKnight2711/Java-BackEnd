@@ -1,18 +1,14 @@
-package com.example.javabackend.api.repository;
+package com.example.javabackend.api.login.repository;
 
-import com.example.javabackend.JavaBackEndApplication;
 import com.example.javabackend.entity.Accounts;
 import com.example.javabackend.modules.account.repository.IAccountRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
