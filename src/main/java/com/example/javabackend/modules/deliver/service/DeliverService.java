@@ -10,6 +10,8 @@ import com.example.javabackend.modules.encrypt_decrypt.RSAEncryptDecrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DeliverService {
     @Autowired
@@ -98,4 +100,18 @@ public class DeliverService {
             return new ResponseModel("Failure","Có lỗi xảy ra"+ex.getMessage(),null);
         }
     }
+    public ResponseModel activateWorkState(Long deliverId) {
+        try {
+            Deliver deliver = deliverRepository.findById(deliverId).orElse(null);
+            if (deliver == null) {
+                return new ResponseModel("DeliverNotFound", "Không tìm thấy tài khoản", null);
+            }
+            deliver.setWorkState(!deliver.getWorkState());
+            Deliver updatedDeliver = deliverRepository.save(deliver);
+            return new ResponseModel("Success", "Kích hoạt trạng thái làm việc thành công", updatedDeliver);
+        } catch (Exception ex) {
+            return new ResponseModel("Fail", "Có lỗi xảy ra" + ex.toString(), null);
+        }
+    }
+
 }

@@ -41,5 +41,9 @@ public class DeliverController
     {
         return deliverService.updateLocation(id,latitude,longitude);
     }
+    @PutMapping("/activate-work-state/{id}")
+    public ResponseModel activateWorkState(@PathVariable("id") Long id) {
+        return deliverService.activateWorkState(id);
+    }
 
 }
