@@ -100,7 +100,7 @@ public class DeliverService {
             return new ResponseModel("Failure","Có lỗi xảy ra"+ex.getMessage(),null);
         }
     }
-    public ResponseModel activateWorkState(Long deliverId) {
+    public ResponseModel updateWorkState(Long deliverId) {
         try {
             Deliver deliver = deliverRepository.findById(deliverId).orElse(null);
             if (deliver == null) {

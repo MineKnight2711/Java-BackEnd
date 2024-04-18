@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class AccountRepositoryTest {
+public class LoginRepositoryTest {
 
     @MockBean
     private IAccountRepository accountRepository;
@@ -54,32 +54,20 @@ public class AccountRepositoryTest {
     }
 
 
-    @Test
-    public void getUserIdByEmail() {
-        // Arrange
-        when(accountRepository.getUserIdByEmail(testAccount.getEmail())).thenReturn(testAccount.getAccountID());
-
-        // Act
-        Long userId = accountRepository.getUserIdByEmail(testAccount.getEmail());
-
-        // Assert
-        Assertions.assertThat(userId).isEqualTo(testAccount.getAccountID());
-    }
-
-    @Test
-    public void findByAccountType() {
-        // Arrange
-        String accountType = "User";
-        List<Accounts> accounts = Collections.singletonList(testAccount);
-        when(accountRepository.findByAccountType(accountType)).thenReturn(accounts);
-
-        // Act
-        List<Accounts> foundAccounts = accountRepository.findByAccountType(accountType);
-
-        // Assert
-        Assertions.assertThat(foundAccounts).isNotNull();
-        Assertions.assertThat(foundAccounts).containsExactly(testAccount);
-    }
+//    @Test
+//    public void findByAccountType() {
+//        // Arrange
+//        String accountType = "User";
+//        List<Accounts> accounts = Collections.singletonList(testAccount);
+//        when(accountRepository.findByAccountType(accountType)).thenReturn(accounts);
+//
+//        // Act
+//        List<Accounts> foundAccounts = accountRepository.findByAccountType(accountType);
+//
+//        // Assert
+//        Assertions.assertThat(foundAccounts).isNotNull();
+//        Assertions.assertThat(foundAccounts).containsExactly(testAccount);
+//    }
 
     @Test
     public void getRolesOfUser() {

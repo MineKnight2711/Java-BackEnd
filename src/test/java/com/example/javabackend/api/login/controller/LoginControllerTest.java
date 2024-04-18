@@ -1,6 +1,5 @@
 
 package com.example.javabackend.api.login.controller;
-import com.example.javabackend.modules.account.DTO.AccountResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class AccountControllerTest {
+public class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

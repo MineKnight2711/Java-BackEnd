@@ -192,5 +192,4 @@ public class CreateAccountServiceTest
         Assertions.assertEquals(validAccountDTO.getImageUrl(), responseDto.getImageUrl());
     }
 
-
 }
